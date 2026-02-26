@@ -25,8 +25,8 @@
   "nineSlice":null,
   "origin":0,
   "parent":{
-    "name":"Turn Based Battle",
-    "path":"folders/Sprites/Turn Based Battle.yy",
+    "name":"zDefault Assets (From Gamemaker)",
+    "path":"folders/Sprites/zDefault Assets (From Gamemaker).yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
