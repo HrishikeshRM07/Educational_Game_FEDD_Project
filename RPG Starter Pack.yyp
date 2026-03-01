@@ -31,6 +31,7 @@
     {"id":{"name":"Cave_Battle_TBG","path":"rooms/Cave_Battle_TBG/Cave_Battle_TBG.yy",},},
     {"id":{"name":"Cave_Dialogue_Scene","path":"rooms/Cave_Dialogue_Scene/Cave_Dialogue_Scene.yy",},},
     {"id":{"name":"Menu_Screen","path":"rooms/Menu_Screen/Menu_Screen.yy",},},
+    {"id":{"name":"Room5","path":"rooms/Room5/Room5.yy",},},
     {"id":{"name":"CA_BG1","path":"sprites/CA_BG1/CA_BG1.yy",},},
     {"id":{"name":"CA_BG2","path":"sprites/CA_BG2/CA_BG2.yy",},},
     {"id":{"name":"CA_BG3","path":"sprites/CA_BG3/CA_BG3.yy",},},
@@ -81,6 +82,7 @@
     {"roomId":{"name":"Cave_Battle_TBG","path":"rooms/Cave_Battle_TBG/Cave_Battle_TBG.yy",},},
     {"roomId":{"name":"Cave_Dialogue_Scene","path":"rooms/Cave_Dialogue_Scene/Cave_Dialogue_Scene.yy",},},
     {"roomId":{"name":"Castle_Battle_TBG","path":"rooms/Castle_Battle_TBG/Castle_Battle_TBG.yy",},},
+    {"roomId":{"name":"Room5","path":"rooms/Room5/Room5.yy",},},
   ],
   "templateType":"game",
   "TextureGroups":[
