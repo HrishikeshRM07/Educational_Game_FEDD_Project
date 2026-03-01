@@ -31,14 +31,9 @@
     {"id":{"name":"ReadMe","path":"notes/ReadMe/ReadMe.yy",},},
     {"id":{"name":"MASTERBattle","path":"rooms/MASTERBattle/MASTERBattle.yy",},},
     {"id":{"name":"Menu_Screen","path":"rooms/Menu_Screen/Menu_Screen.yy",},},
-<<<<<<< HEAD
-    {"id":{"name":"Room5","path":"rooms/Room5/Room5.yy",},},
-=======
-    {"id":{"name":"Room3","path":"rooms/Room3/Room3.yy",},},
-    {"id":{"name":"ad","path":"sprites/ad/ad.yy",},},
-    {"id":{"name":"BG_0","path":"sprites/BG_0/BG_0.yy",},},
-    {"id":{"name":"CA_BG0","path":"sprites/CA_BG0/CA_BG0.yy",},},
->>>>>>> 47dc7895286be43516d0e940f20a31ffb53e32f1
+    {"id":{"name":"Castle_Battle_TBG","path":"rooms/Castle_Battle_TBG/Castle_Battle_TBG.yy",},},
+    {"id":{"name":"Cave_Battle_TBG","path":"rooms/Cave_Battle_TBG/Cave_Battle_TBG.yy",},},
+    {"id":{"name":"Cave_Dialogue_Scene","path":"rooms/Cave_Dialogue_Scene/Cave_Dialogue_Scene.yy",},},
     {"id":{"name":"CA_BG1","path":"sprites/CA_BG1/CA_BG1.yy",},},
     {"id":{"name":"CA_BG2","path":"sprites/CA_BG2/CA_BG2.yy",},},
     {"id":{"name":"CA_BG3","path":"sprites/CA_BG3/CA_BG3.yy",},},
@@ -52,9 +47,7 @@
     {"id":{"name":"CA_GR1","path":"sprites/CA_GR1/CA_GR1.yy",},},
     {"id":{"name":"CA_RF","path":"sprites/CA_RF/CA_RF.yy",},},
     {"id":{"name":"CA_SL_01","path":"sprites/CA_SL_01/CA_SL_01.yy",},},
-    {"id":{"name":"enemy","path":"sprites/enemy/enemy.yy",},},
-    {"id":{"name":"FG_0","path":"sprites/FG_0/FG_0.yy",},},
-    {"id":{"name":"G_0","path":"sprites/G_0/G_0.yy",},},
+    {"id":{"name":"Cave_SpotNew","path":"sprites/Cave_SpotNew/Cave_SpotNew.yy",},},
     {"id":{"name":"PhiA_BG","path":"sprites/PhiA_BG/PhiA_BG.yy",},},
     {"id":{"name":"PhiA_Fore1","path":"sprites/PhiA_Fore1/PhiA_Fore1.yy",},},
     {"id":{"name":"PhiA_Fore2","path":"sprites/PhiA_Fore2/PhiA_Fore2.yy",},},
@@ -88,15 +81,10 @@
   "resourceVersion":"2.0",
   "RoomOrderNodes":[
     {"roomId":{"name":"Menu_Screen","path":"rooms/Menu_Screen/Menu_Screen.yy",},},
-<<<<<<< HEAD
     {"roomId":{"name":"Cave_Battle_TBG","path":"rooms/Cave_Battle_TBG/Cave_Battle_TBG.yy",},},
     {"roomId":{"name":"Cave_Dialogue_Scene","path":"rooms/Cave_Dialogue_Scene/Cave_Dialogue_Scene.yy",},},
     {"roomId":{"name":"Castle_Battle_TBG","path":"rooms/Castle_Battle_TBG/Castle_Battle_TBG.yy",},},
-    {"roomId":{"name":"Room5","path":"rooms/Room5/Room5.yy",},},
-=======
     {"roomId":{"name":"MASTERBattle","path":"rooms/MASTERBattle/MASTERBattle.yy",},},
-    {"roomId":{"name":"Room3","path":"rooms/Room3/Room3.yy",},},
->>>>>>> 47dc7895286be43516d0e940f20a31ffb53e32f1
   ],
   "templateType":"game",
   "TextureGroups":[
