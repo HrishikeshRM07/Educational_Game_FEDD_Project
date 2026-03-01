@@ -23,7 +23,7 @@
   ],
   "name":"CA_GR1",
   "nineSlice":null,
-  "origin":0,
+  "origin":6,
   "parent":{
     "name":"Cave Assets",
     "path":"folders/Sprites/Cave Assets.yy",
@@ -76,7 +76,7 @@
     "visibleRange":null,
     "volume":1.0,
     "xorigin":0,
-    "yorigin":0,
+    "yorigin":368,
   },
   "swatchColours":null,
   "swfPrecision":0.5,
