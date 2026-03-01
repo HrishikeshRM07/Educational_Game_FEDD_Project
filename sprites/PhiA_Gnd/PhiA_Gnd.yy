@@ -23,7 +23,7 @@
   ],
   "name":"PhiA_Gnd",
   "nineSlice":null,
-  "origin":9,
+  "origin":0,
   "parent":{
     "name":"Castle Assets",
     "path":"folders/Sprites/Castle Assets.yy",
@@ -76,7 +76,7 @@
     "visibleRange":null,
     "volume":1.0,
     "xorigin":0,
-    "yorigin":47,
+    "yorigin":0,
   },
   "swatchColours":null,
   "swfPrecision":0.5,
