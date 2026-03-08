@@ -1,3 +1,8 @@
-// Move to bottom-right
-play_button_x = room_width - 20; // 20 px from right edge
-play_button_y = room_height - 20; // 20 px from bottom edge
+// Position (with a bit more "breathing room")
+play_button_x = room_width - 40; 
+play_button_y = room_height - 40; 
+
+// Pulsing Logic
+title_alpha = 1;
+fade_dir = -1; // -1 for fading out, 1 for fading in
+fade_speed = 0.02;
