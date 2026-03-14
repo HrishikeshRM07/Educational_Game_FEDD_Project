@@ -101,6 +101,7 @@
     {"id":{"name":"spr_tileset","path":"sprites/spr_tileset/spr_tileset.yy",},},
     {"id":{"name":"Sprite48","path":"sprites/Sprite48/Sprite48.yy",},},
     {"id":{"name":"Sprite49","path":"sprites/Sprite49/Sprite49.yy",},},
+    {"id":{"name":"Sprite54","path":"sprites/Sprite54/Sprite54.yy",},},
   ],
   "resourceType":"GMProject",
   "resourceVersion":"2.0",
