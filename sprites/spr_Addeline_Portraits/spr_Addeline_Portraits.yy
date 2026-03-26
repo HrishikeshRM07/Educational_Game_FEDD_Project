@@ -47,8 +47,8 @@
   },
   "origin":1,
   "parent":{
-    "name":"Characters",
-    "path":"folders/Sprites/Characters.yy",
+    "name":"MainCast",
+    "path":"folders/Sprites/MainCast.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

@@ -25,8 +25,8 @@
   "nineSlice":null,
   "origin":0,
   "parent":{
-    "name":"Village Assets",
-    "path":"folders/Sprites/Village Assets.yy",
+    "name":"Grass-Home",
+    "path":"folders/Sprites/Areas/Grass-Home.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
