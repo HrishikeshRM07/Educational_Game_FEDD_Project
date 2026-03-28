@@ -14,7 +14,7 @@ show_horatio = (current_line <= 1);
 
 // 2. DRAW WORLD SPRITES (The characters standing)
 draw_sprite_ext(pl_ad, 0, addeline_x, addeline_y, 1, 1, 0, c_white, 1);
-draw_sprite_ext(pl_fairy, 0, fairy_x, fairy_y, 1, 1, 0, c_white, 1);
+
 if (show_horatio) {
     draw_sprite_ext(pl_enemy, 0, horatio_x, horatio_y, 1, 1, 0, c_white, 1);
 }

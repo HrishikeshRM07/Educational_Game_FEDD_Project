@@ -1,6 +1,6 @@
 {
   "$GMSprite":"v2",
-  "%Name":"flat_field",
+  "%Name":"village",
   "bboxMode":0,
   "bbox_bottom":1079,
   "bbox_left":0,
@@ -12,28 +12,28 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"v1","%Name":"abfa2b90-fb39-41c3-822b-862c5f38ca0b","name":"abfa2b90-fb39-41c3-822b-862c5f38ca0b","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"da194758-cd36-40c7-93d3-515ee90e57fc","name":"da194758-cd36-40c7-93d3-515ee90e57fc","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,
   "height":1080,
   "HTile":false,
   "layers":[
-    {"$GMImageLayer":"","%Name":"39f2c01f-113f-4f60-bb0b-ff48538598dc","blendMode":0,"displayName":"default","isLocked":false,"name":"39f2c01f-113f-4f60-bb0b-ff48538598dc","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
+    {"$GMImageLayer":"","%Name":"d801ccd9-517f-4a06-ac26-91377418cddc","blendMode":0,"displayName":"default","isLocked":false,"name":"d801ccd9-517f-4a06-ac26-91377418cddc","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
-  "name":"flat_field",
+  "name":"village",
   "nineSlice":null,
   "origin":0,
   "parent":{
-    "name":"Grass-Field",
-    "path":"folders/Sprites/Areas/Grass-Field.yy",
+    "name":"Grass-Home",
+    "path":"folders/Sprites/Areas/Grass-Home.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
   "resourceVersion":"2.0",
   "sequence":{
     "$GMSequence":"v1",
-    "%Name":"flat_field",
+    "%Name":"village",
     "autoRecord":true,
     "backdropHeight":768,
     "backdropImageOpacity":0.5,
@@ -57,7 +57,7 @@
       "resourceType":"KeyframeStore<MomentsEventKeyframe>",
       "resourceVersion":"2.0",
     },
-    "name":"flat_field",
+    "name":"village",
     "playback":1,
     "playbackSpeed":30.0,
     "playbackSpeedType":0,
@@ -69,8 +69,8 @@
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"abfa2b90-fb39-41c3-822b-862c5f38ca0b","path":"sprites/flat_field/flat_field.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"1439a8da-068a-4645-96ea-66d479b36e52","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"da194758-cd36-40c7-93d3-515ee90e57fc","path":"sprites/village/village.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"1613e9d1-1b4f-4d00-82d5-e007e877a291","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange":null,

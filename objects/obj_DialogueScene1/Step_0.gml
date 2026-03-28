@@ -1,4 +1,5 @@
 // If we reach line 3, Horatio appears
+
 if (current_line >= 3) {
     show_horatio = true;
 }

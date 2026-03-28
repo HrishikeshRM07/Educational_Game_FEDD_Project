@@ -73,7 +73,7 @@ switch (battle_state)
 
             if (can_use) {
                 selected_skill = potential_skill;
-                generate_problem(selected_skill); 
+                generate_problem(selected_skill, 0); 
                 battle_state = BattleState.PLAYER_SOLVE;
                 player_input = ""; 
                 

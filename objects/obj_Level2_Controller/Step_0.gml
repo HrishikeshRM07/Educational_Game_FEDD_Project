@@ -15,7 +15,8 @@ if (keyboard_check_pressed(vk_enter) || keyboard_check_pressed(vk_space)) {
             current_line++;
             text_progress = 0;
         } else {
-            room_goto(rm_Level1_Battle); 
+            // Transition to Level 2 Battle!
+            room_goto(rm_Level2_Battle); 
         }
     }
 }

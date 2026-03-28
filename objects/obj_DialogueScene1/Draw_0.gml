@@ -1,6 +1,6 @@
 // --- 1. DRAW ENVIRONMENT PLACEHOLDERS (Stick Figures in the world) ---
 draw_sprite_ext(pl_ad, 0, addeline_x, addeline_y, 1, 1, 0, c_white, 1);
-draw_sprite_ext(pl_fairy, 0, fairy_x, fairy_y, 1, 1, 0, c_white, 1);
+
 
 // Only show Horatio if he has arrived (Line 3 or later)
 if (current_line >= 3) {

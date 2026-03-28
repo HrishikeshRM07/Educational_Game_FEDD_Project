@@ -15,7 +15,10 @@ if (keyboard_check_pressed(vk_enter) || keyboard_check_pressed(vk_space)) {
             current_line++;
             text_progress = 0;
         } else {
-            room_goto(rm_Level1_Battle); 
+            // TRANSITION TO THE NEXT ROOM HERE
+            // Replace rm_Level2_Story with whatever room comes next!
+            room_goto(rm_Level2Story); 
         }
     }
 }
+

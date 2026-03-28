@@ -4,7 +4,9 @@ enum BattleState {
     PLAYER_SOLVE,
     ENEMY_TURN,
     WIN,
-    LOSE
+    LOSE,
+    DEFEND_MENU,  // NEW
+    DEFEND_SOLVE
 }
 battle_state = BattleState.PLAYER_MENU;
 
