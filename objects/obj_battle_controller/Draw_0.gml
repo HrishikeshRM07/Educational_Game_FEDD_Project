@@ -28,7 +28,7 @@ draw_text(110, 750 - 8, string(player_hp) + " / 100");
 
 // --- 3. CHARACTER PORTRAIT ---
 var face = (player_hp > 99) ? 0 : (player_hp > 40 ? 1 : (player_hp > 0 ? 2 : 3));
-draw_sprite_ext(spr_Addeline_Portraits, face, 100, 550, 0.65, 0.65, 0, c_white, 1);
+draw_sprite_ext(AddelineBUI, face, 100, 550, 0.65, 0.65, 0, c_white, 1);
 
 // --- 4. EXTENDED MENU BOX ---
 var ui_y = room_height - 180;

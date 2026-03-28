@@ -89,7 +89,7 @@ draw_set_alpha(1); draw_set_color(c_white);
 draw_roundrect_ext(55, 738, 165, 762, 10, 10, true);
 
 var face_index = (player_hp > 70) ? 0 : (player_hp > 30 ? 1 : 2);
-draw_sprite_ext(spr_Addeline_Portraits, face_index, portrait_x, portrait_y, 0.6, 0.6, 0, c_white, 1);
+draw_sprite_ext(AddelineBUI, face_index, portrait_x, portrait_y, 0.6, 0.6, 0, c_white, 1);
 
 draw_set_halign(fa_center); draw_set_color(c_white);
 draw_text(110, 742, string(player_hp) + " / 100");

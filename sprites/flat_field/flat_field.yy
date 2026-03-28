@@ -25,8 +25,8 @@
   "nineSlice":null,
   "origin":0,
   "parent":{
-    "name":"Grass-Field",
-    "path":"folders/Sprites/Areas/Grass-Field.yy",
+    "name":"Mockups",
+    "path":"folders/Sprites/Mockups.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

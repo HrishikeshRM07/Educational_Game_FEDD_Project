@@ -72,7 +72,7 @@ var p_y = 740;
 // Addeline Portrait (Left) - Gray out if locked by tutorial
 draw_set_color(active_char == 0 ? c_yellow : (is_tutorial ? c_dkgray : c_white));
 draw_roundrect_ext(40, p_y - 2, 180, p_y + 22, 10, 10, true);
-draw_sprite_ext(spr_Addeline_Portraits, 0, 80, p_y - 150, 0.5, 0.5, 0, (is_tutorial ? c_gray : c_white), 1);
+draw_sprite_ext(AddelineBUI, 0, 80, p_y - 150, 0.5, 0.5, 0, (is_tutorial ? c_gray : c_white), 1);
 draw_set_color(c_white); draw_set_halign(fa_left);
 draw_text(110, p_y + 2, string(player_hp) + " / " + string(player_max_hp));
 if (is_tutorial) { draw_set_color(c_red); draw_text(50, p_y - 160, "LOCKED"); }
