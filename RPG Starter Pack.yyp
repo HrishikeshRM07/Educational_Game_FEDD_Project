@@ -149,6 +149,7 @@
     {"id":{"name":"GrassField_Ground","path":"sprites/GrassField_Ground/GrassField_Ground.yy",},},
     {"id":{"name":"HoratioDialogue","path":"sprites/HoratioDialogue/HoratioDialogue.yy",},},
     {"id":{"name":"Linearf","path":"sprites/Linearf/Linearf.yy",},},
+    {"id":{"name":"MillyBattle","path":"sprites/MillyBattle/MillyBattle.yy",},},
     {"id":{"name":"MillyBUI","path":"sprites/MillyBUI/MillyBUI.yy",},},
     {"id":{"name":"MillyDialogue","path":"sprites/MillyDialogue/MillyDialogue.yy",},},
     {"id":{"name":"MillyPlaceholder","path":"sprites/MillyPlaceholder/MillyPlaceholder.yy",},},
