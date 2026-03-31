@@ -1,4 +1,9 @@
 // --- 1. DRAW CHARACTERS & ENEMIES ---
+// --- DEBUG SKIP ---
+if (keyboard_check_pressed(vk_escape)) {
+    room_goto(rm_Level2PostBattle);
+}
+
 draw_sprite_ext(pl_ad, 0, 130, 400, 1, 1, 0, c_white, 1);
 draw_sprite_ext(pl_ob, 0, 260, 400, 1, 1, 0, c_white, 1); 
 
@@ -80,6 +85,6 @@ if (is_tutorial) { draw_set_color(c_red); draw_text(50, p_y - 160, "LOCKED"); }
 // Milly Portrait (Right)
 draw_set_color(active_char == 1 ? c_yellow : c_white); 
 draw_roundrect_ext(190, p_y - 2, 330, p_y + 22, 10, 10, true);
-draw_sprite_ext(pl_ob, 0, 230, p_y - 150, 0.5, 0.5, 0, c_white, 1);
+draw_sprite_ext(MillyBUI, 0, 230, p_y - 150, 0.5, 0.5, 0, c_white, 1);
 draw_set_color(c_white);
 draw_text(260, p_y + 2, string(milly_hp) + " / " + string(milly_max_hp));

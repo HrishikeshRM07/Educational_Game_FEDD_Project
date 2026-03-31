@@ -1,30 +1,27 @@
-// --- STEP EVENT: obj_battle_controller ---
 // --- DEBUG SKIP ---
 if (keyboard_check_pressed(vk_escape)) {
     room_goto(rm_PostBattleStory);
 }
-// 1. HP CLAMPING & VICTORY CHECK
-player_hp = clamp(player_hp, 0, 100);
+
+// --- 1. HP CLAMPING & VICTORY CHECK ---
+player_hp = clamp(player_hp, 0, player_max_hp);
 enemy_hp = clamp(enemy_hp, 0, 50);
 
-// If Horatio hits 0 HP, trigger the win timer (if not already triggered)
 if (enemy_hp <= 0 && win_timer == -1) {
     win_timer = 180; // 3 seconds at 60fps
     fairy_text = "You did it! Horatio is defeated!";
 }
 
-// Countdown to transition to the next room
 if (win_timer > 0) {
     win_timer--;
     if (win_timer == 0) room_goto(rm_PostBattleStory);
-    exit; // Stop running the rest of the battle logic if we won
+    exit; 
 }
 
-// 2. SEQUENCE TIMER LOGIC (Pauses and Scripted Events)
+// --- 2. SEQUENCE TIMER LOGIC ---
 if (attack_timer > 0) {
     attack_timer--;
     
-    // Stage 0 (Sub) & Stage 2 (Heal completed -> ME Summon)
     if (tutorial_stage == 0 || tutorial_stage == 2) {
         if (attack_timer == 120) {
             if (tutorial_stage == 0) fairy_text = "Here comes his attack! Prepare yourself to solve this equation!";
@@ -45,11 +42,10 @@ if (attack_timer > 0) {
     }
 }
 
-// 3. MAIN BATTLE STATE MACHINE
-switch (battle_state) 
-{
+// --- 3. MAIN BATTLE STATE MACHINE ---
+switch (battle_state) {
     case BattleState.PLAYER_MENU:
-        // --- NAVIGATION ---
+        // Navigation
         if (keyboard_check_pressed(vk_right) || keyboard_check_pressed(ord("D"))) menu_index = clamp(menu_index + 2, 0, 3);
         if (keyboard_check_pressed(vk_left) || keyboard_check_pressed(ord("A")))  menu_index = clamp(menu_index - 2, 0, 3);
         if (keyboard_check_pressed(vk_down) || keyboard_check_pressed(ord("S"))) {
@@ -59,7 +55,7 @@ switch (battle_state)
             if (menu_index == 1) menu_index = 0; else if (menu_index == 3) menu_index = 2;
         }
 
-        // --- FORCED TUTORIAL SELECTION ---
+        // Selection
         if (keyboard_check_pressed(vk_enter) || keyboard_check_pressed(vk_space)) {
             var skill_map = [1, 2, 3, 4]; 
             var potential_skill = skill_map[menu_index];
@@ -77,7 +73,6 @@ switch (battle_state)
                 battle_state = BattleState.PLAYER_SOLVE;
                 player_input = ""; 
                 
-                // Explanations on click
                 if (tutorial_stage == 0) fairy_text = "In order to use <Skill 2: Subtraction>, you need to remove the second number from the first number!";
                 if (tutorial_stage == 1) fairy_text = "For this spell, you’ll need to put two numbers together. Put them together to find the total!";
                 if (tutorial_stage == 3) fairy_text = "This is pretty similar to <Skill 2> but now you’ll be subtracting multiple smaller numbers from one bigger number!";
@@ -89,19 +84,18 @@ switch (battle_state)
     break;
 
     case BattleState.PLAYER_SOLVE:
-        // --- INPUT ---
+        // Input
         for (var i = 0; i <= 9; i++) {
             if (keyboard_check_pressed(ord(string(i)))) player_input += string(i);
         }
         if (keyboard_check_pressed(vk_backspace)) player_input = string_delete(player_input, string_length(player_input), 1);
 
-        // --- CHECK ANSWER ---
+        // Check Answer
         if (keyboard_check_pressed(vk_enter) && player_input != "") {
             if (real(player_input) == problem_answer) {
                 execute_skill(selected_skill); 
                 is_showing_hint = false;
                 
-                // SUCCESS LOGIC PER STAGE
                 if (tutorial_stage == 0) {
                     fairy_text = "Well done!"; 
                     attack_timer = 240; 
@@ -109,7 +103,7 @@ switch (battle_state)
                 } 
                 else if (tutorial_stage == 1) {
                     fairy_text = "Well done!";
-                    attack_timer = 240; // 2s "Well done", 2s "ME Summon"
+                    attack_timer = 240; 
                     tutorial_stage = 2; 
                     battle_state = BattleState.ENEMY_TURN;
                 }
@@ -121,14 +115,13 @@ switch (battle_state)
                 else if (tutorial_stage == 4) {
                     fairy_text = "You're ready to go! Give it your best shot!";
                     tutorial_stage = 5;
-                    battle_state = BattleState.PLAYER_MENU; // No turn change for Commutative
+                    battle_state = BattleState.PLAYER_MENU; 
                 }
                 else {
                     battle_state = BattleState.ENEMY_TURN;
                 }
             } 
             else {
-                // WRONG - Hints
                 player_input = "";
                 if (selected_skill == 2) fairy_text = "Think of it like this: If I had 3 apples, and I gave 1 to you, I’d be left with 2 apples. Now you try it!";
                 if (selected_skill == 1) fairy_text = "For example! If you have 3 bows and I have 6 bows, together we’d have 9 bows. Now you try it!";

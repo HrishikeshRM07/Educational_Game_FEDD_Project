@@ -45,7 +45,7 @@
     ],
     "top":0,
   },
-  "origin":1,
+  "origin":7,
   "parent":{
     "name":"MainCast",
     "path":"folders/Sprites/MainCast.yy",
@@ -107,7 +107,7 @@
     "visibleRange":null,
     "volume":1.0,
     "xorigin":142,
-    "yorigin":0,
+    "yorigin":285,
   },
   "swatchColours":null,
   "swfPrecision":0.5,
