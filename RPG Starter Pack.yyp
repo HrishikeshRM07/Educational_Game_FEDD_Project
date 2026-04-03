@@ -41,7 +41,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.14.4.221",
+    "IDEVersion":"2024.14.4.222",
   },
   "name":"RPG Starter Pack",
   "resources":[
@@ -127,6 +127,7 @@
     {"id":{"name":"Deathball","path":"sprites/Deathball/Deathball.yy",},},
     {"id":{"name":"DeathballAundroid","path":"sprites/DeathballAundroid/DeathballAundroid.yy",},},
     {"id":{"name":"DeathballPlayer","path":"sprites/DeathballPlayer/DeathballPlayer.yy",},},
+    {"id":{"name":"DialogueBattle","path":"sprites/DialogueBattle/DialogueBattle.yy",},},
     {"id":{"name":"DialogueBoxLeft","path":"sprites/DialogueBoxLeft/DialogueBoxLeft.yy",},},
     {"id":{"name":"DialogueBoxRight","path":"sprites/DialogueBoxRight/DialogueBoxRight.yy",},},
     {"id":{"name":"DialogueMockup1","path":"sprites/DialogueMockup1/DialogueMockup1.yy",},},
@@ -149,6 +150,7 @@
     {"id":{"name":"GrassField_Ground","path":"sprites/GrassField_Ground/GrassField_Ground.yy",},},
     {"id":{"name":"Horatio","path":"sprites/Horatio/Horatio.yy",},},
     {"id":{"name":"HoratioDialogue","path":"sprites/HoratioDialogue/HoratioDialogue.yy",},},
+    {"id":{"name":"KingPhi","path":"sprites/KingPhi/KingPhi.yy",},},
     {"id":{"name":"Linearf","path":"sprites/Linearf/Linearf.yy",},},
     {"id":{"name":"MillyBattle","path":"sprites/MillyBattle/MillyBattle.yy",},},
     {"id":{"name":"MillyBUI","path":"sprites/MillyBUI/MillyBUI.yy",},},
@@ -189,6 +191,7 @@
     {"id":{"name":"Sprite49","path":"sprites/Sprite49/Sprite49.yy",},},
     {"id":{"name":"SummationScorpion","path":"sprites/SummationScorpion/SummationScorpion.yy",},},
     {"id":{"name":"Throne","path":"sprites/Throne/Throne.yy",},},
+    {"id":{"name":"ThroneSilhouette","path":"sprites/ThroneSilhouette/ThroneSilhouette.yy",},},
     {"id":{"name":"village","path":"sprites/village/village.yy",},},
   ],
   "resourceType":"GMProject",
