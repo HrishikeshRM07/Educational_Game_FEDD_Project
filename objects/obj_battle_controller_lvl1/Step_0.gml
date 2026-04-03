@@ -2,7 +2,6 @@
 player_hp = clamp(player_hp, 0, 100);
 
 // 2. TYPEWRITER LOGIC
-// If the text changes, reset the typewriter automatically
 if (fairy_text != previous_fairy_text) {
     text_progress = 0;
     previous_fairy_text = fairy_text;
@@ -18,7 +17,6 @@ if (attack_timer > 0) {
     else if (attack_timer > 0) fairy_text = "They are attacking! Prepare yourself!";
     
     if (attack_timer == 0) {
-        // Instead of taking damage instantly, move to defense phase!
         battle_state = BattleState.DEFEND_MENU;
         menu_index = 0;
         fairy_text = "Quick! Pick a shield to defend!";
@@ -51,7 +49,7 @@ if (battle_state == BattleState.DEFEND_MENU) {
 
     if (keyboard_check_pressed(vk_enter)) {
         selected_skill = menu_index + 1;
-        generate_problem(selected_skill, 0); // Generates a problem just like attacking
+        generate_problem(selected_skill, 0); 
         player_input = "";
         defend_timer = defend_timer_max;
         battle_state = BattleState.DEFEND_SOLVE;
@@ -59,10 +57,9 @@ if (battle_state == BattleState.DEFEND_MENU) {
     }
 }
 
-// 6. TYPING THE ANSWER (Works for both Offense and Defense)
+// 6. TYPING THE ANSWER 
 if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFEND_SOLVE) {
     
-    // Handle typing numbers
     for (var i = 0; i <= 9; i++) { if (keyboard_check_pressed(ord(string(i)))) player_input += string(i); }
     if (keyboard_check_pressed(vk_backspace)) player_input = string_delete(player_input, string_length(player_input), 1);
 
@@ -78,32 +75,29 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
         if (keyboard_check_pressed(vk_enter) && player_input != "") {
             if (real(player_input) == problem_answer) {
                 
-                // 1. Heal or Damage
                 if (selected_skill == 1) {
-                    player_hp += 20; // HEAL
+                    player_hp += 20; 
                 } else {
                     for (var i = 0; i < array_length(enemies); i++) { 
                         if (enemies[i][1] > 0) enemies[i][1] -= 15; 
-                    } // DAMAGE
+                    } 
                 }
                 
-                // 2. NEW: Check if we just killed the last enemy!
                 var enemies_dead = true;
                 for (var i = 0; i < array_length(enemies); i++) { 
                     if (enemies[i][1] > 0) enemies_dead = false; 
                 }
                 
-                // 3. Decide what happens next
                 if (enemies_dead) {
-                    attack_timer = 0; // Cancel the enemy attack!
-                    battle_state = BattleState.PLAYER_MENU; // Return to menu so the Victory logic triggers
+                    attack_timer = 0; 
+                    battle_state = BattleState.PLAYER_MENU; 
                 } else {
-                    attack_timer = 420; // Start the 7s enemy sequence
+                    attack_timer = 420; 
                     battle_state = BattleState.ENEMY_TURN;
                 }
                 
             } else { 
-                player_input = ""; // Clears if wrong
+                player_input = ""; 
             }
         }
     }
@@ -113,25 +107,20 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
         defend_timer--;
         var missed_defense = false;
 
-        // Check if they pressed enter to submit an answer
         if (keyboard_check_pressed(vk_enter) && player_input != "") {
             if (real(player_input) == problem_answer) {
-                // Correct! Blocked!
                 fairy_text = "Perfect Block! Your turn!";
                 battle_state = BattleState.PLAYER_MENU;
                 menu_index = 0;
             } else {
-                // Wrong answer!
                 missed_defense = true;
             }
         }
 
-        // Check if time ran out
         if (defend_timer <= 0) {
             missed_defense = true;
         }
 
-        // If they got it wrong OR ran out of time
         if (missed_defense) {
             var total_dmg = 0;
             for (var i = 0; i < array_length(enemies); i++) {
@@ -145,7 +134,7 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
     }
 }
 
-// 7. WAVE & VICTORY LOGIC (Unchanged from your logic)
+// 7. WAVE & VICTORY LOGIC 
 var all_dead = true;
 for (var i = 0; i < array_length(enemies); i++) { if (enemies[i][1] > 0) all_dead = false; }
 
@@ -165,4 +154,9 @@ if (all_dead && attack_timer <= 0 && battle_state == BattleState.PLAYER_MENU) {
         if (win_timer > 0) win_timer--;
         if (win_timer == 0) room_goto(rm_Level1PostBattle);
     }
+}
+
+// --- DEBUG SKIP ---
+if (keyboard_check_pressed(vk_escape)) {
+    room_goto(rm_Level1PostBattle);
 }

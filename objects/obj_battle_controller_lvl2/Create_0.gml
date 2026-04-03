@@ -1,3 +1,4 @@
+// --- 1. BATTLE STATES ---
 battle_state = BattleState.PLAYER_MENU;
 max_waves = 3; current_wave = 1; win_timer = -1; 
 enemies = [ ["Slime A", 30, room_width - 320, 420], ["Slime B", 30, room_width - 180, 520] ];
@@ -23,3 +24,8 @@ attack_timer = 0;
 fairy_text = "Bria: Milly’s skills focus on multiplication and division. Let’s start with multiplication! <Skill 1> Provides a buff to healing! Now you give it a try.";
 previous_fairy_text = "";
 text_progress = 0; text_speed = 0.5;
+
+// --- HEALTH & STATE MANAGEMENT ---
+player_hp = clamp(player_hp, 0, player_max_hp);
+milly_hp = clamp(milly_hp, 0, milly_max_hp);
+is_tutorial = (milly_tutorial_step < 4);

@@ -1,8 +1,3 @@
-// --- HEALTH & STATE MANAGEMENT ---
-player_hp = clamp(player_hp, 0, player_max_hp);
-milly_hp = clamp(milly_hp, 0, milly_max_hp);
-is_tutorial = (milly_tutorial_step < 4);
-
 // --- 1. TYPEWRITER EFFECT ---
 if (fairy_text != previous_fairy_text) { 
     text_progress = 0; 
@@ -12,18 +7,18 @@ if (text_progress < string_length(fairy_text)) {
     text_progress += text_speed;
 }
 
-// --- 2. CHARACTER SWITCHING (Mouse Click) ---
-// Only allow switching if we are in the main menu, NOT in tutorial, and NOT being attacked
+// --- 2. CHARACTER SWITCHING (Updated for new positions) ---
 if (battle_state == BattleState.PLAYER_MENU && attack_timer <= 0 && !is_tutorial) {
     if (mouse_check_button_pressed(mb_left)) {
-        // Adjust these coordinates if your portraits are drawn elsewhere!
-        // Addeline's Portrait Box (Left)
-        if (mouse_x >= 40 && mouse_x <= 180 && mouse_y >= 590 && mouse_y <= 760) { 
+        
+        // Addeline's Hitbox (Matches X: 140-240, Y: 660-740)
+        if (mouse_x >= 140 && mouse_x <= 240 && mouse_y >= 660 && mouse_y <= 740) { 
             active_char = 0; 
             menu_index = 0; 
         }
-        // Milly's Portrait Box (Right)
-        else if (mouse_x >= 190 && mouse_x <= 330 && mouse_y >= 590 && mouse_y <= 760) { 
+        
+        // Milly's Hitbox (Moved further right to match the new box)
+        else if (mouse_x >= 370 && mouse_x <= 470 && mouse_y >= 660 && mouse_y <= 740) { 
             active_char = 1; 
             menu_index = 0; 
         }
@@ -31,7 +26,6 @@ if (battle_state == BattleState.PLAYER_MENU && attack_timer <= 0 && !is_tutorial
 }
 
 // --- 3. ENEMY ATTACK TIMER ---
-// If it's the enemy's turn, count down before forcing the player to defend
 if (battle_state == BattleState.ENEMY_TURN) {
     if (attack_timer > 0) {
         attack_timer--;
@@ -66,7 +60,7 @@ if (battle_state == BattleState.PLAYER_MENU || battle_state == BattleState.DEFEN
             spell_timer = spell_timer_max;
             battle_state = BattleState.PLAYER_SOLVE;
         } else if (battle_state == BattleState.DEFEND_MENU) {
-            generate_problem(selected_skill, 0); // Defense uses basic addition/subtraction
+            generate_problem(selected_skill, 0); 
             defend_timer = defend_timer_max;
             battle_state = BattleState.DEFEND_SOLVE;
         }
@@ -91,7 +85,7 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
     // Time's Up Logic (Failed)
     if (spell_timer <= 0 && !is_defending) { 
         fairy_text = "Bria: Too slow! Brace yourself!";
-        attack_timer = 120; // Short pause before enemy attacks
+        attack_timer = 120; 
         battle_state = BattleState.ENEMY_TURN; 
     }
     if (defend_timer <= 0 && is_defending) { 
@@ -124,6 +118,10 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
                     // Advance Tutorial
                     if (is_tutorial && selected_skill == (milly_tutorial_step + 1)) {
                         milly_tutorial_step++;
+                        
+                        // FIX #1: Actually update the is_tutorial flag dynamically!
+                        is_tutorial = (milly_tutorial_step < 4); 
+
                         if (milly_tutorial_step == 1) fairy_text = "Bria: Excellent! <Skill 2> damages enemies using division. Try it!";
                         else if (milly_tutorial_step == 2) fairy_text = "Bria: Nice! <Skill 3> uses the distributive property. Multiply the outside by the inside!";
                         else if (milly_tutorial_step == 3) fairy_text = "Bria: <Skill 4> debuffs enemies. Divide by 2. Don't forget the .5 decimal!";
@@ -139,15 +137,20 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
                 
                 if (enemies_dead) { 
                     fairy_text = "Bria: We did it! The slimes are defeated!";
-                    battle_state = BattleState.PLAYER_MENU; // Prevents attacks while dead
+                    battle_state = BattleState.PLAYER_MENU; 
                 } else { 
-                    attack_timer = 120; // Give a short pause before the defend screen pops up
-                    battle_state = BattleState.ENEMY_TURN; 
+                    // FIX #2: Don't trigger enemy turns if the tutorial is running!
+                    if (is_tutorial) {
+                        battle_state = BattleState.PLAYER_MENU;
+                    } else {
+                        attack_timer = 120; 
+                        battle_state = BattleState.ENEMY_TURN; 
+                    }
                 }
             }
         } else { 
             // --- WRONG ANSWER ---
-            player_input = ""; // Clear their wrong answer so they can try again
+            player_input = ""; 
             if (active_char == 0) {
                 if (selected_skill == 1) fairy_text = "Bria: Hint! Try counting up from " + string(problem_val1) + ".";
                 else if (selected_skill == 2) fairy_text = "Bria: Hint! Take " + string(problem_val2) + " away from " + string(problem_val1) + ".";
