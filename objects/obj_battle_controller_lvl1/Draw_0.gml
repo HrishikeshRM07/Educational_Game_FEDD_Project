@@ -4,12 +4,16 @@ if (asset_get_index("fnt_battle") != -1) {
 }
 
 // --- 1. DRAW CHARACTERS & ENEMIES ---
-draw_sprite_ext(pl_ad, 0, 180, 400, 1, 1, 0, c_white, 1);
+// Draw Addeline correctly
+if (sprite_exists(AddelineBattle)) {
+    draw_sprite(AddelineBattle, floor(addeline_frame), 250, 600);
+}
 
+// Draw enemies using their assigned sprites and frames
 for (var i = 0; i < array_length(enemies); i++) {
     var en = enemies[i];
-    if (en[1] > 0) {
-        draw_sprite(spr_enemy_slime, 0, en[2], en[3]); 
+    if (en[1] > 0) { // If HP > 0
+        draw_sprite_ext(en[4], floor(en[5]), en[2], en[3], 0.45, 0.45, 0, c_white, 1);
         draw_set_halign(fa_center);
         draw_set_color(c_yellow);
         draw_text(en[2], en[3] - 40, string(en[1]) + " / 30");
@@ -17,7 +21,7 @@ for (var i = 0; i < array_length(enemies); i++) {
 }
 
 // --- 2. FAIRY DIALOGUE BOX (TOP) ---
-var fairy_box_w = 1250;               
+var fairy_box_w = 1250;                
 var fairy_box_h = 230;                
 
 if (sprite_exists(spr_dialogue_base)) {

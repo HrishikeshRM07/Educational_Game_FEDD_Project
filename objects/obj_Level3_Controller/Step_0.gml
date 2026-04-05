@@ -32,11 +32,11 @@ if (keyboard_check_pressed(vk_enter)) {
     
     // If we just clicked past the final line, enter the boss battle!
     if (current_line >= array_length(dialogue)) {
-        room_goto(rm_Level3PostBattle); // Change to your actual Level 3 Battle room name
+        room_goto(rm_Level3_Battle); // Change to your actual Level 3 Battle room name
     }
 }
 
 // --- 3. PLAYER INPUT (ESCAPE) ---
 if (keyboard_check_pressed(vk_escape)) {
-    room_goto(rm_Level3PostBattle); 
+    room_goto(rm_Level3_Battle); 
 }

@@ -1,3 +1,11 @@
+// ==========================================
+// 0. DRAW ADDELINE BATTLE SPRITE (NEW)
+// ==========================================
+// Adjust the 250 and 450 to place her exactly where you want her on the battlefield!
+if (sprite_exists(AddelineBattle)) {
+    draw_sprite(AddelineBattle, floor(addeline_frame), 250, 600);
+}
+
 // --- CUSTOM FONT SETUP ---
 // Create a font asset in GMS named 'fnt_battle', select a clean pixel font (like Monogram), and set size to ~14.
 if (asset_get_index("fnt_battle") != -1) {

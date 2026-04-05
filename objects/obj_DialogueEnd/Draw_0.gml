@@ -15,7 +15,7 @@ if (current_line < array_length(dialogue)) {
     
     if (data.s == "Horatio") {
         port_x = box_x + box_w - 80; 
-        x_scale = -1;              
+        x_scale = 1;              
     } else {
         port_x = box_x + 210;        
         x_scale = 1;               

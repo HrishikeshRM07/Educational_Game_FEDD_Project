@@ -1,3 +1,30 @@
+// ==========================================
+// 0. ANIMATION LOGIC (ADDELINE & ENEMIES)
+// ==========================================
+// Addeline
+if (addeline_is_attacking) {
+    addeline_frame += 0.5; // ATTACK SPEED
+    if (addeline_frame >= addeline_anim_end) {
+        addeline_is_attacking = false;
+        addeline_frame = 0; // Return to idle
+    }
+} else {
+    addeline_frame += 0.2; // IDLE SPEED
+    if (addeline_frame >= 10 || addeline_frame < 0) addeline_frame = 0; 
+}
+
+// Enemies
+for (var i = 0; i < array_length(enemies); i++) {
+    if (enemies[i][1] > 0) { // If enemy is alive
+        var max_frames = (enemies[i][4] == Absarf) ? 9 : 6;
+        enemies[i][5] += 0.2; // Enemy idle animation speed
+        if (enemies[i][5] >= max_frames) enemies[i][5] = 0;
+    }
+}
+
+// --- DEBUG SKIP ---
+if (keyboard_check_pressed(vk_escape)) room_goto(rm_Level1PostBattle);
+
 // 1. HP CLAMPING
 player_hp = clamp(player_hp, 0, 100);
 
@@ -75,6 +102,18 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
         if (keyboard_check_pressed(vk_enter) && player_input != "") {
             if (real(player_input) == problem_answer) {
                 
+                // --- TRIGGER ADDELINE ATTACK ANIMATION ---
+                addeline_is_attacking = true;
+                if (selected_skill == 1) {        // Additive Heal
+                    addeline_frame = 24; addeline_anim_end = 38;
+                } else if (selected_skill == 2) { // Subtraction
+                    addeline_frame = 10; addeline_anim_end = 24;
+                } else if (selected_skill == 3) { // Commutative
+                    addeline_frame = 52; addeline_anim_end = 67;
+                } else if (selected_skill == 4) { // Double Sub
+                    addeline_frame = 38; addeline_anim_end = 52;
+                }
+                
                 if (selected_skill == 1) {
                     player_hp += 20; 
                 } else {
@@ -145,7 +184,12 @@ if (all_dead && attack_timer <= 0 && battle_state == BattleState.PLAYER_MENU) {
         if (win_timer == 0) {
             current_wave++;
             fairy_text = "Oh no! More enemies are appearing!";
-            enemies = [ ["Slime A", 30, room_width-320, 420], ["Slime B", 30, room_width-180, 520], ["Slime C", 30, room_width-460, 520] ];
+            // Reset with the new enemy format
+            enemies = [ 
+                ["Ananan", 30, room_width-320, 510, Ananan, 0], 
+                ["Absarf", 30, room_width-180, 600, Absarf, 0], 
+                ["Ananan", 30, room_width-460, 600, Ananan, 0] 
+            ];
             win_timer = -1;
         }
     } else {
@@ -154,9 +198,4 @@ if (all_dead && attack_timer <= 0 && battle_state == BattleState.PLAYER_MENU) {
         if (win_timer > 0) win_timer--;
         if (win_timer == 0) room_goto(rm_Level1PostBattle);
     }
-}
-
-// --- DEBUG SKIP ---
-if (keyboard_check_pressed(vk_escape)) {
-    room_goto(rm_Level1PostBattle);
 }

@@ -1,3 +1,22 @@
+// ==========================================
+// 0. ADDELINE ANIMATION LOGIC
+// ==========================================
+if (addeline_is_attacking) {
+    addeline_frame += 0.2; // ATTACK SPEED
+    
+    // Stop when she reaches the end of the current attack's chunk
+    if (addeline_frame >= addeline_anim_end) {
+        addeline_is_attacking = false;
+        addeline_frame = 0; // Return to idle
+    }
+} else {
+    addeline_frame += 0.2; // IDLE SPEED
+    // Loop between frames 0 and 9 (which is frame 1 to 10 visually)
+    if (addeline_frame >= 10 || addeline_frame < 0) {
+        addeline_frame = 0; 
+    }
+}
+
 // --- DEBUG SKIP ---
 if (keyboard_check_pressed(vk_escape)) {
     room_goto(rm_PostBattleStory);
@@ -95,6 +114,23 @@ switch (battle_state) {
             if (real(player_input) == problem_answer) {
                 execute_skill(selected_skill); 
                 is_showing_hint = false;
+                
+                // --- TRIGGER ADDELINE ATTACK ANIMATION HERE ---
+                addeline_is_attacking = true;
+                
+                if (selected_skill == 1) {        // Additive Heal
+                    addeline_frame = 24;
+                    addeline_anim_end = 38;
+                } else if (selected_skill == 2) { // Subtraction
+                    addeline_frame = 10;
+                    addeline_anim_end = 24;
+                } else if (selected_skill == 3) { // Commutative
+                    addeline_frame = 52;
+                    addeline_anim_end = 67;
+                } else if (selected_skill == 4) { // Double Sub
+                    addeline_frame = 38;
+                    addeline_anim_end = 52;
+                }
                 
                 if (tutorial_stage == 0) {
                     fairy_text = "Well done!"; 

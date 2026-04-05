@@ -1,3 +1,38 @@
+// ==========================================
+// 0. ANIMATION LOGIC (ADDELINE, MILLY & ENEMIES)
+// ==========================================
+// Addeline
+if (addeline_is_attacking) {
+    addeline_frame += 0.5; 
+    if (addeline_frame >= addeline_anim_end) {
+        addeline_is_attacking = false;
+        addeline_frame = 0; 
+    }
+} else {
+    addeline_frame += 0.2; 
+    if (addeline_frame >= 10 || addeline_frame < 0) addeline_frame = 0; 
+}
+
+// Milly
+if (milly_is_attacking) {
+    milly_frame += 0.5;
+    if (milly_frame >= milly_anim_end) {
+        milly_is_attacking = false;
+        milly_frame = 0;
+    }
+} else {
+    milly_frame += 0.2;
+    if (milly_frame >= 10 || milly_frame < 0) milly_frame = 0;
+}
+
+// Enemies (Both Linearf and Parabolate use 10 idle frames)
+for (var i = 0; i < array_length(enemies); i++) {
+    if (enemies[i][1] > 0) { 
+        enemies[i][5] += 0.2; 
+        if (enemies[i][5] >= 10) enemies[i][5] = 0;
+    }
+}
+
 // --- 1. TYPEWRITER EFFECT ---
 if (fairy_text != previous_fairy_text) { 
     text_progress = 0; 
@@ -11,14 +46,14 @@ if (text_progress < string_length(fairy_text)) {
 if (battle_state == BattleState.PLAYER_MENU && attack_timer <= 0 && !is_tutorial) {
     if (mouse_check_button_pressed(mb_left)) {
         
-        // Addeline's Hitbox (Matches X: 140-240, Y: 660-740)
+        // Addeline's Hitbox
         if (mouse_x >= 140 && mouse_x <= 240 && mouse_y >= 660 && mouse_y <= 740) { 
             active_char = 0; 
             menu_index = 0; 
         }
         
-        // Milly's Hitbox (Moved further right to match the new box)
-        else if (mouse_x >= 370 && mouse_x <= 470 && mouse_y >= 660 && mouse_y <= 740) { 
+        // Milly's Hitbox (Shifted 15 pixels right to match the new box)
+        else if (mouse_x >= 385 && mouse_x <= 485 && mouse_y >= 660 && mouse_y <= 740) { 
             active_char = 1; 
             menu_index = 0; 
         }
@@ -37,10 +72,12 @@ if (battle_state == BattleState.ENEMY_TURN) {
 }
 
 // --- 4. MENU NAVIGATION ---
-if (battle_state == BattleState.PLAYER_MENU || battle_state == BattleState.DEFEND_MENU) {
+// (Added 'win_timer <= 0' so players can't click things between waves!)
+if ((battle_state == BattleState.PLAYER_MENU || battle_state == BattleState.DEFEND_MENU) && win_timer <= 0) {
     
     // Tutorial Lock
     if (is_tutorial && battle_state == BattleState.PLAYER_MENU) {
+// ... rest of your code remains exactly the same ...
         menu_index = milly_tutorial_step; 
     } else {
         // Normal Navigation
@@ -104,22 +141,64 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
                 battle_state = BattleState.PLAYER_MENU;
                 fairy_text = "Bria: Great block! Now it's our turn.";
             } else {
+                
                 // Determine effect based on character
                 if (active_char == 0) { // ADDELINE
-                    if (selected_skill == 1) player_hp += 20; 
-                    else for (var i = 0; i < array_length(enemies); i++) { if (enemies[i][1] > 0) enemies[i][1] -= 15; }
+                    addeline_is_attacking = true;
+                    
+                    if (selected_skill == 1) { // Add it up! (Single Heal)
+                        addeline_frame = 24; addeline_anim_end = 38; 
+                        // Heals whichever character has the lowest health, capped at max HP
+                        if (player_hp <= milly_hp) {
+                            player_hp = min(player_hp + 20, player_max_hp); 
+                        } else {
+                            milly_hp = min(milly_hp + 20, milly_max_hp);
+                        }
+                    }
+                    else if (selected_skill == 2) { // Sub-tract the health (Single Target Damage)
+                        addeline_frame = 10; addeline_anim_end = 24; 
+                        for (var i = 0; i < array_length(enemies); i++) { 
+                            if (enemies[i][1] > 0) { enemies[i][1] -= 15; break; } // 'break' ensures only ONE is hit
+                        }
+                    }
+                    else if (selected_skill == 3) { // Share the health! (Party Heal)
+                        addeline_frame = 52; addeline_anim_end = 67; 
+                        // Heals both, capped at max HP
+                        player_hp = min(player_hp + 15, player_max_hp); 
+                        milly_hp = min(milly_hp + 15, milly_max_hp);
+                    }
+                    else if (selected_skill == 4) { // Double Down (Multi-Target Damage)
+                        addeline_frame = 38; addeline_anim_end = 52; 
+                        for (var i = 0; i < array_length(enemies); i++) { 
+                            if (enemies[i][1] > 0) enemies[i][1] -= 15; // Hits ALL alive enemies
+                        }
+                    }
                 } 
                 else if (active_char == 1) { // MILLY
-                    if (selected_skill == 1) { milly_hp = milly_max_hp; }
-                    else if (selected_skill == 2) { enemies[0][1] -= 10; }
-                    else if (selected_skill == 3) { party_buff = 3; }
-                    else if (selected_skill == 4) { enemy_debuff = 3; }
+                    milly_is_attacking = true;
+                    
+                    if (selected_skill == 1) { // Health multiplies! (Heal Buff)
+                        milly_frame = 10; milly_anim_end = 25; 
+                        milly_heal_buff = 3; 
+                    }
+                    else if (selected_skill == 2) { // Divide it out! (Single Target Damage)
+                        milly_frame = 25; milly_anim_end = 40; 
+                        for (var i = 0; i < array_length(enemies); i++) { 
+                            if (enemies[i][1] > 0) { enemies[i][1] -= 15; break; } 
+                        }
+                    }
+                    else if (selected_skill == 3) { // Share the buffs! (Party Buff)
+                        milly_frame = 40; milly_anim_end = 55; 
+                        party_buff = 3; 
+                    }
+                    else if (selected_skill == 4) { // Long Way Down (Multi-Target Debuff)
+                        milly_frame = 55; milly_anim_end = 71; 
+                        enemy_debuff = 3; 
+                    }
 
                     // Advance Tutorial
                     if (is_tutorial && selected_skill == (milly_tutorial_step + 1)) {
                         milly_tutorial_step++;
-                        
-                        // FIX #1: Actually update the is_tutorial flag dynamically!
                         is_tutorial = (milly_tutorial_step < 4); 
 
                         if (milly_tutorial_step == 1) fairy_text = "Bria: Excellent! <Skill 2> damages enemies using division. Try it!";
@@ -129,17 +208,20 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
                     }
                 }
 
-                // Check for Win or Enemy Turn
+                // Temporary logic to bypass enemy turn if enemies die during tutorial
                 var enemies_dead = true;
                 for (var i = 0; i < array_length(enemies); i++) { 
                     if (enemies[i][1] > 0) enemies_dead = false; 
                 }
                 
-                if (enemies_dead) { 
-                    fairy_text = "Bria: We did it! The slimes are defeated!";
-                    battle_state = BattleState.PLAYER_MENU; 
+                if (enemies_dead && is_tutorial) {
+                    enemies[0][1] = 30; // Keep enemies alive so tutorial doesn't break
+                }
+
+                if (!is_tutorial && enemies_dead) { 
+                    attack_timer = 0;
+                    battle_state = BattleState.PLAYER_MENU;
                 } else { 
-                    // FIX #2: Don't trigger enemy turns if the tutorial is running!
                     if (is_tutorial) {
                         battle_state = BattleState.PLAYER_MENU;
                     } else {
@@ -162,5 +244,33 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
                 else if (selected_skill == 4) fairy_text = "Bria: Hint! Half of " + string(problem_val1) + " is " + string(problem_val1 / 2) + ".";
             }
         }
+    }
+}
+
+// --- 7. WAVE & VICTORY LOGIC ---
+var all_dead = true;
+for (var i = 0; i < array_length(enemies); i++) { if (enemies[i][1] > 0) all_dead = false; }
+
+// Only start waves once the tutorial is fully completed
+if (all_dead && attack_timer <= 0 && battle_state == BattleState.PLAYER_MENU && !is_tutorial) {
+    if (current_wave < max_waves) {
+        if (win_timer == -1) { win_timer = 120; fairy_text = "Bria: Well done! That's one wave down!"; }
+        if (win_timer > 0) win_timer--;
+        if (win_timer == 0) {
+            current_wave++;
+            fairy_text = "Bria: Watch out! More enemies are appearing!";
+            // Reset with new enemies for the next wave
+            enemies = [ 
+                ["Parabolate", 30, room_width-320, 510, Parabolate, 0], 
+                ["Linearf", 30, room_width-180, 600, Linearf, 0], 
+                ["Parabolate", 30, room_width-460, 600, Parabolate, 0] 
+            ];
+            win_timer = -1;
+        }
+    } else {
+        if (win_timer == -1) win_timer = 180;
+        fairy_text = "Bria: You did it! The area is clear!";
+        if (win_timer > 0) win_timer--;
+        if (win_timer == 0) room_goto(rm_Level2PostBattle);
     }
 }

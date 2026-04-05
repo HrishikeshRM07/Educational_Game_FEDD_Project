@@ -38,5 +38,5 @@ if (keyboard_check_pressed(vk_enter)) {
 
 // --- 3. PLAYER INPUT (ESCAPE) ---
 if (keyboard_check_pressed(vk_escape)) {
-    room_goto(rm_Level4_PostBattle); 
+    room_goto(rm_Level4_Battle); 
 }

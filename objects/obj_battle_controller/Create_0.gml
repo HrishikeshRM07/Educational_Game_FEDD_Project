@@ -1,12 +1,6 @@
 // --- 1. BATTLE STATES ---
 enum BattleState {
-    PLAYER_MENU,
-    PLAYER_SOLVE,
-    ENEMY_TURN,
-    WIN,
-    LOSE,
-    DEFEND_MENU, 
-    DEFEND_SOLVE
+    PLAYER_MENU, PLAYER_SOLVE, ENEMY_TURN, WIN, LOSE, DEFEND_MENU,  DEFEND_SOLVE
 }
 battle_state = BattleState.PLAYER_MENU;
 
@@ -15,7 +9,6 @@ player_hp = 100;
 player_max_hp = 100; 
 enemy_hp = 50;
 
-// In-world coordinates
 addeline_x = 180;  
 addeline_y = 480; 
 horatio_x = room_width - 200; 
@@ -30,7 +23,7 @@ problem_val1 = 0;
 problem_val2 = 0;
 
 // --- 4. NAVIGATION & UI ---
-menu_index = 0; // 0=TopLeft, 1=BottomLeft, 2=TopRight, 3=BottomRight
+menu_index = 0; 
 cursor_x = 0; 
 
 // --- 5. TUTORIAL SCRIPTING ---
@@ -42,3 +35,8 @@ wrong_answer_hint = "";
 attack_timer = 0; 
 win_timer = -1; 
 fairy_text = "Thank you for your help! Let me show you how mathemagical skills work so that you can defeat Horatio. First, press on Subtraction.";
+
+// --- 6. ANIMATION SETUP ---
+addeline_frame = 0;
+addeline_is_attacking = false;
+addeline_anim_end = 0; // NEW: Tells the animation when to stop and go back to idle
