@@ -35,7 +35,7 @@ if (fairy_text != previous_fairy_text) {
 if (text_progress < string_length(fairy_text)) text_progress += text_speed;
 
 // --- 2. CHARACTER SWITCHING (Updated for 3 Hitboxes) ---
-if (battle_state == BattleState.PLAYER_MENU && attack_timer <= 0) {
+if (battle_state == BattleState.PLAYER_MENU && attack_timer <= 0 && !is_tutorial) {
     if (mouse_check_button_pressed(mb_left)) {
         if (mouse_y >= 660 && mouse_y <= 740) {
             if (mouse_x >= 140 && mouse_x <= 240) { active_char = 0; menu_index = 0; }      // Addeline
@@ -58,10 +58,16 @@ if (battle_state == BattleState.ENEMY_TURN) {
 
 // --- 4. MENU NAVIGATION ---
 if ((battle_state == BattleState.PLAYER_MENU || battle_state == BattleState.DEFEND_MENU) && win_timer <= 0) {
-    if (keyboard_check_pressed(vk_right)) menu_index = clamp(menu_index + 2, 0, 3);
-    if (keyboard_check_pressed(vk_left))  menu_index = clamp(menu_index - 2, 0, 3);
-    if (keyboard_check_pressed(vk_down))  menu_index = (menu_index % 2 == 0) ? menu_index + 1 : menu_index;
-    if (keyboard_check_pressed(vk_up))    menu_index = (menu_index % 2 != 0) ? menu_index - 1 : menu_index;
+    // Tutorial Lock
+    if (is_tutorial && battle_state == BattleState.PLAYER_MENU) {
+        menu_index = erin_tutorial_step; 
+    } else {
+        // Normal Navigation
+        if (keyboard_check_pressed(vk_right)) menu_index = clamp(menu_index + 2, 0, 3);
+        if (keyboard_check_pressed(vk_left))  menu_index = clamp(menu_index - 2, 0, 3);
+        if (keyboard_check_pressed(vk_down))  menu_index = (menu_index % 2 == 0) ? menu_index + 1 : menu_index;
+        if (keyboard_check_pressed(vk_up))    menu_index = (menu_index % 2 != 0) ? menu_index - 1 : menu_index;
+    }
 
     if (keyboard_check_pressed(vk_enter)) {
         selected_skill = menu_index + 1;
@@ -155,15 +161,36 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
                     else if (selected_skill == 4) { // Perfectly Balanced
                         erin_frame = 58; erin_anim_end = 72; enemies[target][1] -= base_dmg; erin_hp = min(erin_hp + 15, erin_max_hp);
                     }
+
+                    // Advance Tutorial
+                    if (is_tutorial && selected_skill == (erin_tutorial_step + 1)) {
+                        erin_tutorial_step++;
+                        is_tutorial = (erin_tutorial_step < 4); 
+
+                        if (erin_tutorial_step == 1) fairy_text = "Bria: Great! <Skill 2> uses square roots, dealing damage but costing a bit of HP.";
+                        else if (erin_tutorial_step == 2) fairy_text = "Bria: Ouch, but effective! <Skill 3> cubes the damage, hitting extremely hard!";
+                        else if (erin_tutorial_step == 3) fairy_text = "Bria: Wow! Finally, <Skill 4> finds balance, dealing damage AND healing Erin.";
+                        else if (erin_tutorial_step == 4) fairy_text = "Bria: Perfect! Addeline and Milly are unlocked. Let's finish them!";
+                    }
                 }
 
                 var enemies_dead = true;
                 for (var i = 0; i < array_length(enemies); i++) { if (enemies[i][1] > 0) enemies_dead = false; }
                 
-                if (enemies_dead) { 
+                // Prevent enemies from dying during tutorial to avoid breaking it
+                if (enemies_dead && is_tutorial) {
+                    enemies[0][1] = 40; 
+                    enemies_dead = false;
+                }
+
+                if (!is_tutorial && enemies_dead) { 
                     attack_timer = 0; battle_state = BattleState.PLAYER_MENU;
                 } else { 
-                    attack_timer = 120; battle_state = BattleState.ENEMY_TURN; 
+                    if (is_tutorial) {
+                        battle_state = BattleState.PLAYER_MENU;
+                    } else {
+                        attack_timer = 120; battle_state = BattleState.ENEMY_TURN; 
+                    }
                 }
             }
         } else { 
@@ -192,7 +219,7 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
 var all_dead = true;
 for (var i = 0; i < array_length(enemies); i++) { if (enemies[i][1] > 0) all_dead = false; }
 
-if (all_dead && attack_timer <= 0 && battle_state == BattleState.PLAYER_MENU) {
+if (all_dead && attack_timer <= 0 && battle_state == BattleState.PLAYER_MENU && !is_tutorial) {
     if (current_wave < max_waves) {
         if (win_timer == -1) { win_timer = 120; fairy_text = "Bria: Well done! That's one wave down!"; }
         if (win_timer > 0) win_timer--;
@@ -203,12 +230,14 @@ if (all_dead && attack_timer <= 0 && battle_state == BattleState.PLAYER_MENU) {
             if (current_wave == 2) {
                 enemies = [ 
                     ["GoldmanTall", 60, room_width-320, 510, GoldmanTall, 0], 
-                    ["GoldmanShort", 40, room_width-180, 600, GoldmanShort, 0] 
+                    ["GoldmanShort", 40, room_width-180, 600, GoldmanShort, 0],
+                    ["GoldmanTall", 60, room_width-460, 510, GoldmanTall, 0] // Adjusted for 3 enemies
                 ];
             } else if (current_wave == 3) {
                 enemies = [ 
                     ["GoldmanTall", 60, room_width-320, 510, GoldmanTall, 0], 
-                    ["GoldmanTall", 60, room_width-180, 510, GoldmanTall, 0] 
+                    ["GoldmanTall", 60, room_width-180, 510, GoldmanTall, 0],
+                    ["GoldmanTall", 60, room_width-460, 510, GoldmanTall, 0] // Adjusted for 3 enemies
                 ];
             }
             win_timer = -1;
@@ -217,7 +246,7 @@ if (all_dead && attack_timer <= 0 && battle_state == BattleState.PLAYER_MENU) {
         if (win_timer == -1) win_timer = 180;
         fairy_text = "Bria: You did it! All 3 waves are clear!";
         if (win_timer > 0) win_timer--;
-        if (win_timer == 0) room_goto(rm_Level4_PostBattle); // Update room name as needed
+        if (win_timer == 0) room_goto(rm_Level4_PostBattle); 
     }
 }
 
@@ -229,5 +258,5 @@ if (player_hp <= 0 && milly_hp <= 0 && erin_hp <= 0) {
         battle_state = BattleState.PLAYER_MENU; attack_timer = 0; 
     }
     if (lose_timer > 0) lose_timer--;
-    if (lose_timer == 0) room_goto(rm_Level4_Story);
+    if (lose_timer == 0) room_goto(rm_Level4_PostBattle);
 }

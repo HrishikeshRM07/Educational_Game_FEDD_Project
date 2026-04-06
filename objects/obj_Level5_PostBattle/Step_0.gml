@@ -24,11 +24,11 @@ if (keyboard_check_pressed(vk_enter)) {
     
     // If we just clicked past the final line, transition to the next level/overworld!
     if (current_line >= array_length(dialogue)) {
-        room_goto(rm_Level5Story); // Make sure to change this to the name of your next room!
+        room_goto(rm_Level6_Story); // Make sure to change this to the name of your next room!
     }
 }
 
 // --- 3. PLAYER INPUT (ESCAPE) ---
 if (keyboard_check_pressed(vk_escape)) {
-    room_goto(rm_Level5Story); // Make sure to change this to the name of your next room!
+    room_goto(rm_Level6_Story); // Make sure to change this to the name of your next room!
 }
