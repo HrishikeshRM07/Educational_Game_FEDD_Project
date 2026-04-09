@@ -4,15 +4,18 @@ enum BattleState {
 }
 battle_state = BattleState.PLAYER_MENU;
 
-// --- 2. CHARACTER STATS & POSITIONS ---
+// --- 2. CHARACTER STATS & POSITIONS (SCALED FOR 1080p) ---
 player_hp = 100;
 player_max_hp = 100; 
 enemy_hp = 50;
 
-addeline_x = 180;  
-addeline_y = 480; 
-horatio_x = room_width - 200; 
-horatio_y = 420; 
+// Shifted right and down for 1920x1080
+addeline_x = 250;  
+addeline_y = 680; 
+
+// Anchored to the new right edge
+horatio_x = room_width - 280; 
+horatio_y = 600;
 
 // --- 3. MATH SYSTEM ---
 selected_skill = -1;

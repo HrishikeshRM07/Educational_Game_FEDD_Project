@@ -21,6 +21,11 @@ dialogue[10] = { t: "Of course!", s: "Addeline", port: AddelineDialogue, f: 5 };
 dialogue[11] = { t: "I won’t let my home be destroyed.", s: "Addeline", port: AddelineDialogue, f: 2 };
 dialogue[12] = { t: "I’ll help you.", s: "Addeline", port: AddelineDialogue, f: 5 };
 
+// --- 3. SCENE STATE VARIABLES ---
+current_line = 0;
+show_horatio = false;
+player_hp = 100; // Gives the dialogue scene a starting HP value
+
 // --- 2. SCENE STATE VARIABLES ---
 current_line = 0;
 player_hp = 100;

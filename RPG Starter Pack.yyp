@@ -34,7 +34,9 @@
     {"$GMFolder":"","%Name":"UI Elements","folderPath":"folders/Sprites/UI Elements.yy","name":"UI Elements","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"zDefault Assets (From Gamemaker)","folderPath":"folders/Sprites/zDefault Assets (From Gamemaker).yy","name":"zDefault Assets (From Gamemaker)","resourceType":"GMFolder","resourceVersion":"2.0",},
   ],
-  "ForcedPrefabProjectReferences":[],
+  "ForcedPrefabProjectReferences":[
+    {"link":"io.gamemaker.sdfshaders-1.0.0","name":"io.gamemaker.sdfshaders-1.0.0","path":"io.gamemaker.sdfshaders-1.0.0.yyp",},
+  ],
   "IncludedFiles":[
     {"$GMIncludedFile":"","%Name":"Gyate-Luminescence.otf","CopyToMask":-1,"filePath":"datafiles","name":"Gyate-Luminescence.otf","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
   ],
