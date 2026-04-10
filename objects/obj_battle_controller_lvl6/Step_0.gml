@@ -54,8 +54,8 @@ if (battle_state == BattleState.ENEMY_TURN) {
         player_input = "";
         fairy_text = "Bria: Incoming attack! Solve this quickly to block!";
         
-        // Generate a random math problem (+, -, *, /)
-        var op = irandom(3); 
+        // Generate a random math problem pulling from both Addeline & Milly's styles
+        var op = irandom(3); // 0: +, 1: -, 2: *, 3: /
         if (op == 0) {
             problem_val1 = irandom_range(15, 60); problem_val2 = irandom_range(15, 60);
             problem_answer = problem_val1 + problem_val2;
@@ -116,13 +116,16 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
         attack_timer = 120; 
         battle_state = BattleState.ENEMY_TURN; 
     }
+    
     if (defend_timer <= 0 && is_defending) { 
-        fairy_text = "Bria: Ouch! We took a hit!";
+        active_char = (active_char == 0) ? 1 : 0; // Swap to next character
+        var next_name = (active_char == 0) ? "Addeline" : "Milly";
+        fairy_text = "Bria: Ouch! We took a hit! " + next_name + ", you're up!";
+        
         player_hp -= 15; milly_hp -= 15; 
         player_flash_color = c_red; player_flash_alpha = 1.0;
         milly_flash_color = c_red; milly_flash_alpha = 1.0;
         battle_state = BattleState.PLAYER_MENU; 
-        active_char = 0; // Reset back to Addeline
     }
 
     // Submitting an Answer
@@ -131,9 +134,10 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
         if (real(player_input) == problem_answer) {
             // --- CORRECT ANSWER ---
             if (is_defending) {
+                active_char = (active_char == 0) ? 1 : 0; // Swap to next character
+                var next_name = (active_char == 0) ? "Addeline" : "Milly";
                 battle_state = BattleState.PLAYER_MENU;
-                fairy_text = "Bria: Great block! Addeline, you're up!";
-                active_char = 0; // Reset back to Addeline
+                fairy_text = "Bria: Great block! " + next_name + ", it's your turn!";
                 player_flash_color = c_white; player_flash_alpha = 1.0;
                 milly_flash_color = c_white; milly_flash_alpha = 1.0;
             } else {
@@ -217,16 +221,9 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
                     battle_state = BattleState.PLAYER_MENU;
                     active_char = 0; // Reset back to Addeline for the next wave
                 } else if (!is_tutorial) {
-                    if (active_char == 0) {
-                        active_char = 1; // Hand it over to Milly
-                        battle_state = BattleState.PLAYER_MENU;
-                        menu_index = 0;
-                        fairy_text = "Bria: Nice hit! Milly, your turn!";
-                    } else {
-                        attack_timer = 120; // Enemy Turn
-                        battle_state = BattleState.ENEMY_TURN; 
-                        active_char = 0; // Prepare Addeline for next round
-                    }
+                    // Attack done -> trigger enemy turn and setup defense
+                    attack_timer = 120; 
+                    battle_state = BattleState.ENEMY_TURN; 
                 } else {
                     battle_state = BattleState.PLAYER_MENU; // Stay in menu for tutorial
                 }
@@ -262,7 +259,6 @@ if (all_dead && attack_timer <= 0 && battle_state == BattleState.PLAYER_MENU && 
             current_wave++;
             fairy_text = "Bria: Watch out! More enemies are appearing!";
             
-            // --- 4 WAVES SETUP ---
             if (current_wave == 2) {
                 enemies = [ 
                     ["GoldmanShort", 30, room_width-450, 710, GoldmanShort, 0, 1.0, c_white, 0.0], 

@@ -27,14 +27,18 @@ if (sprite_exists(MillyBattle)) {
 for (var i = 0; i < array_length(enemies); i++) {
     var en = enemies[i];
     
-    // Base Fade Draw (Using en[6] for alpha)
     draw_sprite_ext(en[4], floor(en[5]), en[2], en[3], 0.45, 0.45, 0, c_white, en[6]); 
     
-    // Flash Draw
     if (en[8] > 0 && en[6] > 0) {
         gpu_set_fog(true, en[7], 0, 0);
         draw_sprite_ext(en[4], floor(en[5]), en[2], en[3], 0.45, 0.45, 0, c_white, min(en[8], en[6]));
         gpu_set_fog(false, c_white, 0, 0);
+    }
+
+    if (en[1] > 0) {
+        draw_set_halign(fa_center); 
+        draw_set_color(c_yellow);
+        draw_text_transformed(en[2], en[3] - 84, string(en[1]) + " / 30", 1.4, 1.4, 0); 
     }
 }
 
@@ -53,7 +57,6 @@ var text_to_draw = string_copy(fairy_text, 1, floor(text_progress));
 draw_text_ext_transformed(200, 170, text_to_draw, 22, (fairy_box_w / 1.4) - 90, 1.4, 1.4, 0);
 
 // --- 3. BOTTOM LEFT HUD (DUAL PORTRAITS + HP) ---
-// --- ADDELINE (Left) ---
 var ad_x = 100;
 var ad_y = 1035;  
 var ad_alpha = (is_tutorial) ? 0.5 : 1; 
@@ -75,10 +78,9 @@ if (is_tutorial) {
     draw_text_transformed(ad_x + 20, ad_y - 125, "LOCKED", 1.4, 1.4, 0);
 }
 
-// --- MILLY (Right) ---
 var mil_x = 435; 
 var mil_y = 940; 
-var mil_face = (milly_hp > 70) ? 0 : (milly_hp > 30 ? 1 : 2); // Added Milly Face check
+var mil_face = (milly_hp > 70) ? 0 : (milly_hp > 30 ? 1 : 2); 
 
 draw_set_color(active_char == 1 ? c_yellow : c_white);
 draw_roundrect_ext(540, 920, 680, 1040, 14, 14, true);
@@ -100,7 +102,7 @@ var box_h = 280;
 
 if (sprite_exists(spr_dialogue_base)) draw_sprite_stretched(spr_dialogue_base, 0, box_x, box_y, box_w, box_h);
 
-// --- 5. GRID SKILLS (TEXT ONLY) ---
+// --- 5. GRID SKILLS (TEXT ONLY - No Defend Menu) ---
 if (battle_state == BattleState.PLAYER_MENU) {
     draw_set_halign(fa_left); draw_set_valign(fa_top);
     
@@ -150,4 +152,4 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
     draw_text_transformed(solve_center_x, solve_start_y + 60, problem_question, 1.4, 1.4, 0);
     draw_text_transformed(solve_center_x, solve_start_y + 120, "ANS: " + player_input + "_", 1.4, 1.4, 0);
 }
-draw_set_valign(fa_top); // Reset alignment
+draw_set_valign(fa_top);

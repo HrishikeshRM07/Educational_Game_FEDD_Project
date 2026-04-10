@@ -24,6 +24,11 @@ dialogue[10] = { t: "...and the sooner we find Horatio, the closer we’ll be to
 current_line = 0;
 player_hp = 100;
 
+// --- 2. ENVIRONMENT VARIABLES ---
+addeline_x = 280; addeline_y = room_height - 700;
+fairy_x = 630;    fairy_y = room_height - 630;
+horatio_x = room_width - 350; horatio_y = room_height - 700;
+
 // --- 3. TYPEWRITER VARIABLES ---
 text_progress = 0; 
 text_speed = 0.5;

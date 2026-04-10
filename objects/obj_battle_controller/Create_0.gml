@@ -1,6 +1,6 @@
 // --- 1. BATTLE STATES ---
 enum BattleState {
-    PLAYER_MENU, PLAYER_SOLVE, ENEMY_TURN, WIN, LOSE, DEFEND_MENU,  DEFEND_SOLVE
+    PLAYER_MENU, PLAYER_SOLVE, ENEMY_TURN, WIN, LOSE, DEFEND_MENU, DEFEND_SOLVE
 }
 battle_state = BattleState.PLAYER_MENU;
 
@@ -9,13 +9,12 @@ player_hp = 100;
 player_max_hp = 100; 
 enemy_hp = 50;
 
-// Shifted right and down for 1920x1080
 addeline_x = 250;  
 addeline_y = 680; 
 
-// Anchored to the new right edge
-horatio_x = room_width - 280; 
-horatio_y = 600;
+// Anchored to the new right edge and moved down
+horatio_x = room_width - 470; 
+horatio_y = 900; // Increased from 600 to push him further down
 
 // --- 3. MATH SYSTEM ---
 selected_skill = -1;
@@ -42,4 +41,17 @@ fairy_text = "Thank you for your help! Let me show you how mathemagical skills w
 // --- 6. ANIMATION SETUP ---
 addeline_frame = 0;
 addeline_is_attacking = false;
-addeline_anim_end = 0; // NEW: Tells the animation when to stop and go back to idle
+addeline_anim_end = 0;
+
+horatio_frame = 0; // NEW: Horatio animation tracker
+
+// --- 7. FLASH & VISUAL EFFECTS (NEW) ---
+player_flash_color = c_white;
+player_flash_alpha = 0;
+
+enemy_flash_color = c_white;
+enemy_flash_alpha = 0;
+enemy_alpha = 1.0; // Used to make Horatio disappear on death
+
+defend_timer_max = 300;
+defend_timer = defend_timer_max;

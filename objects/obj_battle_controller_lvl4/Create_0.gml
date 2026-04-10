@@ -7,11 +7,10 @@ lose_timer = -1;
 
 // --- WAVE 1 SETUP ---
 enemies = [ 
-    ["GoldmanShort", 40, room_width - 180, 600, GoldmanShort, 0], 
-    ["GoldmanShort", 40, room_width - 460, 600, GoldmanShort, 0],
-    ["GoldmanTall", 60, room_width - 320, 510, GoldmanTall, 0]
+    ["GoldmanShort", 40, room_width - 252, 840, GoldmanShort, 0], 
+    ["GoldmanShort", 40, room_width - 644, 840, GoldmanShort, 0],
+    ["GoldmanTall", 60, room_width - 448, 714, GoldmanTall, 0]
 ];
-
 // --- PLAYER SETUP ---
 player_hp = 100; player_max_hp = 100;
 milly_hp = 100;  milly_max_hp = 100;
@@ -45,6 +44,6 @@ erin_frame = 0;     erin_is_attacking = false;     erin_anim_end = 0;
 // ==========================================
 // UI VARIABLES FOR HP BOXES (BUTTONS)
 // ==========================================
-hud_start_x = 165;       // Pushed slightly left to fit all 3
-hud_btn_width = 70;      // SHRUNK: Was orig1inally 100, now 70
-hud_btn_spacing = 220;   // Space between each character's box
+hud_start_x = 231;       
+hud_btn_width = 98;      
+hud_btn_spacing = 308;

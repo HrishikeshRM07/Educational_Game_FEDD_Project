@@ -41,6 +41,7 @@ current_line = 0;
 show_milly = false; // Starts false until line 6!
 player_hp = 100;    // For Addeline's dynamic face frame
 
+
 // --- 4. TYPEWRITER VARIABLES ---
 text_progress = 0; 
 text_speed = 0.5;

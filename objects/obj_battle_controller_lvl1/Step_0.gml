@@ -1,5 +1,5 @@
 // ==========================================
-// 0. ANIMATION LOGIC (ADDELINE & ENEMIES)
+// 0. ANIMATION & FLASH DECAY LOGIC
 // ==========================================
 // Addeline
 if (addeline_is_attacking) {
@@ -13,12 +13,23 @@ if (addeline_is_attacking) {
     if (addeline_frame >= 10 || addeline_frame < 0) addeline_frame = 0; 
 }
 
+// Player Flash Decay
+if (player_flash_alpha > 0) player_flash_alpha -= 0.05;
+
 // Enemies
 for (var i = 0; i < array_length(enemies); i++) {
     if (enemies[i][1] > 0) { // If enemy is alive
-        var max_frames = (enemies[i][4] == Absarf) ? 9 : 6;
-        enemies[i][5] += 0.2; // Enemy idle animation speed
+        var max_frames = 6; 
+        enemies[i][5] += 0.2; // Anim Speed
         if (enemies[i][5] >= max_frames) enemies[i][5] = 0;
+        
+        // Enemy Flash Decay
+        if (enemies[i][8] > 0) enemies[i][8] -= 0.05;
+    } else {
+        // Enemy Dead: Fade out and flash red
+        if (enemies[i][6] > 0) enemies[i][6] -= 0.02; // Fade Alpha
+        enemies[i][7] = c_red; // Lock flash color
+        enemies[i][8] = 1.0;   // Lock flash alpha
     }
 }
 
@@ -37,19 +48,33 @@ if (text_progress < string_length(fairy_text)) {
     text_progress += text_speed;
 }
 
-// 3. ENEMY ATTACK SEQUENCE
+// 3. ENEMY ATTACK SEQUENCE (EASIER MATH + SLOWER TIME)
 if (attack_timer > 0) {
     attack_timer--;
     if (attack_timer > 240) fairy_text = "Great hit, Addeline! Get ready...";
     else if (attack_timer > 0) fairy_text = "They are attacking! Prepare yourself!";
     
     if (attack_timer == 0) {
-        battle_state = BattleState.DEFEND_MENU;
-        menu_index = 0;
-        fairy_text = "Quick! Pick a shield to defend!";
+        battle_state = BattleState.DEFEND_SOLVE;
+        defend_timer = defend_timer_max;
+        player_input = "";
+        
+        // --- EASIER PROBLEM GENERATION (0-9 only) ---
+        if (irandom(1) == 0) {
+            var a = irandom_range(1, 12);
+            var b = irandom_range(1, 12);
+            problem_answer = a + b;
+            problem_question = string(a) + " + " + string(b) + " = ?";
+        } else {
+            var a = irandom_range(5, 9);
+            var b = irandom_range(1, a);
+            problem_answer = a - b;
+            problem_question = string(a) + " - " + string(b) + " = ?";
+        }
+        
+        fairy_text = "Quick! Solve the easy equation to raise your shield!";
     }
 }
-
 // 4. PLAYER INPUT - ATTACK MENU
 if (battle_state == BattleState.PLAYER_MENU && attack_timer <= 0) {
     if (keyboard_check_pressed(vk_right)) menu_index = clamp(menu_index + 2, 0, 3);
@@ -64,23 +89,6 @@ if (battle_state == BattleState.PLAYER_MENU && attack_timer <= 0) {
         spell_timer = spell_timer_max;
         battle_state = BattleState.PLAYER_SOLVE;
         fairy_text = "Solve it to cast your spell!";
-    }
-}
-
-// 5. PLAYER INPUT - DEFEND MENU
-if (battle_state == BattleState.DEFEND_MENU) {
-    if (keyboard_check_pressed(vk_right)) menu_index = clamp(menu_index + 2, 0, 3);
-    if (keyboard_check_pressed(vk_left))  menu_index = clamp(menu_index - 2, 0, 3);
-    if (keyboard_check_pressed(vk_down))  menu_index = (menu_index % 2 == 0) ? menu_index + 1 : menu_index;
-    if (keyboard_check_pressed(vk_up))    menu_index = (menu_index % 2 != 0) ? menu_index - 1 : menu_index;
-
-    if (keyboard_check_pressed(vk_enter)) {
-        selected_skill = menu_index + 1;
-        generate_problem(selected_skill, 0); 
-        player_input = "";
-        defend_timer = defend_timer_max;
-        battle_state = BattleState.DEFEND_SOLVE;
-        fairy_text = "Block the attack!";
     }
 }
 
@@ -116,9 +124,14 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
                 
                 if (selected_skill == 1) {
                     player_hp += 20; 
+                    player_flash_color = c_green; player_flash_alpha = 1.0; // Green Heal Flash
                 } else {
                     for (var i = 0; i < array_length(enemies); i++) { 
-                        if (enemies[i][1] > 0) enemies[i][1] -= 15; 
+                        if (enemies[i][1] > 0) {
+                            enemies[i][1] -= 15; 
+                            enemies[i][7] = c_red; // Enemy Hit Flash Color
+                            enemies[i][8] = 1.0;   // Enemy Hit Flash Alpha
+                        }
                     } 
                 }
                 
@@ -143,7 +156,7 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
 
     // If Defending
     if (battle_state == BattleState.DEFEND_SOLVE) {
-        defend_timer--;
+        defend_timer -= 0.5; // Decreases at half speed compared to the attack timer
         var missed_defense = false;
 
         if (keyboard_check_pressed(vk_enter) && player_input != "") {
@@ -151,6 +164,7 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
                 fairy_text = "Perfect Block! Your turn!";
                 battle_state = BattleState.PLAYER_MENU;
                 menu_index = 0;
+                player_flash_color = c_white; player_flash_alpha = 1.0; // White Shield Flash
             } else {
                 missed_defense = true;
             }
@@ -169,6 +183,7 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
             fairy_text = "Ouch! You took damage! Your turn!";
             battle_state = BattleState.PLAYER_MENU;
             menu_index = 0;
+            player_flash_color = c_red; player_flash_alpha = 1.0; // Red Hurt Flash
         }
     }
 }
@@ -184,12 +199,19 @@ if (all_dead && attack_timer <= 0 && battle_state == BattleState.PLAYER_MENU) {
         if (win_timer == 0) {
             current_wave++;
             fairy_text = "Oh no! More enemies are appearing!";
-            // Reset with the new enemy format
-            enemies = [ 
-                ["Ananan", 30, room_width-320, 510, Ananan, 0], 
-                ["Absarf", 30, room_width-180, 600, Absarf, 0], 
-                ["Ananan", 30, room_width-460, 600, Ananan, 0] 
-            ];
+            
+            // WAVE CONFIGURATIONS
+            if (current_wave == 2) {
+                enemies = [ 
+                    ["Linearf", 30, room_width - 300, 710, Linearf, 0, 1.0, c_white, 0.0], 
+                    ["Parabolate", 30, room_width - 600, 840, Parabolate, 0, 1.0, c_white, 0.0] 
+                ];
+            } else if (current_wave == 3) {
+                enemies = [ 
+                    ["GoldmanTall", 30, room_width - 300, 710, GoldmanTall, 0, 1.0, c_white, 0.0], 
+                    ["Parabolate", 30, room_width - 600, 840, Parabolate, 0, 1.0, c_white, 0.0] 
+                ];
+            }
             win_timer = -1;
         }
     } else {

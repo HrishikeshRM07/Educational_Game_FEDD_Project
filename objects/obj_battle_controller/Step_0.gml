@@ -1,26 +1,40 @@
 // ==========================================
-// 0. ADDELINE ANIMATION LOGIC
+// 0. ANIMATION & FLASH DECAY LOGIC
 // ==========================================
 if (addeline_is_attacking) {
     addeline_frame += 0.2; // ATTACK SPEED
-    
-    // Stop when she reaches the end of the current attack's chunk
     if (addeline_frame >= addeline_anim_end) {
         addeline_is_attacking = false;
         addeline_frame = 0; // Return to idle
     }
 } else {
     addeline_frame += 0.2; // IDLE SPEED
-    // Loop between frames 0 and 9 (which is frame 1 to 10 visually)
-    if (addeline_frame >= 10 || addeline_frame < 0) {
-        addeline_frame = 0; 
+    if (addeline_frame >= 10 || addeline_frame < 0) addeline_frame = 0; 
+}
+
+// NEW: Horatio Idle Animation Loop (7 frames)
+if (enemy_hp > 0) {
+    horatio_frame += 0.2; // Adjust 0.2 to make him animate faster or slower
+    if (horatio_frame >= 7) { 
+        horatio_frame = 0; 
     }
 }
 
-// --- DEBUG SKIP ---
-if (keyboard_check_pressed(vk_escape)) {
-    room_goto(rm_PostBattleStory);
+// Flash effect decay
+if (player_flash_alpha > 0) player_flash_alpha -= 0.05;
+
+if (enemy_hp <= 0) {
+    // Death fade out logic
+    if (enemy_alpha > 0) enemy_alpha -= 0.015;
+    // Lock Horatio to flashing red while he fades
+    enemy_flash_color = c_red;
+    enemy_flash_alpha = 1.0; 
+} else {
+    if (enemy_flash_alpha > 0) enemy_flash_alpha -= 0.05;
 }
+
+// --- DEBUG SKIP ---
+if (keyboard_check_pressed(vk_escape)) room_goto(rm_PostBattleStory);
 
 // --- 1. HP CLAMPING & VICTORY CHECK ---
 player_hp = clamp(player_hp, 0, player_max_hp);
@@ -41,22 +55,39 @@ if (win_timer > 0) {
 if (attack_timer > 0) {
     attack_timer--;
     
-    if (tutorial_stage == 0 || tutorial_stage == 2) {
+    // Added stage 4 here to trigger the new Shield Tutorial
+    if (tutorial_stage == 0 || tutorial_stage == 2 || tutorial_stage == 4) {
         if (attack_timer == 120) {
             if (tutorial_stage == 0) fairy_text = "Here comes his attack! Prepare yourself to solve this equation!";
             if (tutorial_stage == 2) fairy_text = "Horatio is utilizing another skill to summon an ME! Prepare yourself!";
+            if (tutorial_stage == 4) fairy_text = "Watch out! Horatio is launching a massive direct attack! Get ready to DEFEND!";
         }
         
         if (attack_timer == 0) {
             if (tutorial_stage == 0) {
                 player_hp -= 20; 
+                player_flash_color = c_red; player_flash_alpha = 1.0; // Red Hurt Flash
                 fairy_text = "Uh oh! That hit you bad! But don't worry, you can also heal. Click on Additive Power!";
                 tutorial_stage = 1;
-            } else {
-                fairy_text = "He's gathering forces... but we have a skill for this. Press on <Skill 4>!";
+                battle_state = BattleState.PLAYER_MENU;
+            } else if (tutorial_stage == 2) {
+                fairy_text = "He's gathering forces... but we have a skill for this. Press on Double Sub!";
                 tutorial_stage = 3;
+                battle_state = BattleState.PLAYER_MENU;
+            } else if (tutorial_stage == 4) {
+                // --- ENTER SHIELD TUTORIAL ---
+                battle_state = BattleState.DEFEND_SOLVE;
+                defend_timer = defend_timer_max;
+                player_input = "";
+                
+                // Addeline specific math (Addition only)
+                problem_val1 = irandom_range(1, 12);
+                problem_val2 = irandom_range(1, 12);
+                problem_answer = problem_val1 + problem_val2;
+                problem_question = string(problem_val1) + " + " + string(problem_val2) + " = ?";
+                
+                fairy_text = "Quick! Solve this addition problem to raise your shield and block the damage!";
             }
-            battle_state = BattleState.PLAYER_MENU;
         }
     }
 }
@@ -115,21 +146,20 @@ switch (battle_state) {
                 execute_skill(selected_skill); 
                 is_showing_hint = false;
                 
-                // --- TRIGGER ADDELINE ATTACK ANIMATION HERE ---
                 addeline_is_attacking = true;
                 
                 if (selected_skill == 1) {        // Additive Heal
-                    addeline_frame = 24;
-                    addeline_anim_end = 38;
+                    addeline_frame = 24; addeline_anim_end = 38;
+                    player_flash_color = c_green; player_flash_alpha = 1.0; // Green Heal Flash
                 } else if (selected_skill == 2) { // Subtraction
-                    addeline_frame = 10;
-                    addeline_anim_end = 24;
+                    addeline_frame = 10; addeline_anim_end = 24;
+                    enemy_flash_color = c_red; enemy_flash_alpha = 1.0; // Flash Enemy Red
                 } else if (selected_skill == 3) { // Commutative
-                    addeline_frame = 52;
-                    addeline_anim_end = 67;
+                    addeline_frame = 52; addeline_anim_end = 67;
+                    enemy_flash_color = c_red; enemy_flash_alpha = 1.0;
                 } else if (selected_skill == 4) { // Double Sub
-                    addeline_frame = 38;
-                    addeline_anim_end = 52;
+                    addeline_frame = 38; addeline_anim_end = 52;
+                    enemy_flash_color = c_red; enemy_flash_alpha = 1.0;
                 }
                 
                 if (tutorial_stage == 0) {
@@ -149,9 +179,10 @@ switch (battle_state) {
                     battle_state = BattleState.PLAYER_MENU;
                 }
                 else if (tutorial_stage == 4) {
-                    fairy_text = "You're ready to go! Give it your best shot!";
-                    tutorial_stage = 5;
-                    battle_state = BattleState.PLAYER_MENU; 
+                    // Start the Shield Tutorial attack!
+                    fairy_text = "Great job! But Horatio is getting angry. Prepare for a heavy strike!";
+                    attack_timer = 240;
+                    battle_state = BattleState.ENEMY_TURN; 
                 }
                 else {
                     battle_state = BattleState.ENEMY_TURN;
@@ -163,6 +194,37 @@ switch (battle_state) {
                 if (selected_skill == 1) fairy_text = "For example! If you have 3 bows and I have 6 bows, together we’d have 9 bows. Now you try it!";
                 if (selected_skill == 4) fairy_text = "If I have 38 cupcakes, I give 3 to you and 5 to a friend, I’ll have 38-3-5 left, which is 30! Now you try it.";
                 if (selected_skill == 3) fairy_text = "If I have 10 cookies, you give me 5, and a friend gives me 5, I'd end up with 20! The order doesn't matter!";
+            }
+        }
+    break;
+
+    case BattleState.DEFEND_SOLVE:
+        for (var i = 0; i <= 9; i++) {
+            if (keyboard_check_pressed(ord(string(i)))) player_input += string(i);
+        }
+        if (keyboard_check_pressed(vk_backspace)) player_input = string_delete(player_input, string_length(player_input), 1);
+
+        defend_timer--;
+
+        // Timer Ran Out - Take Damage
+        if (defend_timer <= 0) {
+            player_hp -= 30;
+            player_flash_color = c_red; player_flash_alpha = 1.0; // Flash red
+            tutorial_stage = 5;
+            battle_state = BattleState.PLAYER_MENU;
+            fairy_text = "Too slow! His attack broke through! Remember to answer quickly to block. You're ready to go now! Give it your best shot!";
+        }
+
+        // Check Answer
+        if (keyboard_check_pressed(vk_enter) && player_input != "") {
+            if (real(player_input) == problem_answer) {
+                player_flash_color = c_white; player_flash_alpha = 1.0; // White Shield Flash
+                tutorial_stage = 5;
+                battle_state = BattleState.PLAYER_MENU;
+                fairy_text = "Perfect block! The shield completely negated the damage! You're ready to go! Give it your best shot!";
+            } else {
+                player_input = "";
+                fairy_text = "Incorrect! Try again quickly before he strikes!";
             }
         }
     break;

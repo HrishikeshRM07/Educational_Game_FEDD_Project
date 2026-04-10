@@ -42,7 +42,7 @@ if (text_progress < string_length(fairy_text)) text_progress += text_speed;
 // --- 2. CHARACTER SWITCHING ---
 if (battle_state == BattleState.PLAYER_MENU && attack_timer <= 0) {
     if (mouse_check_button_pressed(mb_left)) {
-        if (mouse_y >= 660 && mouse_y <= 740) {
+        if (mouse_y >= 924 && mouse_y <= 1036) {
             for (var i = 0; i < 3; i++) {
                 var btn_x1 = hud_start_x + (i * hud_btn_spacing);
                 var btn_x2 = btn_x1 + hud_btn_width;
@@ -212,15 +212,15 @@ if (all_dead && attack_timer <= 0 && battle_state == BattleState.PLAYER_MENU) {
             // Updated Waves 2 & 3 to include Aundroids
             if (current_wave == 2) {
                 enemies = [ 
-                    ["Aundroid", 80, room_width-320, 510, Aundroid, 0], 
-                    ["GoldmanShort", 40, room_width-180, 600, GoldmanShort, 0],
-                    ["Aundroid", 80, room_width-460, 510, Aundroid, 0] 
+                    ["Aundroid", 80, room_width-448, 714, Aundroid, 0], 
+                    ["GoldmanShort", 40, room_width-252, 840, GoldmanShort, 0],
+                    ["Aundroid", 80, room_width-644, 714, Aundroid, 0] 
                 ];
             } else if (current_wave == 3) {
                 enemies = [ 
-                    ["GoldmanTall", 60, room_width-320, 510, GoldmanTall, 0], 
-                    ["Aundroid", 80, room_width-180, 510, Aundroid, 0],
-                    ["Aundroid", 80, room_width-460, 510, Aundroid, 0] 
+                    ["GoldmanTall", 60, room_width-448, 714, GoldmanTall, 0], 
+                    ["Aundroid", 80, room_width-252, 714, Aundroid, 0],
+                    ["Aundroid", 80, room_width-644, 714, Aundroid, 0] 
                 ];
             }
             win_timer = -1;

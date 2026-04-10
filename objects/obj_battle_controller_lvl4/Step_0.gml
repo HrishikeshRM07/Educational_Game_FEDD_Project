@@ -37,10 +37,10 @@ if (text_progress < string_length(fairy_text)) text_progress += text_speed;
 // --- 2. CHARACTER SWITCHING (Updated for 3 Hitboxes) ---
 if (battle_state == BattleState.PLAYER_MENU && attack_timer <= 0 && !is_tutorial) {
     if (mouse_check_button_pressed(mb_left)) {
-        if (mouse_y >= 660 && mouse_y <= 740) {
-            if (mouse_x >= 140 && mouse_x <= 240) { active_char = 0; menu_index = 0; }      // Addeline
-            else if (mouse_x >= 280 && mouse_x <= 380) { active_char = 1; menu_index = 0; } // Milly
-            else if (mouse_x >= 420 && mouse_x <= 520) { active_char = 2; menu_index = 0; } // Erin
+        if (mouse_y >= 924 && mouse_y <= 1036) {
+            if (mouse_x >= 196 && mouse_x <= 336) { active_char = 0; menu_index = 0; }      // Addeline
+            else if (mouse_x >= 392 && mouse_x <= 532) { active_char = 1; menu_index = 0; } // Milly
+            else if (mouse_x >= 588 && mouse_x <= 728) { active_char = 2; menu_index = 0; } // Erin
         }
     }
 }
@@ -229,15 +229,15 @@ if (all_dead && attack_timer <= 0 && battle_state == BattleState.PLAYER_MENU && 
             
             if (current_wave == 2) {
                 enemies = [ 
-                    ["GoldmanTall", 60, room_width-320, 510, GoldmanTall, 0], 
-                    ["GoldmanShort", 40, room_width-180, 600, GoldmanShort, 0],
-                    ["GoldmanTall", 60, room_width-460, 510, GoldmanTall, 0] // Adjusted for 3 enemies
+                    ["GoldmanTall", 60, room_width-448, 714, GoldmanTall, 0], 
+                    ["GoldmanShort", 40, room_width-252, 840, GoldmanShort, 0],
+                    ["GoldmanTall", 60, room_width-644, 714, GoldmanTall, 0] 
                 ];
             } else if (current_wave == 3) {
                 enemies = [ 
-                    ["GoldmanTall", 60, room_width-320, 510, GoldmanTall, 0], 
-                    ["GoldmanTall", 60, room_width-180, 510, GoldmanTall, 0],
-                    ["GoldmanTall", 60, room_width-460, 510, GoldmanTall, 0] // Adjusted for 3 enemies
+                    ["GoldmanTall", 60, room_width-448, 714, GoldmanTall, 0], 
+                    ["GoldmanTall", 60, room_width-252, 714, GoldmanTall, 0],
+                    ["GoldmanTall", 60, room_width-644, 714, GoldmanTall, 0] 
                 ];
             }
             win_timer = -1;

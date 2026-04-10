@@ -4,10 +4,10 @@ lose_timer = -1;
 
 // --- BOSS SETUP ---
 // Increased Y coordinate to 620 to push the boss lower
+// Pushes boss to the right side of the 1366 width
 enemies = [ 
-    ["SummationScorpion", 250, room_width - 250, 620, SummationScorpion, 0] 
+    ["SummationScorpion", 250, 1100, 620, SummationScorpion, 0] 
 ];
-
 // --- PLAYER SETUP ---
 player_hp = 100; player_max_hp = 100;
 milly_hp = 100;  milly_max_hp = 100; // Assuming Milly starts full for the boss!
@@ -26,7 +26,7 @@ spell_timer_max = 600; spell_timer = spell_timer_max;
 defend_timer_max = 300; defend_timer = defend_timer_max;
 attack_timer = 0;       
 
-fairy_text = "Bria: Watch out! It's the Summation Scorpion! Its attacks are much stronger!";
+fairy_text = "Watch out! It's the Summation Scorpion! Its attacks are much stronger!";
 previous_fairy_text = "";
 text_progress = 0; text_speed = 0.5;
 

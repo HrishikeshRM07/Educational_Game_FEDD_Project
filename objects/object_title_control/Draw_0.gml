@@ -8,7 +8,7 @@ draw_set_color(c_white);
 draw_set_halign(fa_right); 
 draw_set_valign(fa_bottom); 
 
-draw_text(play_button_x, play_button_y, "PRESS [ENTER] TO BEGIN");
+draw_text(play_button_x, play_button_y, "PRESS [SPACE] TO BEGIN");
 
 // 3. Reset everything
 draw_set_alpha(1);

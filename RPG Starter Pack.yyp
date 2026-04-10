@@ -43,7 +43,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.14.4.221",
+    "IDEVersion":"2024.14.4.222",
   },
   "name":"RPG Starter Pack",
   "resources":[
@@ -56,6 +56,7 @@
     {"id":{"name":"obj_battle_controller_lvl3","path":"objects/obj_battle_controller_lvl3/obj_battle_controller_lvl3.yy",},},
     {"id":{"name":"obj_battle_controller_lvl4","path":"objects/obj_battle_controller_lvl4/obj_battle_controller_lvl4.yy",},},
     {"id":{"name":"obj_battle_controller_lvl5","path":"objects/obj_battle_controller_lvl5/obj_battle_controller_lvl5.yy",},},
+    {"id":{"name":"obj_battle_controller_lvl6","path":"objects/obj_battle_controller_lvl6/obj_battle_controller_lvl6.yy",},},
     {"id":{"name":"obj_battle_controller","path":"objects/obj_battle_controller/obj_battle_controller.yy",},},
     {"id":{"name":"obj_DialogueEnd","path":"objects/obj_DialogueEnd/obj_DialogueEnd.yy",},},
     {"id":{"name":"obj_DialogueScene1","path":"objects/obj_DialogueScene1/obj_DialogueScene1.yy",},},
@@ -69,6 +70,8 @@
     {"id":{"name":"obj_Level4_PostBattle","path":"objects/obj_Level4_PostBattle/obj_Level4_PostBattle.yy",},},
     {"id":{"name":"obj_Level5_Controller","path":"objects/obj_Level5_Controller/obj_Level5_Controller.yy",},},
     {"id":{"name":"obj_Level5_PostBattle","path":"objects/obj_Level5_PostBattle/obj_Level5_PostBattle.yy",},},
+    {"id":{"name":"obj_Level6_Controller","path":"objects/obj_Level6_Controller/obj_Level6_Controller.yy",},},
+    {"id":{"name":"obj_Level6_PostBattle","path":"objects/obj_Level6_PostBattle/obj_Level6_PostBattle.yy",},},
     {"id":{"name":"obj_SplashControl","path":"objects/obj_SplashControl/obj_SplashControl.yy",},},
     {"id":{"name":"obj_story_controller","path":"objects/obj_story_controller/obj_story_controller.yy",},},
     {"id":{"name":"object_title_control","path":"objects/object_title_control/object_title_control.yy",},},
@@ -88,6 +91,8 @@
     {"id":{"name":"rm_Level5_Battle","path":"rooms/rm_Level5_Battle/rm_Level5_Battle.yy",},},
     {"id":{"name":"rm_Level5_PostBattle","path":"rooms/rm_Level5_PostBattle/rm_Level5_PostBattle.yy",},},
     {"id":{"name":"rm_Level5Story","path":"rooms/rm_Level5Story/rm_Level5Story.yy",},},
+    {"id":{"name":"rm_Level6_Battle","path":"rooms/rm_Level6_Battle/rm_Level6_Battle.yy",},},
+    {"id":{"name":"rm_Level6_PostBattle","path":"rooms/rm_Level6_PostBattle/rm_Level6_PostBattle.yy",},},
     {"id":{"name":"rm_Level6_Story","path":"rooms/rm_Level6_Story/rm_Level6_Story.yy",},},
     {"id":{"name":"rm_PostBattleStory","path":"rooms/rm_PostBattleStory/rm_PostBattleStory.yy",},},
     {"id":{"name":"rm_Splash","path":"rooms/rm_Splash/rm_Splash.yy",},},
@@ -232,6 +237,8 @@
     {"roomId":{"name":"rm_Level5_Battle","path":"rooms/rm_Level5_Battle/rm_Level5_Battle.yy",},},
     {"roomId":{"name":"rm_Level5_PostBattle","path":"rooms/rm_Level5_PostBattle/rm_Level5_PostBattle.yy",},},
     {"roomId":{"name":"rm_Level6_Story","path":"rooms/rm_Level6_Story/rm_Level6_Story.yy",},},
+    {"roomId":{"name":"rm_Level6_Battle","path":"rooms/rm_Level6_Battle/rm_Level6_Battle.yy",},},
+    {"roomId":{"name":"rm_Level6_PostBattle","path":"rooms/rm_Level6_PostBattle/rm_Level6_PostBattle.yy",},},
   ],
   "templateType":"game",
   "TextureGroups":[

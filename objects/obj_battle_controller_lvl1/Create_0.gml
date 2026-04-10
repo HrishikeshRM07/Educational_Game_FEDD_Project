@@ -1,15 +1,16 @@
+// --- 1. BATTLE STATES ---
 
 battle_state = BattleState.PLAYER_MENU;
 
-// --- 2. WAVE & ENEMY SETUP ---
+// --- 2. WAVE & ENEMY SETUP (SCALED FOR 1080p) ---
 max_waves = 3;
 current_wave = 1;
 win_timer = -1; 
 
+// Enemy Array Structure:
+// [Name, HP, X, Y, Sprite, AnimFrame, Alpha, FlashColor, FlashAlpha]
 enemies = [
-    ["Absarf", 30, room_width - 320, 510, Absarf, 0], // Pushed down to 580
-    ["Ananan", 30, room_width - 180, 600, Ananan, 0], // Pushed down to 600
-    ["Absarf", 30, room_width - 460, 600, Absarf, 0]  // Pushed down to 600
+    ["Linearf", 30, room_width - 450, 710, Linearf, 0, 1.0, c_white, 0.0]
 ];
 
 // --- 3. CHARACTER STATS ---
@@ -26,7 +27,7 @@ menu_index = 0;
 // --- 5. TIMERS ---
 spell_timer_max = 600; 
 spell_timer = spell_timer_max;
-defend_timer_max = 300; // 5 seconds to solve the defense problem
+defend_timer_max = 600; // Increased to 10 seconds for a more relaxed defense
 defend_timer = defend_timer_max;
 attack_timer = 0;       
 
@@ -40,3 +41,7 @@ text_speed = 0.5;
 addeline_frame = 0;
 addeline_is_attacking = false;
 addeline_anim_end = 0;
+
+// --- 8. FLASH & VISUAL EFFECTS ---
+player_flash_color = c_white;
+player_flash_alpha = 0;

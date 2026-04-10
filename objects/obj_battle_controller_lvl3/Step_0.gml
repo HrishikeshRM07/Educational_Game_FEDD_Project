@@ -73,7 +73,7 @@ if (battle_state == BattleState.ENEMY_TURN) {
         
         defend_timer = defend_timer_max;
         player_input = ""; // Clear any leftover numbers
-        fairy_text = "Bria: Incoming attack! Be ready for any type of math!";
+        fairy_text = "Incoming attack! Be ready for any type of math!";
     }
 }
 
@@ -120,12 +120,12 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
 
     // Time's Up Logic (Failed)
     if (spell_timer <= 0 && !is_defending) { 
-        fairy_text = "Bria: Too slow! Brace yourself!";
+        fairy_text = "Too slow! Brace yourself!";
         attack_timer = 120; 
         battle_state = BattleState.ENEMY_TURN; 
     }
     if (defend_timer <= 0 && is_defending) { 
-        fairy_text = "Bria: A massive hit! The boss is relentless!";
+        fairy_text = "A massive hit! The boss is relentless!";
         // BOSS DAMAGE INCREASED
         player_hp -= 30; 
         milly_hp -= 30; 
@@ -139,7 +139,7 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
             // --- CORRECT ANSWER ---
             if (is_defending) {
                 battle_state = BattleState.PLAYER_MENU;
-                fairy_text = "Bria: Perfect block! Now counterattack!";
+                fairy_text = "Perfect block! Now counterattack!";
             } else {
                 if (active_char == 0) { // ADDELINE
                     addeline_is_attacking = true;
@@ -189,14 +189,14 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
             // --- WRONG ANSWER ---
             player_input = ""; 
             if (active_char == 0) {
-                if (selected_skill == 1) fairy_text = "Bria: Hint! Try counting up from " + string(problem_val1) + ".";
-                else if (selected_skill == 2) fairy_text = "Bria: Hint! Take " + string(problem_val2) + " away from " + string(problem_val1) + ".";
-                else fairy_text = "Bria: Careful! Check your math again.";
+                if (selected_skill == 1) fairy_text = "Hint! Try counting up from " + string(problem_val1) + ".";
+                else if (selected_skill == 2) fairy_text = "Hint! Take " + string(problem_val2) + " away from " + string(problem_val1) + ".";
+                else fairy_text = "Careful! Check your math again.";
             } else {
-                if (selected_skill == 1) fairy_text = "Bria: Hint! What is " + string(problem_val1) + " groups of " + string(problem_val2) + "?";
-                else if (selected_skill == 2) fairy_text = "Bria: Hint! How many times does " + string(problem_val1) + " fit into that number?";
-                else if (selected_skill == 3) fairy_text = "Bria: Hint! Multiply " + string(problem_val1) + " by both inside numbers, then add them.";
-                else if (selected_skill == 4) fairy_text = "Bria: Hint! Half of " + string(problem_val1) + " is " + string(problem_val1 / 2) + ".";
+                if (selected_skill == 1) fairy_text = "Hint! What is " + string(problem_val1) + " groups of " + string(problem_val2) + "?";
+                else if (selected_skill == 2) fairy_text = "Hint! How many times does " + string(problem_val1) + " fit into that number?";
+                else if (selected_skill == 3) fairy_text = "Hint! Multiply " + string(problem_val1) + " by both inside numbers, then add them.";
+                else if (selected_skill == 4) fairy_text = "Hint! Half of " + string(problem_val1) + " is " + string(problem_val1 / 2) + ".";
             }
         }
     }
@@ -206,7 +206,7 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
 if (enemies[0][1] <= 0 && attack_timer <= 0 && battle_state == BattleState.PLAYER_MENU) {
     if (win_timer == -1) { 
         win_timer = 180; 
-        fairy_text = "Bria: We did it! The Summation Scorpion has been defeated!"; 
+        fairy_text = "We did it! The Summation Scorpion has been defeated!"; 
     }
     if (win_timer > 0) win_timer--;
     
@@ -217,7 +217,7 @@ if (enemies[0][1] <= 0 && attack_timer <= 0 && battle_state == BattleState.PLAYE
 if (player_hp <= 0 && milly_hp <= 0) {
     if (lose_timer == -1) { 
         lose_timer = 180; // Wait about 3 seconds before resetting
-        fairy_text = "Bria: The Summation Scorpion defeated us... Let's try again!"; 
+        fairy_text = "The Summation Scorpion defeated us... Let's try again!"; 
         
         // Force the state to stop the battle from continuing in the background
         battle_state = BattleState.PLAYER_MENU; 
