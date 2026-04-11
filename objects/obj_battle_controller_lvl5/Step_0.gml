@@ -1,11 +1,14 @@
-// --- HEALTH & STATE MANAGEMENT ---
+// --- DEBUG SKIP ---
+if (keyboard_check_pressed(vk_escape) && !targeting_phase) room_goto(rm_Level5_PostBattle);
+
+// ==========================================
+// 0. ANIMATION & EFFECT LOGIC
+// ==========================================
+// Health Clamping
 player_hp = clamp(player_hp, 0, player_max_hp);
 milly_hp = clamp(milly_hp, 0, milly_max_hp);
 erin_hp = clamp(erin_hp, 0, erin_max_hp);
 
-// ==========================================
-// 0. ANIMATION LOGIC
-// ==========================================
 if (addeline_is_attacking) {
     addeline_frame += 0.5; 
     if (addeline_frame >= addeline_anim_end) { addeline_is_attacking = false; addeline_frame = 0; }
@@ -27,9 +30,19 @@ if (erin_is_attacking) {
     erin_frame += 0.2; if (erin_frame >= 10 || erin_frame < 0) erin_frame = 0;
 }
 
+// Flash Decays
+if (player_flash_alpha > 0) player_flash_alpha -= 0.05;
+if (milly_flash_alpha > 0) milly_flash_alpha -= 0.05;
+if (erin_flash_alpha > 0) erin_flash_alpha -= 0.05;
+
 for (var i = 0; i < array_length(enemies); i++) {
     if (enemies[i][1] > 0) { 
         enemies[i][5] += 0.2; if (enemies[i][5] >= 10) enemies[i][5] = 0;
+        if (enemies[i][8] > 0) enemies[i][8] -= 0.05; // Enemy Flash Decay
+    } else {
+        // DEATH ANIMATION
+        if (enemies[i][8] > 0) enemies[i][8] -= 0.05; 
+        if (enemies[i][6] > 0) enemies[i][6] -= 0.05; 
     }
 }
 
@@ -39,75 +52,153 @@ if (fairy_text != previous_fairy_text) {
 }
 if (text_progress < string_length(fairy_text)) text_progress += text_speed;
 
-// --- 2. CHARACTER SWITCHING ---
-if (battle_state == BattleState.PLAYER_MENU && attack_timer <= 0) {
-    if (mouse_check_button_pressed(mb_left)) {
-        if (mouse_y >= 924 && mouse_y <= 1036) {
-            for (var i = 0; i < 3; i++) {
-                var btn_x1 = hud_start_x + (i * hud_btn_spacing);
-                var btn_x2 = btn_x1 + hud_btn_width;
-                if (mouse_x >= btn_x1 && mouse_x <= btn_x2) {
-                    active_char = i; 
-                    menu_index = 0; 
+// --- 2. ENEMY ATTACK TIMER ---
+if (battle_state == BattleState.ENEMY_TURN) {
+    if (attack_timer > 0) {
+        attack_timer--;
+    } else {
+        battle_state = BattleState.DEFEND_SOLVE;
+        player_input = "";
+        defend_timer = defend_timer_max;
+        fairy_text = "Bria: Quick! Solve this to block!";
+        
+        var op = irandom(3); 
+        if (op == 0) {
+            problem_val1 = irandom_range(15, 60); problem_val2 = irandom_range(15, 60); problem_answer = problem_val1 + problem_val2;
+            problem_question = string(problem_val1) + " + " + string(problem_val2) + " = ?";
+        } else if (op == 1) {
+            problem_val1 = irandom_range(40, 100); problem_val2 = irandom_range(10, problem_val1); problem_answer = problem_val1 - problem_val2;
+            problem_question = string(problem_val1) + " - " + string(problem_val2) + " = ?";
+        } else if (op == 2) {
+            problem_val1 = irandom_range(3, 12); problem_val2 = irandom_range(3, 12); problem_answer = problem_val1 * problem_val2;
+            problem_question = string(problem_val1) + " x " + string(problem_val2) + " = ?";
+        } else if (op == 3) {
+            problem_val2 = irandom_range(3, 10); problem_answer = irandom_range(3, 12); problem_val1 = problem_answer * problem_val2;
+            problem_question = string(problem_val1) + " / " + string(problem_val2) + " = ?";
+        }
+    }
+}
+
+// --- 3. MENU NAVIGATION & TARGETING ---
+if (battle_state == BattleState.PLAYER_MENU && win_timer <= 0) {
+    
+    var trigger_math_gen = false;
+    
+    if (!targeting_phase) {
+        // --- SKILL SELECTION ---
+        if (keyboard_check_pressed(vk_right)) menu_index = clamp(menu_index + 2, 0, 3);
+        if (keyboard_check_pressed(vk_left))  menu_index = clamp(menu_index - 2, 0, 3);
+        if (keyboard_check_pressed(vk_down))  menu_index = (menu_index % 2 == 0) ? menu_index + 1 : menu_index;
+        if (keyboard_check_pressed(vk_up))    menu_index = (menu_index % 2 != 0) ? menu_index - 1 : menu_index;
+
+        if (keyboard_check_pressed(vk_enter)) {
+            selected_skill = menu_index + 1;
+            
+            if (selected_skill == 2 && battle_state == BattleState.PLAYER_MENU) {
+                targeting_phase = true;
+                if (array_length(enemies) > 0 && enemies[target_index][1] <= 0) {
+                     for (var i = 0; i < array_length(enemies); i++) {
+                         if (enemies[i][1] > 0) { target_index = i; break; }
+                     }
+                }
+            } else {
+                trigger_math_gen = true; 
+            }
+        }
+    } else {
+        // --- ENEMY TARGETING PHASE ---
+        if (keyboard_check_pressed(vk_space) || keyboard_check_pressed(vk_right)) {
+            var start_idx = target_index;
+            for (var i = 1; i < array_length(enemies); i++) {
+                var check_idx = (start_idx + i) % array_length(enemies);
+                if (enemies[check_idx][1] > 0) { target_index = check_idx; break; }
+            }
+        }
+        if (keyboard_check_pressed(vk_left)) {
+            var start_idx = target_index;
+            for (var i = 1; i < array_length(enemies); i++) {
+                var check_idx = (start_idx - i + array_length(enemies)) % array_length(enemies);
+                if (enemies[check_idx][1] > 0) { target_index = check_idx; break; }
+            }
+        }
+
+        if (keyboard_check_pressed(vk_enter)) {
+            targeting_phase = false; trigger_math_gen = true; 
+        }
+        if (keyboard_check_pressed(vk_backspace) || keyboard_check_pressed(vk_escape)) {
+            targeting_phase = false;
+        }
+    }
+    
+    // --- MATH GENERATION TRIGGER ---
+    if (trigger_math_gen) {
+        player_input = ""; 
+        
+        if (battle_state == BattleState.PLAYER_MENU) {
+            spell_timer = spell_timer_max;
+            battle_state = BattleState.PLAYER_SOLVE;
+            
+            // PLAYER SKILL MATH LOGIC
+            if (active_char == 0) { // Addeline
+                if (selected_skill == 1) { 
+                    problem_val1 = irandom_range(2, 20); problem_val2 = irandom_range(2, 20);
+                    problem_answer = problem_val1 + problem_val2;
+                    problem_question = string(problem_val1) + " + " + string(problem_val2) + " = ?";
+                } else if (selected_skill == 2) { 
+                    problem_val1 = irandom_range(10, 40); problem_val2 = irandom_range(1, problem_val1 - 1);
+                    problem_answer = problem_val1 - problem_val2;
+                    problem_question = string(problem_val1) + " - " + string(problem_val2) + " = ?";
+                } else if (selected_skill == 3) { 
+                    problem_val1 = irandom_range(2, 12); problem_val2 = irandom_range(2, 12); problem_val3 = irandom_range(2, 12);
+                    problem_answer = problem_val1 + problem_val2 + problem_val3;
+                    problem_question = string(problem_val1) + " + " + string(problem_val2) + " + " + string(problem_val3) + " = ?";
+                } else if (selected_skill == 4) { 
+                    problem_val1 = irandom_range(20, 50); problem_val2 = irandom_range(2, 10); problem_val3 = irandom_range(2, 10);
+                    problem_answer = problem_val1 - problem_val2 - problem_val3;
+                    problem_question = string(problem_val1) + " - " + string(problem_val2) + " - " + string(problem_val3) + " = ?";
+                }
+            } else if (active_char == 1) { // Milly
+                if (selected_skill == 1) { 
+                    problem_val1 = irandom_range(3, 12); problem_val2 = irandom_range(3, 12);
+                    problem_answer = problem_val1 * problem_val2;
+                    problem_question = string(problem_val1) + " x " + string(problem_val2) + " = ?";
+                } else if (selected_skill == 2) { 
+                    problem_val2 = irandom_range(2, 12); problem_answer = irandom_range(2, 12);
+                    problem_val1 = problem_answer * problem_val2; 
+                    problem_question = string(problem_val1) + " / " + string(problem_val2) + " = ?";
+                } else if (selected_skill == 3) { 
+                    problem_val1 = irandom_range(2, 6); problem_val2 = irandom_range(1, 6); problem_val3 = irandom_range(1, 6);
+                    problem_answer = problem_val1 * (problem_val2 + problem_val3);
+                    problem_question = string(problem_val1) + "(" + string(problem_val2) + " + " + string(problem_val3) + ") = ?";
+                } else if (selected_skill == 4) { 
+                    var temp_base = irandom_range(3, 12); problem_val1 = (temp_base * 2) + 1; 
+                    problem_answer = problem_val1 / 2;
+                    problem_question = string(problem_val1) + " / 2 = ?";
+                }
+            } else if (active_char == 2) { // Erin
+                if (selected_skill == 1) { 
+                    problem_val1 = irandom_range(2, 12);
+                    problem_answer = problem_val1 * problem_val1;
+                    problem_question = string(problem_val1) + "^2 = ?";
+                } else if (selected_skill == 2) { 
+                    problem_answer = irandom_range(2, 12);
+                    problem_val1 = problem_answer * problem_answer;
+                    problem_question = "sqrt(" + string(problem_val1) + ") = ?";
+                } else if (selected_skill == 3) { 
+                    problem_val1 = irandom_range(2, 5);
+                    problem_answer = problem_val1 * problem_val1 * problem_val1;
+                    problem_question = string(problem_val1) + "^3 = ?";
+                } else if (selected_skill == 4) { 
+                    problem_answer = irandom_range(10, 20);
+                    problem_val1 = problem_answer * problem_answer;
+                    problem_question = "sqrt(" + string(problem_val1) + ") = ?";
                 }
             }
         }
     }
 }
 
-// --- 3. ENEMY ATTACK TIMER & RANDOM DEFEND GENERATION ---
-if (battle_state == BattleState.ENEMY_TURN) {
-    if (attack_timer > 0) {
-        attack_timer--;
-    } else {
-        // Skips the shield menu entirely and generates a random hard problem
-        battle_state = BattleState.DEFEND_SOLVE;
-        defend_timer = defend_timer_max;
-        player_input = "";
-        fairy_text = "Bria: Incoming attack! Solve this quickly to block!";
-        
-        var op = irandom(4); // 0: +, 1: -, 2: *, 3: /, 4: ^2
-        if (op == 0) {
-            problem_val1 = irandom_range(20, 100); problem_val2 = irandom_range(20, 100);
-            problem_answer = problem_val1 + problem_val2;
-            problem_question = string(problem_val1) + " + " + string(problem_val2) + " = ?";
-        } else if (op == 1) {
-            problem_val1 = irandom_range(50, 150); problem_val2 = irandom_range(10, problem_val1);
-            problem_answer = problem_val1 - problem_val2;
-            problem_question = string(problem_val1) + " - " + string(problem_val2) + " = ?";
-        } else if (op == 2) {
-            problem_val1 = irandom_range(5, 12); problem_val2 = irandom_range(5, 12);
-            problem_answer = problem_val1 * problem_val2;
-            problem_question = string(problem_val1) + " x " + string(problem_val2) + " = ?";
-        } else if (op == 3) {
-            problem_val2 = irandom_range(3, 10); problem_answer = irandom_range(3, 12);
-            problem_val1 = problem_answer * problem_val2;
-            problem_question = string(problem_val1) + " / " + string(problem_val2) + " = ?";
-        } else if (op == 4) {
-            problem_val1 = irandom_range(3, 12);
-            problem_answer = problem_val1 * problem_val1;
-            problem_question = string(problem_val1) + "^2 = ?";
-        }
-    }
-}
-
-// --- 4. MENU NAVIGATION ---
-if (battle_state == BattleState.PLAYER_MENU && win_timer <= 0) {
-    if (keyboard_check_pressed(vk_right)) menu_index = clamp(menu_index + 2, 0, 3);
-    if (keyboard_check_pressed(vk_left))  menu_index = clamp(menu_index - 2, 0, 3);
-    if (keyboard_check_pressed(vk_down))  menu_index = (menu_index % 2 == 0) ? menu_index + 1 : menu_index;
-    if (keyboard_check_pressed(vk_up))    menu_index = (menu_index % 2 != 0) ? menu_index - 1 : menu_index;
-
-    if (keyboard_check_pressed(vk_enter)) {
-        selected_skill = menu_index + 1;
-        player_input = ""; 
-        generate_problem(selected_skill, active_char); 
-        spell_timer = spell_timer_max;
-        battle_state = BattleState.PLAYER_SOLVE;
-    }
-}
-
-// --- 5. SOLVING MATH ---
+// --- 4. SOLVING MATH ---
 if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFEND_SOLVE) {
     
     for (var i = 0; i <= 9; i++) { 
@@ -126,110 +217,202 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
     if (defend_timer <= 0 && is_defending) { 
         fairy_text = "Bria: Ouch! We took a hit!";
         player_hp -= 15; milly_hp -= 15; erin_hp -= 15;
+        player_flash_color = c_red; player_flash_alpha = 1.0;
+        milly_flash_color = c_red;  milly_flash_alpha = 1.0;
+        erin_flash_color = c_red;   erin_flash_alpha = 1.0;
         battle_state = BattleState.PLAYER_MENU; 
     }
 
     if (keyboard_check_pressed(vk_enter) && player_input != "") {
         if (real(player_input) == problem_answer) {
+            
+            player_input = ""; 
+
+            // --- CORRECT ANSWER ---
             if (is_defending) {
                 battle_state = BattleState.PLAYER_MENU;
                 fairy_text = "Bria: Great block! Now it's our turn.";
+                player_flash_color = c_white; player_flash_alpha = 1.0;
+                milly_flash_color = c_white;  milly_flash_alpha = 1.0;
+                erin_flash_color = c_white;   erin_flash_alpha = 1.0;
             } else {
-                var target = 0; 
-                for (var e = 0; e < array_length(enemies); e++) { if (enemies[e][1] > 0) { target = e; break; } }
 
-                if (active_char == 0) { 
+                if (active_char == 0) { // ADDELINE
                     addeline_is_attacking = true;
-                    if (selected_skill == 1) { addeline_frame = 24; addeline_anim_end = 38; player_hp = min(player_hp + 20, player_max_hp); }
-                    else if (selected_skill == 2) { addeline_frame = 10; addeline_anim_end = 24; enemies[target][1] -= 15; }
-                    else if (selected_skill == 3) { addeline_frame = 52; addeline_anim_end = 67; player_hp = min(player_hp + 15, player_max_hp); milly_hp = min(milly_hp + 15, milly_max_hp); erin_hp = min(erin_hp + 15, erin_max_hp); }
-                    else if (selected_skill == 4) { addeline_frame = 38; addeline_anim_end = 52; for (var i = 0; i < array_length(enemies); i++) { if (enemies[i][1] > 0) enemies[i][1] -= 15; } }
+                    if (selected_skill == 1) { 
+                        addeline_frame = 24; addeline_anim_end = 38; 
+                        player_hp = min(player_hp + 20, player_max_hp); 
+                        player_flash_color = c_green; player_flash_alpha = 1.0;
+                    }
+                    else if (selected_skill == 2) { 
+                        addeline_frame = 10; addeline_anim_end = 24; 
+                        if (enemies[target_index][1] > 0) { enemies[target_index][1] -= 15; enemies[target_index][7] = c_red; enemies[target_index][8] = 1.0; }
+                    }
+                    else if (selected_skill == 3) { 
+                        addeline_frame = 52; addeline_anim_end = 67; 
+                        player_hp = min(player_hp + 15, player_max_hp); 
+                        milly_hp = min(milly_hp + 15, milly_max_hp);
+                        erin_hp = min(erin_hp + 15, erin_max_hp);
+                        player_flash_color = c_green; player_flash_alpha = 1.0; milly_flash_color = c_green; milly_flash_alpha = 1.0; erin_flash_color = c_green; erin_flash_alpha = 1.0;
+                    }
+                    else if (selected_skill == 4) { 
+                        addeline_frame = 38; addeline_anim_end = 52; 
+                        for (var i = 0; i < array_length(enemies); i++) { if (enemies[i][1] > 0) { enemies[i][1] -= 15; enemies[i][7] = c_red; enemies[i][8] = 1.0; } }
+                    }
                 } 
-                else if (active_char == 1) { 
+                else if (active_char == 1) { // MILLY
                     milly_is_attacking = true;
-                    if (selected_skill == 1) { milly_frame = 10; milly_anim_end = 25; milly_heal_buff = 3; }
-                    else if (selected_skill == 2) { milly_frame = 25; milly_anim_end = 40; enemies[target][1] -= 15; }
-                    else if (selected_skill == 3) { milly_frame = 40; milly_anim_end = 55; party_buff = 3; }
-                    else if (selected_skill == 4) { milly_frame = 55; milly_anim_end = 71; enemy_debuff = 3; }
+                    if (selected_skill == 1) { 
+                        milly_frame = 10; milly_anim_end = 25; milly_heal_buff = 3; 
+                        milly_flash_color = c_yellow; milly_flash_alpha = 1.0;
+                    }
+                    else if (selected_skill == 2) { 
+                        milly_frame = 25; milly_anim_end = 40; 
+                        if (enemies[target_index][1] > 0) { enemies[target_index][1] -= 15; enemies[target_index][7] = c_red; enemies[target_index][8] = 1.0; }
+                    }
+                    else if (selected_skill == 3) { 
+                        milly_frame = 40; milly_anim_end = 55; party_buff = 3; 
+                        player_flash_color = c_yellow; player_flash_alpha = 1.0; milly_flash_color = c_yellow; milly_flash_alpha = 1.0; erin_flash_color = c_yellow; erin_flash_alpha = 1.0;
+                    }
+                    else if (selected_skill == 4) { 
+                        milly_frame = 55; milly_anim_end = 71; enemy_debuff = 3; 
+                        for (var i = 0; i < array_length(enemies); i++) { if (enemies[i][1] > 0) { enemies[i][7] = c_fuchsia; enemies[i][8] = 1.0; } }
+                    }
                 }
-                else if (active_char == 2) { 
+                else if (active_char == 2) { // ERIN
                     erin_is_attacking = true;
                     var base_dmg = 20;
                     if (erin_dmg_boost) { base_dmg *= 2; erin_dmg_boost = false; }
 
-                    if (selected_skill == 1) { erin_frame = 10; erin_anim_end = 25; erin_dmg_boost = true; } 
-                    else if (selected_skill == 2) { erin_frame = 26; erin_anim_end = 41; enemies[target][1] -= base_dmg; erin_hp -= 5; } 
-                    else if (selected_skill == 3) { erin_frame = 42; erin_anim_end = 57; enemies[target][1] -= (base_dmg + 10); } 
-                    else if (selected_skill == 4) { erin_frame = 58; erin_anim_end = 72; enemies[target][1] -= base_dmg; erin_hp = min(erin_hp + 15, erin_max_hp); }
+                    if (selected_skill == 1) { 
+                        erin_frame = 10; erin_anim_end = 25; erin_dmg_boost = true;
+                        erin_flash_color = c_orange; erin_flash_alpha = 1.0;
+                    } 
+                    else if (selected_skill == 2) { 
+                        erin_frame = 26; erin_anim_end = 41; erin_hp -= 5;
+                        erin_flash_color = c_red; erin_flash_alpha = 1.0;
+                        if (enemies[target_index][1] > 0) { enemies[target_index][1] -= base_dmg; enemies[target_index][7] = c_red; enemies[target_index][8] = 1.0; } 
+                    } 
+                    else if (selected_skill == 3) { 
+                        erin_frame = 42; erin_anim_end = 57; 
+                        if (enemies[target_index][1] > 0) { enemies[target_index][1] -= (base_dmg + 10); enemies[target_index][7] = c_red; enemies[target_index][8] = 1.0; }
+                    } 
+                    else if (selected_skill == 4) { 
+                        erin_frame = 58; erin_anim_end = 72; erin_hp = min(erin_hp + 15, erin_max_hp);
+                        erin_flash_color = c_green; erin_flash_alpha = 1.0;
+                        if (enemies[target_index][1] > 0) { enemies[target_index][1] -= base_dmg; enemies[target_index][7] = c_red; enemies[target_index][8] = 1.0; }
+                    }
                 }
 
                 var enemies_dead = true;
                 for (var i = 0; i < array_length(enemies); i++) { if (enemies[i][1] > 0) enemies_dead = false; }
                 
+                // --- AUTOMATIC TURN SWITCHING LOGIC ---
                 if (enemies_dead) { 
-                    attack_timer = 0; battle_state = BattleState.PLAYER_MENU;
-                } else { 
-                    attack_timer = 120; battle_state = BattleState.ENEMY_TURN;
+                    attack_timer = 0; battle_state = BattleState.PLAYER_MENU; active_char = 0;
+                } else {
+                    
+                    if (active_char == 0) {
+                        active_char = 1; 
+                        battle_state = BattleState.PLAYER_MENU; 
+                    } else if (active_char == 1) {
+                        active_char = 2; 
+                        battle_state = BattleState.PLAYER_MENU; 
+                    } else {
+                        attack_timer = 120; 
+                        battle_state = BattleState.ENEMY_TURN; 
+                        active_char = 0; 
+                    }
+                    
+                    // Skip dead characters
+                    while (battle_state != BattleState.ENEMY_TURN && 
+                           ((active_char == 0 && player_hp <= 0) || 
+                            (active_char == 1 && milly_hp <= 0) || 
+                            (active_char == 2 && erin_hp <= 0))) {
+                        
+                        active_char++;
+                        if (active_char > 2) {
+                            battle_state = BattleState.ENEMY_TURN;
+                            attack_timer = 120;
+                            active_char = 0;
+                        }
+                    }
+
+                    if (battle_state == BattleState.PLAYER_MENU) {
+                        menu_index = 0;
+                        if (active_char == 1) fairy_text = "Bria: Nice hit! Milly, your turn!";
+                        if (active_char == 2) fairy_text = "Bria: Awesome! Erin, finish it!";
+                    }
                 }
             }
         } else { 
+            // --- WRONG ANSWER ---
             player_input = ""; 
             if (is_defending) {
-                fairy_text = "Bria: Incorrect! Try again before the time runs out!";
-            } else {
-                if (active_char == 0) {
-                    if (selected_skill == 1) fairy_text = "Bria: Hint! Try counting up from " + string(problem_val1) + ".";
-                    else if (selected_skill == 2) fairy_text = "Bria: Hint! Take " + string(problem_val2) + " away from " + string(problem_val1) + ".";
-                    else fairy_text = "Bria: Careful! Check your math again.";
-                } else if (active_char == 1) {
-                    if (selected_skill == 1) fairy_text = "Bria: Hint! What is " + string(problem_val1) + " groups of " + string(problem_val2) + "?";
-                    else if (selected_skill == 2) fairy_text = "Bria: Hint! How many times does " + string(problem_val1) + " fit into that number?";
-                    else if (selected_skill == 3) fairy_text = "Bria: Hint! Multiply " + string(problem_val1) + " by both inside numbers, then add them.";
-                    else if (selected_skill == 4) fairy_text = "Bria: Hint! Half of " + string(problem_val1) + " is " + string(problem_val1 / 2) + ".";
-                } else if (active_char == 2) {
-                    if (selected_skill == 1) fairy_text = "Bria: Hint! Multiply the number by itself.";
-                    else if (selected_skill == 2) fairy_text = "Bria: Hint! What number multiplied by itself equals " + string(problem_val1) + "?";
-                    else if (selected_skill == 3) fairy_text = "Bria: Hint! Multiply the number by itself three times.";
-                    else if (selected_skill == 4) fairy_text = "Bria: Hint! Find the square root of that number.";
-                }
+                fairy_text = "Bria: Block the attack! Re-check your math!";
+            } else if (active_char == 0) {
+                if (selected_skill == 1) fairy_text = "Bria: Hint! Try counting up from " + string(problem_val1) + ".";
+                else if (selected_skill == 2) fairy_text = "Bria: Hint! Take " + string(problem_val2) + " away from " + string(problem_val1) + ".";
+                else fairy_text = "Bria: Careful! Check your math again.";
+            } else if (active_char == 1) {
+                if (selected_skill == 1) fairy_text = "Bria: Hint! What is " + string(problem_val1) + " groups of " + string(problem_val2) + "?";
+                else if (selected_skill == 2) fairy_text = "Bria: Hint! How many times does " + string(problem_val2) + " fit into " + string(problem_val1) + "?";
+                else if (selected_skill == 3) fairy_text = "Bria: Hint! Multiply " + string(problem_val1) + " by both inside numbers, then add them.";
+                else if (selected_skill == 4) fairy_text = "Bria: Hint! Half of " + string(problem_val1) + " is " + string(problem_val1 / 2) + ".";
+            } else if (active_char == 2) {
+                if (selected_skill == 1) fairy_text = "Bria: Hint! Multiply the number by itself.";
+                else if (selected_skill == 2) fairy_text = "Bria: Hint! What number multiplied by itself equals " + string(problem_val1) + "?";
+                else if (selected_skill == 3) fairy_text = "Bria: Hint! Multiply the number by itself three times.";
+                else if (selected_skill == 4) fairy_text = "Bria: Hint! Find the square root of that number.";
             }
         }
     }
 }
 
-// --- 7. WAVE & VICTORY LOGIC ---
+// --- 5. WAVE & DEFEAT LOGIC ---
 var all_dead = true;
 for (var i = 0; i < array_length(enemies); i++) { if (enemies[i][1] > 0) all_dead = false; }
 
 if (all_dead && attack_timer <= 0 && battle_state == BattleState.PLAYER_MENU) {
     if (current_wave < max_waves) {
-        if (win_timer == -1) { win_timer = 120; fairy_text = "Bria: Well done! That's one wave down!"; }
+        if (win_timer == -1) { win_timer = 120; fairy_text = "Bria: Well done! Get ready for the next wave!"; }
         if (win_timer > 0) win_timer--;
         if (win_timer == 0) {
             current_wave++;
             fairy_text = "Bria: Watch out! More enemies are appearing!";
             
-            // Updated Waves 2 & 3 to include Aundroids
             if (current_wave == 2) {
                 enemies = [ 
-                    ["Aundroid", 80, room_width-448, 714, Aundroid, 0], 
-                    ["GoldmanShort", 40, room_width-252, 840, GoldmanShort, 0],
-                    ["Aundroid", 80, room_width-644, 714, Aundroid, 0] 
+                    ["GoldmanTall", 60, room_width-252, 714, GoldmanTall, 0, 1.0, c_white, 0.0], 
+                    ["GoldmanTall", 60, room_width-448, 714, GoldmanTall, 0, 1.0, c_white, 0.0],
+                    ["GoldmanShort", 40, room_width-644, 840, GoldmanShort, 0, 1.0, c_white, 0.0] 
                 ];
             } else if (current_wave == 3) {
                 enemies = [ 
-                    ["GoldmanTall", 60, room_width-448, 714, GoldmanTall, 0], 
-                    ["Aundroid", 80, room_width-252, 714, Aundroid, 0],
-                    ["Aundroid", 80, room_width-644, 714, Aundroid, 0] 
+                    ["Parabolate", 70, room_width-252, 840, Parabolate, 0, 1.0, c_white, 0.0], 
+                    ["GoldmanTall", 60, room_width-448, 714, GoldmanTall, 0, 1.0, c_white, 0.0],
+                    ["Ananan", 40, room_width-644, 840, Ananan, 0, 1.0, c_white, 0.0] 
+                ];
+            } else if (current_wave == 4) {
+                enemies = [ 
+                    ["Aundroid", 80, room_width-252, 840, Aundroid, 0, 1.0, c_white, 0.0], 
+                    ["Aundroid", 80, room_width-448, 840, Aundroid, 0, 1.0, c_white, 0.0],
+                    ["Aundroid", 80, room_width-644, 840, Aundroid, 0, 1.0, c_white, 0.0] 
+                ];
+            } else if (current_wave == 5) {
+                enemies = [ 
+                    ["Absarf", 90, room_width-252, 840, Absarf, 0, 1.0, c_white, 0.0], 
+                    ["Absarf", 90, room_width-448, 840, Absarf, 0, 1.0, c_white, 0.0],
+                    ["GoldmanTall", 60, room_width-644, 714, GoldmanTall, 0, 1.0, c_white, 0.0] 
                 ];
             }
             win_timer = -1;
         }
     } else {
         if (win_timer == -1) win_timer = 180;
-        fairy_text = "Bria: You did it! All 3 waves are clear!";
+        fairy_text = "Bria: You did it! All 5 waves are clear!";
         if (win_timer > 0) win_timer--;
-        if (win_timer == 0) room_goto(rm_Level5_PostBattle); // Updated room destination
+        if (win_timer == 0) room_goto(rm_Level5_PostBattle); 
     }
 }
 
@@ -240,7 +423,5 @@ if (player_hp <= 0 && milly_hp <= 0 && erin_hp <= 0) {
         battle_state = BattleState.PLAYER_MENU; attack_timer = 0; 
     }
     if (lose_timer > 0) lose_timer--;
-    if (lose_timer == 0) room_goto(rm_Level5_Story); // Updated room destination
+    if (lose_timer == 0) room_goto(rm_Level5Story);
 }
-
-if (keyboard_check_pressed(vk_escape)) room_goto(rm_Level5_PostBattle);

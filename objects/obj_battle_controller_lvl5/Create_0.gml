@@ -1,48 +1,64 @@
+// ==========================================
+// 1. BATTLE STATES & WAVES
+// ==========================================
 battle_state = BattleState.PLAYER_MENU;
 
-max_waves = 3; 
+max_waves = 5; 
 current_wave = 1; 
 win_timer = -1; 
 lose_timer = -1;
 
-// --- WAVE 1 SETUP (Added Aundroid!) ---
+// --- WAVE 1 SETUP ---
+// Structure: [Name, HP, X, Y, Sprite, AnimFrame, FadeAlpha, FlashColor, FlashAlpha]
 enemies = [ 
-    ["GoldmanShort", 40, room_width - 252, 840, GoldmanShort, 0], 
-    ["Aundroid", 80, room_width - 644, 840, Aundroid, 0], 
-    ["GoldmanTall", 60, room_width - 448, 714, GoldmanTall, 0]
+    ["Aundroid", 80, room_width - 252, 840, Aundroid, 0, 1.0, c_white, 0.0], 
+    ["Ananan", 40, room_width - 448, 840, Ananan, 0, 1.0, c_white, 0.0],
+    ["Ananan", 40, room_width - 644, 840, Ananan, 0, 1.0, c_white, 0.0]
 ];
 
-// --- PLAYER SETUP ---
+// ==========================================
+// 2. CHARACTER STATS & FLAGS
+// ==========================================
 player_hp = 100; player_max_hp = 100;
 milly_hp = 100;  milly_max_hp = 100;
 erin_hp = 100;   erin_max_hp = 100;
 
-active_char = 0; // Default to Addeline since tutorial is over
+active_char = 0; // Start on Addeline
 
 milly_heal_buff = 0; party_buff = 0; enemy_debuff = 0;
 erin_dmg_boost = false; 
+target_index = 0; 
 
+// ==========================================
+// 3. MATH & UI VARIABLES
+// ==========================================
 selected_skill = -1;
 problem_question = ""; problem_answer = 0;
-problem_val1 = 0; problem_val2 = 0; 
+problem_val1 = 0; problem_val2 = 0; problem_val3 = 0;
 player_input = ""; menu_index = 0; 
+targeting_phase = false;
 
 spell_timer_max = 600; spell_timer = spell_timer_max;
 defend_timer_max = 300; defend_timer = defend_timer_max;
-attack_timer = 0;       
+attack_timer = 0;        
 
-fairy_text = "Bria: Watch out! These enemies are tougher, and they attack fast. Be ready!";
+fairy_text = "Bria: Here they come! Five waves of enemies. Stay sharp!";
 previous_fairy_text = "";
 text_progress = 0; text_speed = 0.5;
 
-// --- 8. ANIMATION SETUP ---
+// ==========================================
+// 4. ANIMATION & EFFECTS SETUP
+// ==========================================
 addeline_frame = 0; addeline_is_attacking = false; addeline_anim_end = 0;
 milly_frame = 0;    milly_is_attacking = false;    milly_anim_end = 0;
 erin_frame = 0;     erin_is_attacking = false;     erin_anim_end = 0;
 
-// ==========================================
-// UI VARIABLES FOR HP BOXES (BUTTONS)
-// ==========================================
+player_flash_color = c_white; player_flash_alpha = 0.0;
+milly_flash_color = c_white;  milly_flash_alpha = 0.0;
+erin_flash_color = c_white;   erin_flash_alpha = 0.0;
+
+// HUD Settings
 hud_start_x = 231;       
 hud_btn_width = 98;      
 hud_btn_spacing = 308;
+

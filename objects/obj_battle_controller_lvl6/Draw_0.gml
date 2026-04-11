@@ -1,155 +1,124 @@
-// --- 0. PREP ---
-if (asset_get_index("fnt_battle") != -1) draw_set_font(fnt_dialogue);
-if (keyboard_check_pressed(vk_escape)) room_goto(rm_Level2PostBattle);
+// --- DRAWING / RENDER PREP ---
+if (asset_get_index("fnt_battle") != -1) draw_set_font(fnt_dialogue); 
 
-// --- 1. DRAW CHARACTERS & ENEMIES ---
-// Draw Addeline
+// Debug Skip
+if (keyboard_check_pressed(vk_escape)) room_goto(rm_Level6_PostBattle);
+
+// --- 1. DRAW CHARACTERS & BOSS ---
 if (sprite_exists(AddelineBattle)) {
-    draw_sprite(AddelineBattle, floor(addeline_frame), 250, 840);
-    if (player_flash_alpha > 0) {
-        gpu_set_fog(true, player_flash_color, 0, 0);
-        draw_sprite_ext(AddelineBattle, floor(addeline_frame), 250, 840, 1, 1, 0, c_white, player_flash_alpha);
-        gpu_set_fog(false, c_white, 0, 0);
-    }
+    if (player_flash_alpha > 0) gpu_set_fog(true, player_flash_color, 0, 0);
+    draw_sprite(AddelineBattle, floor(addeline_frame), 140, 840);
+    gpu_set_fog(false, c_white, 0, 0);
 }
-
-// Draw Milly
 if (sprite_exists(MillyBattle)) {
-    draw_sprite(MillyBattle, floor(milly_frame), 450, 840); 
-    if (milly_flash_alpha > 0) {
-        gpu_set_fog(true, milly_flash_color, 0, 0);
-        draw_sprite_ext(MillyBattle, floor(milly_frame), 450, 840, 1, 1, 0, c_white, milly_flash_alpha);
-        gpu_set_fog(false, c_white, 0, 0);
-    }
+    if (milly_flash_alpha > 0) gpu_set_fog(true, milly_flash_color, 0, 0);
+    draw_sprite(MillyBattle, floor(milly_frame), 350, 840); 
+    gpu_set_fog(false, c_white, 0, 0);
+}
+if (sprite_exists(ErinBattle)) {
+    if (erin_flash_alpha > 0) gpu_set_fog(true, erin_flash_color, 0, 0);
+    draw_sprite(ErinBattle, floor(erin_frame), 560, 840); 
+    gpu_set_fog(false, c_white, 0, 0);
 }
 
-// Draw enemies with Flash & Fade Overlays
-for (var i = 0; i < array_length(enemies); i++) {
-    var en = enemies[i];
+// Draw King Phi 
+var boss = enemies[0];
+if (boss[1] > 0) {
+    if (boss[8] > 0) gpu_set_fog(true, boss[7], 0, 0);
+    draw_sprite_ext(boss[4], floor(boss[5]), 1200, 900, 0.8, 0.8, 0, c_white, boss[6]); 
+    gpu_set_fog(false, c_white, 0, 0);
     
-    draw_sprite_ext(en[4], floor(en[5]), en[2], en[3], 0.45, 0.45, 0, c_white, en[6]); 
-    
-    if (en[8] > 0 && en[6] > 0) {
-        gpu_set_fog(true, en[7], 0, 0);
-        draw_sprite_ext(en[4], floor(en[5]), en[2], en[3], 0.45, 0.45, 0, c_white, min(en[8], en[6]));
-        gpu_set_fog(false, c_white, 0, 0);
-    }
-
-    if (en[1] > 0) {
-        draw_set_halign(fa_center); 
-        draw_set_color(c_yellow);
-        draw_text_transformed(en[2], en[3] - 84, string(en[1]) + " / 30", 1.4, 1.4, 0); 
-    }
+    draw_set_halign(fa_center); 
+    draw_set_color(c_yellow);
 }
 
 // --- 2. FAIRY DIALOGUE BOX (TOP) ---
-var fairy_box_w = 1750;                
-var fairy_box_h = 320;                
-
-if (sprite_exists(spr_dialogue_base)) draw_sprite_stretched(spr_dialogue_base, 0, 5, 10, fairy_box_w, fairy_box_h);
+var fairy_box_w = 1750; var fairy_box_h = 322;                
+if (sprite_exists(spr_dialogue_base)) draw_sprite_stretched(spr_dialogue_base, 0, 7, 14, fairy_box_w, fairy_box_h);
 
 draw_set_halign(fa_left); draw_set_valign(fa_top);
-draw_set_color(c_black); 
-draw_text_transformed(200, 125, "BRIA", 1.4, 1.4, 0); 
-
+draw_set_color(c_black); draw_text(203, 126, "DIALOGUE"); 
 draw_set_color(make_color_rgb(40, 40, 40));
-var text_to_draw = string_copy(fairy_text, 1, floor(text_progress));
-draw_text_ext_transformed(200, 170, text_to_draw, 22, (fairy_box_w / 1.4) - 90, 1.4, 1.4, 0);
+draw_text_ext(203, 168, string_copy(fairy_text, 1, floor(text_progress)), 31, fairy_box_w - 126);
 
-// --- 3. BOTTOM LEFT HUD (DUAL PORTRAITS + HP) ---
-var ad_x = 100;
-var ad_y = 1035;  
-var ad_alpha = (is_tutorial) ? 0.5 : 1; 
-var ad_face = (player_hp > 70) ? 0 : (player_hp > 30 ? 1 : 2);
+// --- 3. BOTTOM LEFT HUD (ADDELINE, MILLY, ERIN) ---
+var p_y = 952;        
+var hps = [player_hp, milly_hp, erin_hp];
+var max_hps = [player_max_hp, milly_max_hp, erin_max_hp];
+var portraits = [AddelineBUI, MillyBUI_1, ErinBUI];
 
-draw_set_color(active_char == 0 ? c_yellow : (is_tutorial ? c_dkgray : c_white));
-draw_roundrect_ext(200, 920, 340, 1040, 14, 14, true); 
+for (var i = 0; i < 3; i++) {
+    var box_left = hud_start_x + (i * hud_btn_spacing); 
+    var box_right = box_left + hud_btn_width; 
+    
+    var port_x = box_left - 105; 
+    var port_y = p_y + 91;
+    
+    if (sprite_exists(portraits[i])) {
+        var face = (hps[i] > 70) ? 0 : (hps[i] > 30 ? 1 : 2);
+        draw_sprite_ext(portraits[i], face, port_x, port_y, 0.7, 0.7, 0, c_white, 1.0);
+    }
 
-if (sprite_exists(AddelineBUI)) draw_sprite_ext(AddelineBUI, ad_face, ad_x, ad_y, 0.7, 0.7, 0, c_white, ad_alpha);
+    if (active_char == i) draw_set_color(c_yellow);
+    else draw_set_color(c_white);
+    
+    draw_roundrect_ext(box_left, p_y - 28, box_right, p_y + 84, 14, 14, true); 
 
-draw_set_halign(fa_center); draw_set_valign(fa_middle);
-draw_set_color(is_tutorial ? c_gray : c_white); 
-draw_text_transformed(270, 960, string(player_hp), 1.4, 1.4, 0);
-draw_text_transformed(270, 975, "___", 1.4, 1.4, 0);
-draw_text_transformed(270, 1010, string(player_max_hp), 1.4, 1.4, 0);
-
-if (is_tutorial) {
-    draw_set_color(c_red);
-    draw_text_transformed(ad_x + 20, ad_y - 125, "LOCKED", 1.4, 1.4, 0);
+    var center_x = box_left + (hud_btn_width / 2); 
+    draw_set_halign(fa_center); draw_set_valign(fa_middle);
+    draw_set_color(c_white); 
+    
+    draw_text(center_x, p_y + 7, string(hps[i]));
+    draw_text(center_x, p_y + 21, "___");
+    draw_text(center_x, p_y + 56, string(max_hps[i]));
 }
-
-var mil_x = 435; 
-var mil_y = 940; 
-var mil_face = (milly_hp > 70) ? 0 : (milly_hp > 30 ? 1 : 2); 
-
-draw_set_color(active_char == 1 ? c_yellow : c_white);
-draw_roundrect_ext(540, 920, 680, 1040, 14, 14, true);
-
-if (sprite_exists(MillyBUI)) draw_sprite_ext(MillyBUI, mil_face, mil_x, mil_y, 0.7, 0.7, 0, c_white, 1);
-
-draw_set_color(c_white); 
-draw_text_transformed(610, 960, string(milly_hp), 1.4, 1.4, 0);
-draw_text_transformed(610, 975, "___", 1.4, 1.4, 0);
-draw_text_transformed(610, 1010, string(milly_max_hp), 1.4, 1.4, 0);
-
 draw_set_valign(fa_top); 
 
-// --- 4. BOTTOM RIGHT MENU BOX ---
-var box_x = 910;       
-var box_y = 770;        
-var box_w = 980;        
-var box_h = 280;        
-
-if (sprite_exists(spr_dialogue_base)) draw_sprite_stretched(spr_dialogue_base, 0, box_x, box_y, box_w, box_h);
-
-// --- 5. GRID SKILLS (TEXT ONLY - No Defend Menu) ---
+// --- 4. BOTTOM RIGHT ATTACK MENU ---
 if (battle_state == BattleState.PLAYER_MENU) {
+    var box_x = 910; var box_y = 770; var box_w = 980; var box_h = 280;          
+    if (sprite_exists(spr_dialogue_base)) draw_sprite_stretched(spr_dialogue_base, 0, box_x, box_y, box_w, box_h);
+
     draw_set_halign(fa_left); draw_set_valign(fa_top);
-    
-    var text_start_x = 1080;  
-    var text_start_y = 890;   
-    var col_spacing = 420;    
-    var row_spacing = 85;     
+    var text_start_x = 1078;  var text_start_y = 896;   
+    var col_spacing = 420;   var row_spacing = 84;      
     
     var skills = [];
     if (active_char == 0) skills = ["Add it up!", "Sub-tract HP", "Share health!", "Double Down"];
-    else skills = ["Health Multiply", "Divide it out!", "Share buffs!", "Long Way Down"];
+    else if (active_char == 1) skills = ["Health Multiply", "Divide it out!", "Share buffs!", "Long Way Down"];
+    else if (active_char == 2) skills = ["Damage Squared", "Root of Problem", "Hit it again!", "Perfectly Balanced"];
     
     for (var i = 0; i < 4; i++) {
         var is_sel = (menu_index == i);
-        var is_locked = (is_tutorial && i != milly_tutorial_step);
-        
         var col = (i >= 2) ? 1 : 0;
         var row = (i % 2);
-        
         var tx = text_start_x + (col * col_spacing);
         var ty = text_start_y + (row * row_spacing);
         
-        if (is_locked) draw_set_color(c_gray);
-        else draw_set_color(is_sel ? c_blue : make_color_rgb(40, 40, 40)); 
-        
-        var prefix = (is_sel) ? "> " : "  "; 
-        draw_text_transformed(tx, ty, prefix + skills[i], 1.4, 1.4, 0); 
+        draw_set_color(is_sel ? c_blue : make_color_rgb(40, 40, 40)); 
+        draw_text(tx, ty, (is_sel ? "> " : "  ") + skills[i]); 
     }
 }
 
-// --- 6. SOLVE STATE ---
+// --- 5. MATH SOLVING HUD ---
 if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFEND_SOLVE) {
-    draw_set_halign(fa_center); draw_set_valign(fa_top);
     
-    var solve_center_x = 1400; 
-    var solve_start_y = 875;   
+    var box_x = 910; var box_y = 770; var box_w = 980; var box_h = 280;          
+    if (sprite_exists(spr_dialogue_base)) draw_sprite_stretched(spr_dialogue_base, 0, box_x, box_y, box_w, box_h);
+    
+    draw_set_halign(fa_center); draw_set_valign(fa_top);
+    var solve_center_x = 1400; var solve_start_y = 875;     
     var is_def = (battle_state == BattleState.DEFEND_SOLVE);
     
     var cur_t = is_def ? defend_timer/defend_timer_max : spell_timer/spell_timer_max;
     draw_set_color(is_def ? c_red : c_aqua);
-    draw_rectangle(solve_center_x - 150, solve_start_y + 30, solve_center_x - 150 + (cur_t * 300), solve_start_y - 15, false);
+    draw_rectangle(solve_center_x - 140, solve_start_y + 28, solve_center_x - 140 + (cur_t * 280), solve_start_y - 14, false);
 
     draw_set_color(c_blue);
-    draw_text_transformed(solve_center_x, solve_start_y, is_def ? "-- DEFEND SPELL --" : "-- MATH SPELL --", 1.4, 1.4, 0);
+    draw_text(solve_center_x, solve_start_y, is_def ? "-- EMERGENCY DEFEND! --" : "-- MATH SPELL --");
     
     draw_set_color(make_color_rgb(40, 40, 40));
-    draw_text_transformed(solve_center_x, solve_start_y + 60, problem_question, 1.4, 1.4, 0);
-    draw_text_transformed(solve_center_x, solve_start_y + 120, "ANS: " + player_input + "_", 1.4, 1.4, 0);
+    draw_text(solve_center_x, solve_start_y + 63, problem_question);
+    draw_text(solve_center_x, solve_start_y + 126, "ANS: " + player_input + "_");
 }
 draw_set_valign(fa_top);

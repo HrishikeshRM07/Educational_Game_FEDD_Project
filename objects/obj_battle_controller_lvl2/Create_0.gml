@@ -22,17 +22,19 @@ milly_tutorial_step = 0; // 0=Skill1, 1=Skill2, 2=Skill3, 3=Skill4, 4=Tutorial D
 is_tutorial = true;
 
 milly_heal_buff = 0; party_buff = 0; enemy_debuff = 0;
+target_index = 0; // Target tracking
 
 // --- 4. MATH & UI ---
 selected_skill = -1;
 problem_question = ""; problem_answer = 0;
-problem_val1 = 0; problem_val2 = 0; // For hints
+problem_val1 = 0; problem_val2 = 0; problem_val3 = 0; // Added val3 for multi-step math
 player_input = ""; menu_index = 0; 
+targeting_phase = false; 
 
 // --- 5. TIMERS ---
 spell_timer_max = 600; spell_timer = spell_timer_max;
 defend_timer_max = 300; defend_timer = defend_timer_max;
-attack_timer = 0;       
+attack_timer = 0;        
 
 // --- 6. TYPEWRITER TEXT ---
 fairy_text = "Bria: Milly’s skills focus on multiplication and division. Let’s start with multiplication! <Skill 1> Provides a buff to healing! Now you give it a try.";

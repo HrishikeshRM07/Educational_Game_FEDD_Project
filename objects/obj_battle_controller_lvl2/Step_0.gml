@@ -48,13 +48,11 @@ if (battle_state == BattleState.ENEMY_TURN) {
     if (attack_timer > 0) {
         attack_timer--;
     } else {
-        // Skip DEFEND_MENU and go straight to DEFEND_SOLVE
         battle_state = BattleState.DEFEND_SOLVE;
         defend_timer = defend_timer_max;
         player_input = "";
         fairy_text = "Bria: Incoming attack! Solve this quickly to block!";
         
-        // Generate a random math problem (+, -, *, /)
         var op = irandom(3); 
         if (op == 0) {
             problem_val1 = irandom_range(15, 60); problem_val2 = irandom_range(15, 60);
@@ -76,24 +74,109 @@ if (battle_state == BattleState.ENEMY_TURN) {
     }
 }
 
-// --- 3. MENU NAVIGATION ---
+// --- 3. MENU NAVIGATION & TARGETING ---
 if (battle_state == BattleState.PLAYER_MENU && win_timer <= 0) {
     
-    if (is_tutorial) {
-        menu_index = milly_tutorial_step; // Lock to tutorial
-    } else {
-        if (keyboard_check_pressed(vk_right)) menu_index = clamp(menu_index + 2, 0, 3);
-        if (keyboard_check_pressed(vk_left))  menu_index = clamp(menu_index - 2, 0, 3);
-        if (keyboard_check_pressed(vk_down))  menu_index = (menu_index % 2 == 0) ? menu_index + 1 : menu_index;
-        if (keyboard_check_pressed(vk_up))    menu_index = (menu_index % 2 != 0) ? menu_index - 1 : menu_index;
-    }
+    var trigger_math_gen = false; // Local flag to smoothly transition to solving
+    
+    if (!targeting_phase) {
+        // --- SKILL SELECTION PHASE ---
+        if (is_tutorial) {
+            menu_index = milly_tutorial_step; // Lock to tutorial
+        } else {
+            if (keyboard_check_pressed(vk_right)) menu_index = clamp(menu_index + 2, 0, 3);
+            if (keyboard_check_pressed(vk_left))  menu_index = clamp(menu_index - 2, 0, 3);
+            if (keyboard_check_pressed(vk_down))  menu_index = (menu_index % 2 == 0) ? menu_index + 1 : menu_index;
+            if (keyboard_check_pressed(vk_up))    menu_index = (menu_index % 2 != 0) ? menu_index - 1 : menu_index;
+        }
 
-    if (keyboard_check_pressed(vk_enter)) {
-        selected_skill = menu_index + 1;
+        if (keyboard_check_pressed(vk_enter)) {
+            selected_skill = menu_index + 1;
+            
+            // Only Skill 2 requires enemy targeting. Heals/AoEs skip straight to math!
+            if (selected_skill == 2) {
+                targeting_phase = true;
+                if (array_length(enemies) > 0 && enemies[target_index][1] <= 0) {
+                     for (var i = 0; i < array_length(enemies); i++) {
+                         if (enemies[i][1] > 0) { target_index = i; break; }
+                     }
+                }
+            } else {
+                trigger_math_gen = true; // Skip targeting
+            }
+        }
+    } else {
+        // --- ENEMY TARGETING PHASE (Only for Skill 2) ---
+        if (keyboard_check_pressed(vk_space) || keyboard_check_pressed(vk_right)) {
+            var start_idx = target_index;
+            for (var i = 1; i < array_length(enemies); i++) {
+                var check_idx = (start_idx + i) % array_length(enemies);
+                if (enemies[check_idx][1] > 0) { target_index = check_idx; break; }
+            }
+        }
+        if (keyboard_check_pressed(vk_left)) {
+            var start_idx = target_index;
+            for (var i = 1; i < array_length(enemies); i++) {
+                var check_idx = (start_idx - i + array_length(enemies)) % array_length(enemies);
+                if (enemies[check_idx][1] > 0) { target_index = check_idx; break; }
+            }
+        }
+
+        if (keyboard_check_pressed(vk_enter)) {
+            targeting_phase = false; 
+            trigger_math_gen = true; 
+        }
+        
+        if (keyboard_check_pressed(vk_backspace) || keyboard_check_pressed(vk_escape)) {
+            targeting_phase = false;
+        }
+    }
+    
+    // --- MATH GENERATION TRIGGER ---
+    if (trigger_math_gen) {
         player_input = ""; 
-        generate_problem(selected_skill, active_char); 
         spell_timer = spell_timer_max;
         battle_state = BattleState.PLAYER_SOLVE;
+        
+        // Generate problems based on specific skills
+        if (active_char == 0) { // Addeline
+            if (selected_skill == 1) { // 1 + 1 = 2
+                problem_val1 = irandom_range(2, 20); problem_val2 = irandom_range(2, 20);
+                problem_answer = problem_val1 + problem_val2;
+                problem_question = string(problem_val1) + " + " + string(problem_val2) + " = ?";
+            } else if (selected_skill == 2) { // 3 - 2 = 1
+                problem_val1 = irandom_range(10, 40); problem_val2 = irandom_range(1, problem_val1 - 1);
+                problem_answer = problem_val1 - problem_val2;
+                problem_question = string(problem_val1) + " - " + string(problem_val2) + " = ?";
+            } else if (selected_skill == 3) { // 3 + 4 + 5 = 12
+                problem_val1 = irandom_range(2, 12); problem_val2 = irandom_range(2, 12); problem_val3 = irandom_range(2, 12);
+                problem_answer = problem_val1 + problem_val2 + problem_val3;
+                problem_question = string(problem_val1) + " + " + string(problem_val2) + " + " + string(problem_val3) + " = ?";
+            } else if (selected_skill == 4) { // 10 - 5 - 2 = 3
+                problem_val1 = irandom_range(20, 50); problem_val2 = irandom_range(2, 10); problem_val3 = irandom_range(2, 10);
+                problem_answer = problem_val1 - problem_val2 - problem_val3;
+                problem_question = string(problem_val1) + " - " + string(problem_val2) + " - " + string(problem_val3) + " = ?";
+            }
+        } else { // Milly
+            if (selected_skill == 1) { // 4 * 5 = 20
+                problem_val1 = irandom_range(3, 12); problem_val2 = irandom_range(3, 12);
+                problem_answer = problem_val1 * problem_val2;
+                problem_question = string(problem_val1) + " x " + string(problem_val2) + " = ?";
+            } else if (selected_skill == 2) { // 9 / 3 = 3
+                problem_val2 = irandom_range(2, 12); problem_answer = irandom_range(2, 12);
+                problem_val1 = problem_answer * problem_val2; // Guarantees clean division
+                problem_question = string(problem_val1) + " / " + string(problem_val2) + " = ?";
+            } else if (selected_skill == 3) { // 3(2 + 6)
+                problem_val1 = irandom_range(2, 6); problem_val2 = irandom_range(1, 6); problem_val3 = irandom_range(1, 6);
+                problem_answer = problem_val1 * (problem_val2 + problem_val3);
+                problem_question = string(problem_val1) + "(" + string(problem_val2) + " + " + string(problem_val3) + ") = ?";
+            } else if (selected_skill == 4) { // 15 / 2 = 7.5 (Forces odd numbers so it always ends in .5)
+                var temp_base = irandom_range(3, 12);
+                problem_val1 = (temp_base * 2) + 1; // Makes it odd
+                problem_answer = problem_val1 / 2;
+                problem_question = string(problem_val1) + " / 2 = ?";
+            }
+        }
     }
 }
 
@@ -118,7 +201,7 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
     }
     if (defend_timer <= 0 && is_defending) { 
         fairy_text = "Bria: Ouch! We took a hit!";
-        player_hp -= 15; milly_hp -= 15; 
+        player_hp = max(0, player_hp - 15); milly_hp = max(0, milly_hp - 15); 
         player_flash_color = c_red; player_flash_alpha = 1.0;
         milly_flash_color = c_red; milly_flash_alpha = 1.0;
         battle_state = BattleState.PLAYER_MENU; 
@@ -149,9 +232,11 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
                         player_flash_color = c_green; player_flash_alpha = 1.0;
                     } else if (selected_skill == 2) { 
                         addeline_frame = 10; addeline_anim_end = 24; 
-                        for (var i = 0; i < array_length(enemies); i++) { 
-                            if (enemies[i][1] > 0) { enemies[i][1] -= 15; enemies[i][7] = c_white; enemies[i][8] = 1.0; break; } 
-                        }
+                        if (enemies[target_index][1] > 0) { 
+                            enemies[target_index][1] -= 15; 
+                            enemies[target_index][7] = c_white; 
+                            enemies[target_index][8] = 1.0; 
+                        } 
                     } else if (selected_skill == 3) { 
                         addeline_frame = 52; addeline_anim_end = 67; 
                         player_hp = min(player_hp + 15, player_max_hp); milly_hp = min(milly_hp + 15, milly_max_hp);
@@ -172,9 +257,11 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
                         milly_flash_color = c_yellow; milly_flash_alpha = 1.0;
                     } else if (selected_skill == 2) { 
                         milly_frame = 25; milly_anim_end = 40; 
-                        for (var i = 0; i < array_length(enemies); i++) { 
-                            if (enemies[i][1] > 0) { enemies[i][1] -= 15; enemies[i][7] = c_white; enemies[i][8] = 1.0; break; } 
-                        }
+                        if (enemies[target_index][1] > 0) { 
+                            enemies[target_index][1] -= 15; 
+                            enemies[target_index][7] = c_white; 
+                            enemies[target_index][8] = 1.0; 
+                        } 
                     } else if (selected_skill == 3) { 
                         milly_frame = 40; milly_anim_end = 55; party_buff = 3; 
                         player_flash_color = c_yellow; player_flash_alpha = 1.0;
@@ -192,7 +279,7 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
                         is_tutorial = (milly_tutorial_step < 4); 
 
                         if (milly_tutorial_step == 1) fairy_text = "Bria: Excellent! <Skill 2> damages enemies using division. Try it!";
-                        else if (milly_tutorial_step == 2) fairy_text = "Bria: Nice! <Skill 3> uses the distributive property. Multiply the outside by the inside!";
+                        else if (milly_tutorial_step == 2) fairy_text = "Bria: Nice! <Skill 3> uses the distributive property. Add the inside, then multiply the outside!";
                         else if (milly_tutorial_step == 3) fairy_text = "Bria: <Skill 4> debuffs enemies. Divide by 2. Don't forget the .5 decimal!";
                         else if (milly_tutorial_step == 4) {
                             fairy_text = "Bria: Tutorial done! Let's get them, Addeline!";
@@ -232,19 +319,20 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
                 }
             }
         } else { 
-            // --- WRONG ANSWER ---
+            // --- WRONG ANSWER HINTS ---
             player_input = ""; 
             if (is_defending) {
                 fairy_text = "Bria: Block the attack! Re-check your math!";
             } else if (active_char == 0) {
                 if (selected_skill == 1) fairy_text = "Bria: Hint! Try counting up from " + string(problem_val1) + ".";
                 else if (selected_skill == 2) fairy_text = "Bria: Hint! Take " + string(problem_val2) + " away from " + string(problem_val1) + ".";
-                else fairy_text = "Bria: Careful! Check your math again.";
+                else if (selected_skill == 3) fairy_text = "Bria: Hint! Add " + string(problem_val1) + " and " + string(problem_val2) + " first, then add " + string(problem_val3) + ".";
+                else if (selected_skill == 4) fairy_text = "Bria: Hint! Take " + string(problem_val2) + " away from " + string(problem_val1) + " first.";
             } else {
                 if (selected_skill == 1) fairy_text = "Bria: Hint! What is " + string(problem_val1) + " groups of " + string(problem_val2) + "?";
-                else if (selected_skill == 2) fairy_text = "Bria: Hint! How many times does " + string(problem_val1) + " fit into that number?";
-                else if (selected_skill == 3) fairy_text = "Bria: Hint! Multiply " + string(problem_val1) + " by both inside numbers, then add them.";
-                else if (selected_skill == 4) fairy_text = "Bria: Hint! Half of " + string(problem_val1) + " is " + string(problem_val1 / 2) + ".";
+                else if (selected_skill == 2) fairy_text = "Bria: Hint! How many times does " + string(problem_val2) + " fit into " + string(problem_val1) + "?";
+                else if (selected_skill == 3) fairy_text = "Bria: Hint! Add " + string(problem_val2) + " and " + string(problem_val3) + " first, then multiply by " + string(problem_val1) + "!";
+                else if (selected_skill == 4) fairy_text = "Bria: Hint! Think of it like money. What's half of " + string(problem_val1) + "? Don't forget the .5!";
             }
         }
     }

@@ -24,7 +24,7 @@ if (keyboard_check_pressed(vk_enter)) {
     
     // If we just clicked past the final line, transition to the next level/overworld!
     if (current_line >= array_length(dialogue)) {
-        room_goto(rm_); // Make sure to change this to the name of your next room!
+        room_goto(rm_Level6_Battle); // Make sure to change this to the name of your next room!
     }
 }
 
