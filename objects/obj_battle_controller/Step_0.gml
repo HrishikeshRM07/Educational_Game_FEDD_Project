@@ -59,7 +59,7 @@ if (attack_timer > 0) {
     if (tutorial_stage == 0 || tutorial_stage == 2 || tutorial_stage == 4) {
         if (attack_timer == 120) {
             if (tutorial_stage == 0) fairy_text = "Here comes his attack! Prepare yourself to solve this equation!";
-            if (tutorial_stage == 2) fairy_text = "Horatio is utilizing another skill to summon an ME! Prepare yourself!";
+            if (tutorial_stage == 2) fairy_text = "Horatio is utilizing another skill to summon another enemy! Prepare yourself!";
             if (tutorial_stage == 4) fairy_text = "Watch out! Horatio is launching a massive direct attack! Get ready to DEFEND!";
         }
         
@@ -71,7 +71,7 @@ if (attack_timer > 0) {
                 tutorial_stage = 1;
                 battle_state = BattleState.PLAYER_MENU;
             } else if (tutorial_stage == 2) {
-                fairy_text = "He's gathering forces... but we have a skill for this. Press on Double Sub!";
+                fairy_text = "He's gathering forces... but we have a skill for this. Press on Double Down!";
                 tutorial_stage = 3;
                 battle_state = BattleState.PLAYER_MENU;
             } else if (tutorial_stage == 4) {
@@ -104,11 +104,31 @@ switch (battle_state) {
         if (keyboard_check_pressed(vk_up) || keyboard_check_pressed(ord("W"))) {
             if (menu_index == 1) menu_index = 0; else if (menu_index == 3) menu_index = 2;
         }
-
+		var skill_map = [1, 2, 3, 4]; 
+		if (tutorial_stage >= 5) {
+			if (skill_map[menu_index] == 1) {
+				fairy_text = "Provides heal to one party member: Click on Additive Power, and we can solve the problem together! For this spell, you’ll need to put two numbers together.\nFor example! If you have 3 bows and I have 6 bows, if we put our bows together then we’d have 9 bows.";
+			} else if (skill_map[menu_index] == 2) {
+				fairy_text = "Deals damage to one enemy: In order to use Sub-tract the health, you need to remove the\nsecond number from the first number!\nYou can think of it like this: If I had 3 apples, and I gave 1 of them to you, I’d be left with 2 apples.";
+			} else if (skill_map[menu_index] == 3) {
+				fairy_text = "Provides party heal: In order to do this you just need to add a bunch of numbers together! It doesn’t matter what order that you do it again.\nFor example if I have 10 cookies, you give me 5, and a friend of mine gives me 5 I’d end up with 20!\nIt doesn’t matter if my friend gives it to me first or you give it to me first, I’ll still end up with the same amount of cookies!";
+			} else {
+				fairy_text = "Multi-target attack: This is pretty similar to Sub-tract the health!, but now you’ll be subtracting multiple smaller numbers from one bigger number!\nIf you need a way to think about it, if I have 38 cupcakes, I give 3 to you, and I give 5 to a friend of mine I’ll have 38-3-5 cupcakes, which means I’d be left with 30 cupcakes!";
+			}
+		}
         // Selection
         if (keyboard_check_pressed(vk_enter) || keyboard_check_pressed(vk_space)) {
             var skill_map = [1, 2, 3, 4]; 
             var potential_skill = skill_map[menu_index];
+			if (skill_map[menu_index] == 1) {
+				fairy_text = "Provides heal to one party member: Click on Additive Power, and we can solve the problem together! For this spell, you’ll need to put two numbers together.\nFor example! If you have 3 bows and I have 6 bows, if we put our bows together then we’d have 9 bows.";
+			} else if (skill_map[menu_index] == 2) {
+				fairy_text = "Deals damage to one enemy: In order to use Sub-tract the health, you need to remove the\nsecond number from the first number!\nYou can think of it like this: If I had 3 apples, and I gave 1 of them to you, I’d be left with 2 apples.";
+			} else if (skill_map[menu_index] == 3) {
+				fairy_text = "Provides party heal: In order to do this you just need to add a bunch of numbers together! It doesn’t matter what order that you do it again.\nFor example if I have 10 cookies, you give me 5, and a friend of mine gives me 5 I’d end up with 20!\nIt doesn’t matter if my friend gives it to me first or you give it to me first, I’ll still end up with the same amount of cookies!";
+			} else {
+				fairy_text = "Multi-target attack: This is pretty similar to Sub-tract the health!, but now you’ll be subtracting multiple smaller numbers from one bigger number!\nIf you need a way to think about it, if I have 38 cupcakes, I give 3 to you, and I give 5 to a friend of mine I’ll have 38-3-5 cupcakes, which means I’d be left with 30 cupcakes!";
+			}
             
             var can_use = false;
             if (tutorial_stage == 0 && potential_skill == 2) can_use = true; 
@@ -123,10 +143,10 @@ switch (battle_state) {
                 battle_state = BattleState.PLAYER_SOLVE;
                 player_input = ""; 
                 
-                if (tutorial_stage == 0) fairy_text = "In order to use <Skill 2: Subtraction>, you need to remove the second number from the first number!";
-                if (tutorial_stage == 1) fairy_text = "For this spell, you’ll need to put two numbers together. Put them together to find the total!";
-                if (tutorial_stage == 3) fairy_text = "This is pretty similar to <Skill 2> but now you’ll be subtracting multiple smaller numbers from one bigger number!";
-                if (tutorial_stage == 4) fairy_text = "In order to do this you just need to add a bunch of numbers together! It doesn’t matter what order that you do it in.";
+                if (tutorial_stage == 0) fairy_text = "In order to use Sub-tract the health, you need to remove the second number from the first number! \nYou can think of it like this: If I had 3 apples, and I gave 1 of them to you, I’d be left with 2 apples. Now you try it!";
+                if (tutorial_stage == 1) fairy_text = "We can solve the problem together! For this spell, you’ll need to put two numbers together.\nFor example! If you have 3 bows and I have 6 bows, if we put our bows together then we’d have 9 bows. Now you try it!";
+                if (tutorial_stage == 3) fairy_text = "This is pretty similar to Sub-tract the health! but now you’ll be subtracting multiple smaller numbers from one bigger number!\nIf you need a way to think about it, if I have 38 cupcakes, I give 3 to you, and I give 5 to a friend of mine I’ll have 38-3-5 cupcakes, which means I’d be left with 30 cupcakes! Now you try it.";
+                if (tutorial_stage == 4) fairy_text = "In order to do this you just need to add a bunch of numbers together! It doesn’t matter what order that you do it again.\nFor example if I have 10 cookies, you give me 5,\nand a friend of mine gives me 5 I’d end up with 20! It doesn’t matter if my friend gives it to me first or you give it to me first, I’ll still end up with the same amount of cookies! Now you try it!";
             } else {
                 fairy_text = "Not that one! We need to follow the mathemagical steps first.";
             }

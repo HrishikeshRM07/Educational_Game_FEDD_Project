@@ -36,7 +36,7 @@ wrong_answer_hint = "";
 
 attack_timer = 0; 
 win_timer = -1; 
-fairy_text = "Thank you for your help! Let me show you how mathemagical skills work so that you can defeat Horatio. First, press on Subtraction.";
+fairy_text = "Thank you for your help! Let me show you how mathemagical skills work so that you can defeat Horatio. First, press the arrow key, until you're on the skill: Sub-tract the health";
 
 // --- 6. ANIMATION SETUP ---
 addeline_frame = 0;
