@@ -2,14 +2,14 @@
 
 dialogue = [];
 
-dialogue[0] = { t: "It’s been some time since I’ve been in a fight that was as intense as that one!", s: "Erin", port: ErinDialogue };
-dialogue[1] = { t: "I can certainly see why M’lady Bria thinks you to be capable of defeating King Phi.", s: "Erin", port: ErinDialogue };
+dialogue[0] = { t: "It\u0027s been some time since I\u0027ve been in a fight that was as intense as that one!", s: "Erin", port: ErinDialogue };
+dialogue[1] = { t: "I can certainly see why M\u0027lady Bria thinks you to be capable of defeating King Phi.", s: "Erin", port: ErinDialogue };
 
 dialogue[2] = { t: "Thank you!", s: "Milly", port: MillyDialogue };
 
-dialogue[3] = { t: "We’ve had time to train, which definitely helps.", s: "Addeline", port: AddelineDialogue };
+dialogue[3] = { t: "We\u0027ve had time to train, which definitely helps.", s: "Addeline", port: AddelineDialogue };
 
-dialogue[4] = { t: "Regardless, we’re almost at King Phi now!", s: "Bria", port: BriaDialogue };
+dialogue[4] = { t: "Regardless, we\u0027re almost at King Phi now!", s: "Bria", port: BriaDialogue };
 dialogue[5] = { t: "I have faith in all of you as a team", s: "Bria", port: BriaDialogue };
 
 
