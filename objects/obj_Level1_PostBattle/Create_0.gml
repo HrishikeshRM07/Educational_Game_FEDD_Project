@@ -3,22 +3,22 @@ dialogue = [];
 
 // Addeline starts, grateful & curious
 dialogue[0] = { t: "This is getting easier each time! Thank you, Bria.", s: "Addeline", spr: pl_ad, port: AddelineDialogue, f: 5 };
-dialogue[1] = { t: "Although I do have to ask… do you know why so much destruction has happened because of King Phi?", s: "Addeline", spr: pl_ad, port: AddelineDialogue, f: 0 };
+dialogue[1] = { t: "Although I do have to ask, do you know why so much destruction has happened because of King Phi?", s: "Addeline", spr: pl_ad, port: AddelineDialogue, f: 0 };
 
 // Bria explains in small chunks for pacing
-dialogue[2] = { t: "King Phi has wanted power for a long time, and he’s willing to go to any length to get it.", s: "Bria", spr: pl_fairy, port: BriaDialogue, f: 2 };
+dialogue[2] = { t: "Since King Phi has wanted power for a long time, and he’s willing to go to any length in order to get it.", s: "Bria", spr: pl_fairy, port: BriaDialogue, f: 2 };
 dialogue[3] = { t: "At first, the problems could be solved with quick fixes, like replanting some trees.", s: "Bria", spr: pl_fairy, port: BriaDialogue, f: 1 };
-dialogue[4] = { t: "But over time, the issues multiplied.", s: "Bria", spr: pl_fairy, port: BriaDialogue, f: 2 };
-dialogue[5] = { t: "It escalated to the point where I was kidnapped, and the Summation Scorpion attacked your town.", s: "Bria", spr: pl_fairy, port: BriaDialogue, f: 3 };
-dialogue[6] = { t: "King Phi’s actions created effects that spread across the entire kingdom.", s: "Bria", spr: pl_fairy, port: BriaDialogue, f: 3 };
+dialogue[4] = { t: "but as time passed, the issues seemed to multiply...", s: "Bria", spr: pl_fairy, port: BriaDialogue, f: 2 };
+dialogue[5] = { t: "Until it got to a point where I was kidnapped, and the Summation Scorpion attacked your town.", s: "Bria", spr: pl_fairy, port: BriaDialogue, f: 3 };
+dialogue[6] = { t: "King Phi’s actions have created an effect that has spread across the kingdom.", s: "Bria", spr: pl_fairy, port: BriaDialogue, f: 3 };
 
 // Addeline reacts
 dialogue[7] = { t: "That… makes a lot of sense! Thank you, Bria.", s: "Addeline", spr: pl_ad, port: AddelineDialogue, f: 1 };
 
 // Bria pushes the story forward
 dialogue[8] = { t: "Not a problem, Addeline!", s: "Bria", spr: pl_fairy, port: BriaDialogue, f: 1 };
-dialogue[9] = { t: "Now, let’s keep moving. I can’t shake the feeling that we’re being followed…", s: "Bria", spr: pl_fairy, port: BriaDialogue, f: 3 };
-dialogue[10] = { t: "...and the sooner we find Horatio, the closer we’ll be to defeating King Phi.", s: "Bria", spr: pl_fairy, port: BriaDialogue, f: 3 };
+dialogue[9] = { t: "Now, let’s keep moving. I can’t help but feel like we're being followed", s: "Bria", spr: pl_fairy, port: BriaDialogue, f: 3 };
+dialogue[10] = { t: "and the sooner we find Horatio, the closer we’ll be to defeating King Phi.", s: "Bria", spr: pl_fairy, port: BriaDialogue, f: 3 };
 
 // --- 2. SCENE STATE VARIABLES ---
 current_line = 0;

@@ -8,13 +8,13 @@ dialogue[2] = { t: "What else would I need this pesky scorpion for?", s: "Horati
 dialogue[3] = { t: "That’s enough, Horatio! Don’t you see you’re hurting the Scorpion?", s: "Addeline", port: AddelineDialogue, f :2 };
 
 // { Horatio moves away from the Scorpion, carrying a vial... }
-dialogue[4] = { t: "I have what I need for King Phi now, so it's already too late!", s: "Horatio", port: HoratioDialogue, f: 3 };
-dialogue[5] = { t: "Good luck with dealing with this beast.", s: "Horatio", port: HoratioDialogue, f: 1 };
+dialogue[4] = { t: "That's not my problem!", s: "Horatio", port: HoratioDialogue, f: 3 };
+dialogue[5] = { t: "I guess you’ll just have to deal with the scorpion if you’re wanting to stop me.", s: "Horatio", port: HoratioDialogue, f: 1 };
 
 // The beast attacks!
 dialogue[6] = { t: "Uhm, guys… I think it’s about to attack us!", s: "Milly", port: MillyDialogue, f: 2 };
 dialogue[7] = { t: "Horatio… how could he…", s: "Addeline", port: AddelineDialogue };
-dialogue[8] = { t: "No time for that, Addeline! The scorpion’s about to attack! Brace yourself!", s: "Bria", port: BriaDialogue, f: 3 };
+dialogue[8] = { t: "No time for that Addeline! The scorpion’s about to attack! Brace yourself!", s: "Bria", port: BriaDialogue, f: 3 };
 
 // --- 2. SCENE STATE VARIABLES ---
 current_line = 0;
