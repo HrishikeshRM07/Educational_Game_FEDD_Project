@@ -113,7 +113,7 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
         if (spell_timer <= 0) { 
             attack_timer = 240; 
             battle_state = BattleState.ENEMY_TURN; 
-            fairy_text = "Time's up! You missed your turn!";
+            fairy_text = "Time\u0027s up! You missed your turn!";
         }
 
         if (keyboard_check_pressed(vk_enter) && player_input != "") {
@@ -203,7 +203,7 @@ for (var i = 0; i < array_length(enemies); i++) { if (enemies[i][1] > 0) all_dea
 
 if (all_dead && attack_timer <= 0 && battle_state == BattleState.PLAYER_MENU) {
     if (current_wave < max_waves) {
-        if (win_timer == -1) { win_timer = 120; fairy_text = "Well done! That's one wave down!"; }
+        if (win_timer == -1) { win_timer = 120; fairy_text = "Well done! That\u0027s one wave down!"; }
         if (win_timer > 0) win_timer--;
         if (win_timer == 0) {
             current_wave++;

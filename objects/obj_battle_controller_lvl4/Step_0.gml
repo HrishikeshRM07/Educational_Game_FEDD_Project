@@ -122,7 +122,7 @@ if (battle_state == BattleState.PLAYER_MENU && win_timer <= 0) {
 				} else if (skill_map[menu_index] == 2) {
 					fairy_text = "Deals damage to one enemy, drains 5 of Erin’s HP: Deals damage to your enemy! You can think of it like the opposite of squaring something.\nWhen you have a number inside of " + chr(8730) + " that means you\u0027re finding out what multiplied by itself equals the number inside of " + chr(8730) + ". For example, if I need to find the square root of 64, or " + chr(8730) + "64, I know that 8 x 8 is 64, so the " + chr(8730) + "64 should be 8!";
 				} else if (skill_map[menu_index] == 3) {
-					fairy_text = "Multi-hit attack (for each additional power, Erin gets another hit on the enemy):  For example, if I have 2\u00B3, that's 2 x 2 x 2, which is the same as 4 x 2, leading me to an answer of 8! And since we’re raising 2 to the third power, Erin will get 3 hits on the enemy!";
+					fairy_text = "Multi-hit attack (for each additional power, Erin gets another hit on the enemy):  For example, if I have 2\u00B3, that\u0027s 2 x 2 x 2, which is the same as 4 x 2, leading me to an answer of 8! And since we’re raising 2 to the third power, Erin will get 3 hits on the enemy!";
 				} else {
 					fairy_text = "Erin drains HP of the targeted enemy and heals herself:\nIts used by identifying what a perfect square is made from! For example, if I have the equation x\u00B2 - 4, where x can be any number you want it to be, then I know that its the same as (x+2)(x-2) because when I distribute, (x + 2) to (x - 2), I get back to x\u00B2 - 4!";
 				}
@@ -270,7 +270,7 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
             // --- CORRECT ANSWER ---
             if (is_defending) {
                 battle_state = BattleState.PLAYER_MENU;
-                fairy_text = "Bria: Great block! Now it's our turn.";
+                fairy_text = "Bria: Great block! Now it\u0027s our turn.";
                 player_flash_color = c_white; player_flash_alpha = 1.0; // WHITE = DEFEND
                 milly_flash_color = c_white;  milly_flash_alpha = 1.0;
                 erin_flash_color = c_white;   erin_flash_alpha = 1.0;
@@ -348,7 +348,7 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
                         is_tutorial = (erin_tutorial_step < 4); 
 
                         if (erin_tutorial_step == 1) fairy_text = "Bria: Root of the Problem Deals damage to your enemy! You can think of it like the opposite of squaring something. When you have a number inside of " + chr(8730) + " that means you’re finding out what multiplied by itself equals the number inside of " + chr(8730) + ". For example, if I need to find the square root of 64, or " + chr(8730) + "64, I know that 8 x 8 is 64, so the " + chr(8730) + "64 should be 8!";
-                        else if (erin_tutorial_step == 2) fairy_text = "Bria: Raised Powers lets Erin hit a single target multiple times! For each number above two that a number is raised to, Erin gets an additional hit on the enemy! For example, if I have 2" + chr(179) + ", that's 2 x 2 x 2, which is the same as 4 x 2, leading me to an answer of 8! And since we’re raising 2 to the third power, Erin will get 3 hits on the enemy!";
+                        else if (erin_tutorial_step == 2) fairy_text = "Bria: Raised Powers lets Erin hit a single target multiple times! For each number above two that a number is raised to, Erin gets an additional hit on the enemy! For example, if I have 2" + chr(179) + ", that\u0027s 2 x 2 x 2, which is the same as 4 x 2, leading me to an answer of 8! And since we’re raising 2 to the third power, Erin will get 3 hits on the enemy!";
                         else if (erin_tutorial_step == 3) fairy_text = "Bria: <Skill 4> allows Erin to take some of the enemies health for herself! It\u0027s used by identifying what a perfect square is made from! For example, if I have the equation x\u00B2 - 4,\nwhere x can be any number you want it to be, then I know that its the same as (x-2)(x+2)\nbecause when I distribute, (x - 2) to (x + 2), I get back to x\u00B2 + 4!";
                         else if (erin_tutorial_step == 4) { fairy_text = "Bria: That\u0027s all you need to know about Erin! Now finish this battle."; active_char = 0; battle_state = BattleState.PLAYER_MENU; }
                     }
@@ -436,7 +436,7 @@ for (var i = 0; i < array_length(enemies); i++) { if (enemies[i][1] > 0) all_dea
 
 if (all_dead && attack_timer <= 0 && battle_state == BattleState.PLAYER_MENU && !is_tutorial) {
     if (current_wave < max_waves) {
-        if (win_timer == -1) { win_timer = 120; fairy_text = "Bria: Well done! That's one wave down!"; }
+        if (win_timer == -1) { win_timer = 120; fairy_text = "Bria: Well done! That\u0027s one wave down!"; }
         if (win_timer > 0) win_timer--;
         if (win_timer == 0) {
             current_wave++;
@@ -468,7 +468,7 @@ if (all_dead && attack_timer <= 0 && battle_state == BattleState.PLAYER_MENU && 
 if (player_hp <= 0 && milly_hp <= 0 && erin_hp <= 0) {
     if (lose_timer == -1) { 
         lose_timer = 180; 
-        fairy_text = "Bria: We were defeated... Let's try again!"; 
+        fairy_text = "Bria: We were defeated... Let\u0027s try again!"; 
         battle_state = BattleState.PLAYER_MENU; attack_timer = 0; 
     }
     if (lose_timer > 0) lose_timer--;

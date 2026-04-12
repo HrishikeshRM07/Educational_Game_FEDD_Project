@@ -236,7 +236,7 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
             // --- CORRECT ANSWER ---
             if (is_defending) {
                 battle_state = BattleState.PLAYER_MENU;
-                fairy_text = "Bria: Great block! Addeline, you're up!";
+                fairy_text = "Bria: Great block! Addeline, you\u0027re up!";
                 active_char = 0; // Reset back to Addeline
                 player_flash_color = c_white; player_flash_alpha = 1.0;
                 milly_flash_color = c_white; milly_flash_alpha = 1.0;
@@ -353,7 +353,7 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
                 if (selected_skill == 1) fairy_text = "Bria: Hint! What is " + string(problem_val1) + " groups of " + string(problem_val2) + "?";
                 else if (selected_skill == 2) fairy_text = "Bria: Hint! How many times does " + string(problem_val2) + " fit into " + string(problem_val1) + "?";
                 else if (selected_skill == 3) fairy_text = "Bria: Hint! Add " + string(problem_val2) + " and " + string(problem_val3) + " first, then multiply by " + string(problem_val1) + "!";
-                else if (selected_skill == 4) fairy_text = "Bria: Hint! Think of it like money. What's half of " + string(problem_val1) + "? Don't forget the .5!";
+                else if (selected_skill == 4) fairy_text = "Bria: Hint! Think of it like money. What\u0027s half of " + string(problem_val1) + "? Don\u0027t forget the .5!";
             }
         }
     }
@@ -365,7 +365,7 @@ for (var i = 0; i < array_length(enemies); i++) { if (enemies[i][1] > 0) all_dea
 
 if (all_dead && attack_timer <= 0 && battle_state == BattleState.PLAYER_MENU && !is_tutorial) {
     if (current_wave < max_waves) {
-        if (win_timer == -1) { win_timer = 120; fairy_text = "Bria: Well done! That's one wave down!"; }
+        if (win_timer == -1) { win_timer = 120; fairy_text = "Bria: Well done! That\u0027s one wave down!"; }
         if (win_timer > 0) win_timer--;
         if (win_timer == 0) {
             current_wave++;
