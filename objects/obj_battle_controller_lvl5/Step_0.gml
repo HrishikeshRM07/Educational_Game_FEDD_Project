@@ -90,7 +90,38 @@ if (battle_state == BattleState.PLAYER_MENU && win_timer <= 0) {
         if (keyboard_check_pressed(vk_left))  menu_index = clamp(menu_index - 2, 0, 3);
         if (keyboard_check_pressed(vk_down))  menu_index = (menu_index % 2 == 0) ? menu_index + 1 : menu_index;
         if (keyboard_check_pressed(vk_up))    menu_index = (menu_index % 2 != 0) ? menu_index - 1 : menu_index;
-
+		var skill_map = [1, 2, 3, 4]; 
+		if (active_char == 0) {
+			if (skill_map[menu_index] == 1) {
+				fairy_text = "Provides heal to one party member: Click on Additive Power, and we can solve the problem together! For this spell, you\u0027ll need to put two numbers together.\nFor example! If you have 3 bows and I have 6 bows, if we put our bows together then we\u0027d have 9 bows.";
+			} else if (skill_map[menu_index] == 2) {
+				fairy_text = "Deals damage to one enemy: In order to use Sub-tract the health, you need to remove the\nsecond number from the first number!\nYou can think of it like this: If I had 3 apples, and I gave 1 of them to you, I\u0027d be left with 2 apples.";
+			} else if (skill_map[menu_index] == 3) {
+				fairy_text = "Provides party heal: In order to do this you just need to add a bunch of numbers together! It doesn\u0027t matter what order that you do it again.\nFor example if I have 10 cookies, you give me 5, and a friend of mine gives me 5 I\u0027d end up with 20!\nIt doesn’t matter if my friend gives it to me first or you give it to me first, I\u0027ll still end up with the same amount of cookies!";
+			} else {
+				fairy_text = "Multi-target attack: This is pretty similar to Sub-tract the health!, but now you\u0027ll be subtracting multiple smaller numbers from one bigger number!\nIf you need a way to think about it, if I have 38 cupcakes, I give 3 to you, and I give 5 to a friend of mine I\u0027ll have 38-3-5 cupcakes, which means I\u0027d be left with 30 cupcakes!";
+			}
+		} else if (active_char == 1) {
+			if (skill_map[menu_index] == 1) {
+				fairy_text = "Boosts the amount of HP that can be healed to one party member (lasts 3 turns). You can think of multiplying something a bit like adding the same number over and over.\nIf I have 10 strawberries, and I double (multiply by 2) that amount, then I\u0027ll end up with 20 strawberries, which is the same as 10 + 10! Now you give it a try";
+			} else if (skill_map[menu_index] == 2) {
+				fairy_text = "Deals damage to one enemy: To use this skill, we need to use division. Think of it like how many times one number can go into another number! For example, if I have 6 cakes, and the recipe says I need to use 2 then I\u0027ll be putting in the eggs 3 times!";
+			} else if (skill_map[menu_index] == 3) {
+				fairy_text = "Provides defense & damage buff to whole party (lasts 3 turns): This means that your next attacks will hit harder and any damage taken. In order to do this, we’ll need to use the distributive property!\nThat means multiplying everything that\u0027s outside the parentheses to what\u0027s inside of the parentheses. For example, \nIf I need to triple the cookies that two sets of partners have, I\u0027d write it as 3(2 + 2), and to distribute it I\u0027d multiply each 2 by 3.\nThis would get me 6 + 6, which gives me 12!";
+			} else {
+				fairy_text = "Provides defense & damage debuff to all enemies (lasts 3 turns): \nFor this, we’re going to divide, but we may not get a whole number. For example if I have 15 apples and I\u0027m breaking it up into sets of twos,\nI\u0027ll have 7 sets of two apples with 1 apple remaining, which means that I\u0027ll have half a set. This means the answer to 15 ÷ 2 is 7.5 sets of apples!";
+			}
+		} else {
+			if (skill_map[menu_index] == 1) {
+				fairy_text = "Doubles damage of Erin’s next attack: When something is squared, that means you’re multiplying it by itself one time. For example, if I have 3\u00B2 that means that I have 3 x 3, which equals 9! You can think of the number in the exponent as the number of times something will multiply by itself. But be careful! You can’t add numbers when you do exponents, you can only multiply them.";
+			} else if (skill_map[menu_index] == 2) {
+				fairy_text = "Deals damage to one enemy, drains 5 of Erin’s HP: Deals damage to your enemy! You can think of it like the opposite of squaring something.\nWhen you have a number inside of that means you \u0027re finding out what multiplied by itself equals the number inside of sqrt(). For example, if I need to find the square root of 64, or sqrt(64), I know that 8 x 8 is 64, so the sqrt(64) should be 8!";
+			} else if (skill_map[menu_index] == 3) {
+				fairy_text = "Multi-hit attack (for each additional power, Erin gets another hit on the enemy):  For example, if I have 2\u00B3, that's 2 x 2 x 2, which is the same as 4 x 2, leading me to an answer of 8! And since we’re raising 2 to the third power, Erin will get 3 hits on the enemy!";
+			} else {
+				fairy_text = "Erin drains HP of the targeted enemy and heals herself:\nIts used by identifying what a perfect square is made from! For example, if I have the equation x\u00B2 - 4, where x can be any number you want it to be, then I know that its the same as (x+2)(x-2) because when I distribute, (x + 2) to (x - 2), I get back to x\u00B2 - 4!";
+			}
+		}
         if (keyboard_check_pressed(vk_enter)) {
             selected_skill = menu_index + 1;
             

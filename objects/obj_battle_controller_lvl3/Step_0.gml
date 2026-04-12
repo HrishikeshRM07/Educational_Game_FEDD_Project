@@ -85,7 +85,28 @@ if ((battle_state == BattleState.PLAYER_MENU || battle_state == BattleState.DEFE
     if (keyboard_check_pressed(vk_left))  menu_index = clamp(menu_index - 2, 0, 3);
     if (keyboard_check_pressed(vk_down))  menu_index = (menu_index % 2 == 0) ? menu_index + 1 : menu_index;
     if (keyboard_check_pressed(vk_up))    menu_index = (menu_index % 2 != 0) ? menu_index - 1 : menu_index;
-	
+	var skill_map = [1, 2, 3, 4]; 
+	if (active_char == 0) {
+		if (skill_map[menu_index] == 1) {
+			fairy_text = "Provides heal to one party member: Click on Additive Power, and we can solve the problem together! For this spell, you\u0027ll need to put two numbers together.\nFor example! If you have 3 bows and I have 6 bows, if we put our bows together then we\u0027d have 9 bows.";
+		} else if (skill_map[menu_index] == 2) {
+			fairy_text = "Deals damage to one enemy: In order to use Sub-tract the health, you need to remove the\nsecond number from the first number!\nYou can think of it like this: If I had 3 apples, and I gave 1 of them to you, I\u0027d be left with 2 apples.";
+		} else if (skill_map[menu_index] == 3) {
+			fairy_text = "Provides party heal: In order to do this you just need to add a bunch of numbers together! It doesn\u0027t matter what order that you do it again.\nFor example if I have 10 cookies, you give me 5, and a friend of mine gives me 5 I\u0027d end up with 20!\nIt doesn’t matter if my friend gives it to me first or you give it to me first, I\u0027ll still end up with the same amount of cookies!";
+		} else {
+			fairy_text = "Multi-target attack: This is pretty similar to Sub-tract the health!, but now you\u0027ll be subtracting multiple smaller numbers from one bigger number!\nIf you need a way to think about it, if I have 38 cupcakes, I give 3 to you, and I give 5 to a friend of mine I\u0027ll have 38-3-5 cupcakes, which means I\u0027d be left with 30 cupcakes!";
+		}
+	} else {
+		if (skill_map[menu_index] == 1) {
+			fairy_text = "Boosts the amount of HP that can be healed to one party member (lasts 3 turns). You can think of multiplying something a bit like adding the same number over and over.\nIf I have 10 strawberries, and I double (multiply by 2) that amount, then I\u0027ll end up with 20 strawberries, which is the same as 10 + 10! Now you give it a try";
+		} else if (skill_map[menu_index] == 2) {
+			fairy_text = "Deals damage to one enemy: To use this skill, we need to use division. Think of it like how many times one number can go into another number! For example, if I have 6 cakes, and the recipe says I need to use 2 then I\u0027ll be putting in the eggs 3 times!";
+		} else if (skill_map[menu_index] == 3) {
+			fairy_text = "Provides defense & damage buff to whole party (lasts 3 turns): This means that your next attacks will hit harder and any damage taken. In order to do this, we’ll need to use the distributive property!\nThat means multiplying everything that\u0027s outside the parentheses to what\u0027s inside of the parentheses. For example, \nIf I need to triple the cookies that two sets of partners have, I\u0027d write it as 3(2 + 2), and to distribute it I\u0027d multiply each 2 by 3.\nThis would get me 6 + 6, which gives me 12!";
+		} else {
+			fairy_text = "Provides defense & damage debuff to all enemies (lasts 3 turns): \nFor this, we’re going to divide, but we may not get a whole number. For example if I have 15 apples and I\u0027m breaking it up into sets of twos,\nI\u0027ll have 7 sets of two apples with 1 apple remaining, which means that I\u0027ll have half a set. This means the answer to 15 ÷ 2 is 7.5 sets of apples!";
+		}
+	}
     // Selecting a Skill
     if (keyboard_check_pressed(vk_enter)) {
         selected_skill = menu_index + 1;
