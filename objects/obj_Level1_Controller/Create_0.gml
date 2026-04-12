@@ -1,9 +1,9 @@
 // --- 1. DIALOGUE SCRIPT ---
 dialogue = [];
 
-dialogue[0] = { t: "Alright! We're ready to set out...", s: "Bria", port: BriaDialogue, f: 1 };
+dialogue[0] = { t: "Alright! We're ready to set out. Just so you know it's only going to get more dangerous from here though.", s: "Bria", port: BriaDialogue, f: 1 };
 
-dialogue[1] = { t: "King Phi has been putting together something dangerous...", s: "Bria", port: BriaDialogue, f: 2 };
+dialogue[1] = { t: "King Phi has been putting together his forces for a long time, so let's start it out nice and easy. \nLook! Here are some enemies to fight now.", s: "Bria", port: BriaDialogue, f: 2 };
 
 dialogue[2] = { t: "Bring it on!", s: "Addeline", port: AddelineDialogue, f: 1};
 

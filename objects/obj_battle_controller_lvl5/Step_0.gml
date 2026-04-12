@@ -109,13 +109,13 @@ if (battle_state == BattleState.PLAYER_MENU && win_timer <= 0) {
 			} else if (skill_map[menu_index] == 3) {
 				fairy_text = "Provides defense & damage buff to whole party (lasts 3 turns): This means that your next attacks will hit harder and any damage taken. In order to do this, we’ll need to use the distributive property!\nThat means multiplying everything that\u0027s outside the parentheses to what\u0027s inside of the parentheses. For example, \nIf I need to triple the cookies that two sets of partners have, I\u0027d write it as 3(2 + 2), and to distribute it I\u0027d multiply each 2 by 3.\nThis would get me 6 + 6, which gives me 12!";
 			} else {
-				fairy_text = "Provides defense & damage debuff to all enemies (lasts 3 turns): \nFor this, we’re going to divide, but we may not get a whole number. For example if I have 15 apples and I\u0027m breaking it up into sets of twos,\nI\u0027ll have 7 sets of two apples with 1 apple remaining, which means that I\u0027ll have half a set. This means the answer to 15 ÷ 2 is 7.5 sets of apples!";
+				fairy_text = "Provides defense & damage debuff to all enemies (lasts 3 turns): \nFor this, we’re going to divide, but we may not get a whole number. For example if I have 15 apples and I\u0027m breaking it up into sets of twos,\nI\u0027ll have 7 sets of two apples with 1 apple remaining, which means that I\u0027ll have half a set. This means the answer to 15 \u00F7 2 is 7.5 sets of apples!";
 			}
 		} else {
 			if (skill_map[menu_index] == 1) {
 				fairy_text = "Doubles damage of Erin’s next attack: When something is squared, that means you’re multiplying it by itself one time. For example, if I have 3\u00B2 that means that I have 3 x 3, which equals 9! You can think of the number in the exponent as the number of times something will multiply by itself. But be careful! You can’t add numbers when you do exponents, you can only multiply them.";
 			} else if (skill_map[menu_index] == 2) {
-				fairy_text = "Deals damage to one enemy, drains 5 of Erin’s HP: Deals damage to your enemy! You can think of it like the opposite of squaring something.\nWhen you have a number inside of that means you \u0027re finding out what multiplied by itself equals the number inside of sqrt(). For example, if I need to find the square root of 64, or sqrt(64), I know that 8 x 8 is 64, so the sqrt(64) should be 8!";
+				fairy_text = "Deals damage to one enemy, drains 5 of Erin’s HP: Deals damage to your enemy! You can think of it like the opposite of squaring something.\nWhen you have a number inside of that means you \u0027re finding out what multiplied by itself equals the number inside of \u221A. For example, if I need to find the square root of 64, or \u221A64, I know that 8 x 8 is 64, so the \u221A64 should be 8!";
 			} else if (skill_map[menu_index] == 3) {
 				fairy_text = "Multi-hit attack (for each additional power, Erin gets another hit on the enemy):  For example, if I have 2\u00B3, that's 2 x 2 x 2, which is the same as 4 x 2, leading me to an answer of 8! And since we’re raising 2 to the third power, Erin will get 3 hits on the enemy!";
 			} else {
@@ -214,7 +214,7 @@ if (battle_state == BattleState.PLAYER_MENU && win_timer <= 0) {
                 } else if (selected_skill == 2) { 
                     problem_answer = irandom_range(2, 12);
                     problem_val1 = problem_answer * problem_answer;
-                    problem_question = "sqrt(" + string(problem_val1) + ") = ?";
+                    problem_question = "\u221A" + string(problem_val1) + " = ?";
                 } else if (selected_skill == 3) { 
                     problem_val1 = irandom_range(2, 5);
                     problem_answer = problem_val1 * problem_val1 * problem_val1;
@@ -222,7 +222,7 @@ if (battle_state == BattleState.PLAYER_MENU && win_timer <= 0) {
                 } else if (selected_skill == 4) { 
                     problem_answer = irandom_range(10, 20);
                     problem_val1 = problem_answer * problem_answer;
-                    problem_question = "sqrt(" + string(problem_val1) + ") = ?";
+                    problem_question = "\u221A" + string(problem_val1) + " = ?";
                 }
             }
         }

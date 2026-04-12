@@ -104,7 +104,7 @@ if ((battle_state == BattleState.PLAYER_MENU || battle_state == BattleState.DEFE
 		} else if (skill_map[menu_index] == 3) {
 			fairy_text = "Provides defense & damage buff to whole party (lasts 3 turns): This means that your next attacks will hit harder and any damage taken. In order to do this, we’ll need to use the distributive property!\nThat means multiplying everything that\u0027s outside the parentheses to what\u0027s inside of the parentheses. For example, \nIf I need to triple the cookies that two sets of partners have, I\u0027d write it as 3(2 + 2), and to distribute it I\u0027d multiply each 2 by 3.\nThis would get me 6 + 6, which gives me 12!";
 		} else {
-			fairy_text = "Provides defense & damage debuff to all enemies (lasts 3 turns): \nFor this, we’re going to divide, but we may not get a whole number. For example if I have 15 apples and I\u0027m breaking it up into sets of twos,\nI\u0027ll have 7 sets of two apples with 1 apple remaining, which means that I\u0027ll have half a set. This means the answer to 15 ÷ 2 is 7.5 sets of apples!";
+			fairy_text = "Provides defense & damage debuff to all enemies (lasts 3 turns): \nFor this, we’re going to divide, but we may not get a whole number. For example if I have 15 apples and I\u0027m breaking it up into sets of twos,\nI\u0027ll have 7 sets of two apples with 1 apple remaining, which means that I\u0027ll have half a set. This means the answer to 15 \u00F7 2 is 7.5 sets of apples!";
 		}
 	}
     // Selecting a Skill
