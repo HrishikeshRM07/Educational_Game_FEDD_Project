@@ -85,7 +85,7 @@ if ((battle_state == BattleState.PLAYER_MENU || battle_state == BattleState.DEFE
     if (keyboard_check_pressed(vk_left))  menu_index = clamp(menu_index - 2, 0, 3);
     if (keyboard_check_pressed(vk_down))  menu_index = (menu_index % 2 == 0) ? menu_index + 1 : menu_index;
     if (keyboard_check_pressed(vk_up))    menu_index = (menu_index % 2 != 0) ? menu_index - 1 : menu_index;
-
+	
     // Selecting a Skill
     if (keyboard_check_pressed(vk_enter)) {
         selected_skill = menu_index + 1;

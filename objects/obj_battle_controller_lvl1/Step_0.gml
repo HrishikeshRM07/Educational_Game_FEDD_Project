@@ -81,7 +81,16 @@ if (battle_state == BattleState.PLAYER_MENU && attack_timer <= 0) {
     if (keyboard_check_pressed(vk_left))  menu_index = clamp(menu_index - 2, 0, 3);
     if (keyboard_check_pressed(vk_down))  menu_index = (menu_index % 2 == 0) ? menu_index + 1 : menu_index;
     if (keyboard_check_pressed(vk_up))    menu_index = (menu_index % 2 != 0) ? menu_index - 1 : menu_index;
-
+	var skill_map = [1, 2, 3, 4]; 
+	if (skill_map[menu_index] == 1) {
+		fairy_text = "Provides heal to one party member: Click on Additive Power, and we can solve the problem together! For this spell, you\u0027ll need to put two numbers together.\nFor example! If you have 3 bows and I have 6 bows, if we put our bows together then we\u0027d have 9 bows.";
+	} else if (skill_map[menu_index] == 2) {
+		fairy_text = "Deals damage to one enemy: In order to use Sub-tract the health, you need to remove the\nsecond number from the first number!\nYou can think of it like this: If I had 3 apples, and I gave 1 of them to you, I\u0027d be left with 2 apples.";
+	} else if (skill_map[menu_index] == 3) {
+		fairy_text = "Provides party heal: In order to do this you just need to add a bunch of numbers together! It doesn\u0027t matter what order that you do it again.\nFor example if I have 10 cookies, you give me 5, and a friend of mine gives me 5 I\u0027d end up with 20!\nIt doesn’t matter if my friend gives it to me first or you give it to me first, I\u0027ll still end up with the same amount of cookies!";
+	} else {
+		fairy_text = "Multi-target attack: This is pretty similar to Sub-tract the health!, but now you\u0027ll be subtracting multiple smaller numbers from one bigger number!\nIf you need a way to think about it, if I have 38 cupcakes, I give 3 to you, and I give 5 to a friend of mine I\u0027ll have 38-3-5 cupcakes, which means I\u0027d be left with 30 cupcakes!";
+	}
     if (keyboard_check_pressed(vk_enter)) {
         selected_skill = menu_index + 1;
         generate_problem(selected_skill, 0);
