@@ -1,5 +1,5 @@
 // --- 0. PREP ---
-if (asset_get_index("fnt_battle") != -1) draw_set_font(fnt_dialogue);
+draw_set_font(fnt_battle);
 if (keyboard_check_pressed(vk_escape) && !targeting_phase) room_goto(rm_Level2PostBattle);
 
 // --- 1. DRAW CHARACTERS & ENEMIES ---

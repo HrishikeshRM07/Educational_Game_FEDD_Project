@@ -33,6 +33,23 @@ if (enemies[0][1] > 0) {
     if (enemies[0][5] >= 10) enemies[0][5] = 0;
 }
 
+// --- FLASH & DEATH FADE DECAYS ---
+// Players
+if (player_flash_alpha > 0) player_flash_alpha -= 0.05;
+if (milly_flash_alpha > 0) milly_flash_alpha -= 0.05;
+
+// Make players disappear if dead (after flash finishes)
+if (player_hp <= 0 && player_flash_alpha <= 0 && player_alpha > 0) player_alpha -= 0.05;
+if (milly_hp <= 0 && milly_flash_alpha <= 0 && milly_alpha > 0) milly_alpha -= 0.05;
+
+// Boss Flash & Fade Decay
+if (enemies[0][1] > 0) { 
+    if (enemies[0][8] > 0) enemies[0][8] -= 0.05; 
+} else {
+    if (enemies[0][8] > 0) enemies[0][8] -= 0.05; 
+    else if (enemies[0][6] > 0) enemies[0][6] -= 0.05; // Fade boss to 0 alpha on death
+}
+
 // --- 1. TYPEWRITER EFFECT ---
 if (fairy_text != previous_fairy_text) { 
     text_progress = 0; previous_fairy_text = fairy_text; 
@@ -147,9 +164,13 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
     }
     if (defend_timer <= 0 && is_defending) { 
         fairy_text = "A massive hit! The boss is relentless!";
-        // BOSS DAMAGE INCREASED
         player_hp -= 30; 
         milly_hp -= 30; 
+        
+        // --- ADD THESE ---
+        player_flash_color = c_red; player_flash_alpha = 1.0;
+        milly_flash_color = c_red;  milly_flash_alpha = 1.0;
+        
         battle_state = BattleState.PLAYER_MENU; 
     }
 
@@ -158,52 +179,94 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
         
         if (real(player_input) == problem_answer) {
             // --- CORRECT ANSWER ---
+            // --- CORRECT ANSWER ---
             if (is_defending) {
                 battle_state = BattleState.PLAYER_MENU;
                 fairy_text = "Perfect block! Now counterattack!";
+                // --- ADD THESE (DEFEND) ---
+                player_flash_color = c_white; player_flash_alpha = 1.0;
+                milly_flash_color = c_white;  milly_flash_alpha = 1.0;
             } else {
                 if (active_char == 0) { // ADDELINE
                     addeline_is_attacking = true;
                     if (selected_skill == 1) { 
                         addeline_frame = 24; addeline_anim_end = 38; 
-                        if (player_hp <= milly_hp) player_hp = min(player_hp + 20, player_max_hp); 
-                        else milly_hp = min(milly_hp + 20, milly_max_hp);
+                        if (player_hp <= milly_hp) { player_hp = min(player_hp + 20, player_max_hp); player_flash_color = c_green; player_flash_alpha = 1.0; } 
+                        else { milly_hp = min(milly_hp + 20, milly_max_hp); milly_flash_color = c_green; milly_flash_alpha = 1.0; }
                     }
                     else if (selected_skill == 2) { 
                         addeline_frame = 10; addeline_anim_end = 24; 
-                        if (enemies[0][1] > 0) enemies[0][1] -= 15;
+                        if (enemies[0][1] > 0) { enemies[0][1] -= 15; enemies[0][7] = c_red; enemies[0][8] = 1.0; }
                     }
                     else if (selected_skill == 3) { 
                         addeline_frame = 52; addeline_anim_end = 67; 
                         player_hp = min(player_hp + 15, player_max_hp); 
                         milly_hp = min(milly_hp + 15, milly_max_hp);
+                        player_flash_color = c_green; player_flash_alpha = 1.0;
+                        milly_flash_color = c_green; milly_flash_alpha = 1.0;
                     }
                     else if (selected_skill == 4) { 
                         addeline_frame = 38; addeline_anim_end = 52; 
-                        if (enemies[0][1] > 0) enemies[0][1] -= 25; // Boss hit harder by AoE skill
+                        if (enemies[0][1] > 0) { enemies[0][1] -= 25; enemies[0][7] = c_red; enemies[0][8] = 1.0; }
                     }
                 } 
                 else if (active_char == 1) { // MILLY
                     milly_is_attacking = true;
                     if (selected_skill == 1) { 
                         milly_frame = 10; milly_anim_end = 25; milly_heal_buff = 3; 
+                        milly_flash_color = c_green; milly_flash_alpha = 1.0;
                     }
                     else if (selected_skill == 2) { 
                         milly_frame = 25; milly_anim_end = 40; 
-                        if (enemies[0][1] > 0) enemies[0][1] -= 15; 
+                        if (enemies[0][1] > 0) { enemies[0][1] -= 15; enemies[0][7] = c_red; enemies[0][8] = 1.0; } 
                     }
                     else if (selected_skill == 3) { 
                         milly_frame = 40; milly_anim_end = 55; party_buff = 3; 
+                        player_flash_color = c_green; player_flash_alpha = 1.0; 
+                        milly_flash_color = c_green; milly_flash_alpha = 1.0;
                     }
                     else if (selected_skill == 4) { 
                         milly_frame = 55; milly_anim_end = 71; enemy_debuff = 3; 
+                        enemies[0][7] = c_red; enemies[0][8] = 1.0;
                     }
                 }
 
-                if (enemies[0][1] <= 0) { 
-                    attack_timer = 0; battle_state = BattleState.PLAYER_MENU;
-                } else { 
-                    attack_timer = 120; battle_state = BattleState.ENEMY_TURN; 
+                // --- AUTOMATIC TURN SWITCHING LOGIC ---
+                var enemies_dead = (enemies[0][1] <= 0);
+                
+                if (enemies_dead) { 
+                    attack_timer = 0; battle_state = BattleState.PLAYER_MENU; active_char = 0;
+                } else {
+                    
+                    // 1. Cycle to the next character (Addeline -> Milly -> Enemy)
+                    if (active_char == 0) {
+                        active_char = 1; 
+                        battle_state = BattleState.PLAYER_MENU; 
+                    } else { // If Milly just went, it's the boss's turn!
+                        attack_timer = 120; 
+                        battle_state = BattleState.ENEMY_TURN; 
+                        active_char = 0; 
+                    }
+                    
+                    // 2. Skip dead characters (so you don't get softlocked!)
+                    while (battle_state != BattleState.ENEMY_TURN && 
+                           ((active_char == 0 && player_hp <= 0) || 
+                            (active_char == 1 && milly_hp <= 0))) {
+                        
+                        active_char++;
+                        if (active_char > 1) { // If both players have moved or are dead
+                            battle_state = BattleState.ENEMY_TURN;
+                            attack_timer = 120;
+                            active_char = 0;
+                        }
+                    }
+
+                    // 3. Reset menu and update Bria's dialogue
+                    if (battle_state == BattleState.PLAYER_MENU) {
+                        menu_index = 0;
+                        if (active_char == 1) fairy_text = "Nice hit! Milly, your turn!";
+                        if (active_char == 0) fairy_text = "Great job! Addeline, you're up!";
+                    }
                 }
             }
         } else { 

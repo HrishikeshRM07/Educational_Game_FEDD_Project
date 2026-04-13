@@ -1,5 +1,5 @@
 // --- 0. PREP ---
-if (asset_get_index("fnt_battle") != -1) draw_set_font(fnt_dialogue); 
+draw_set_font(fnt_battle);
 
 // --- DEBUG SKIP ---
 if (keyboard_check_pressed(vk_escape)) {
@@ -8,13 +8,28 @@ if (keyboard_check_pressed(vk_escape)) {
 
 
 // --- 1. DRAW CHARACTERS & BOSS ---
-if (sprite_exists(AddelineBattle)) draw_sprite(AddelineBattle, floor(addeline_frame), 210, 840);
-if (sprite_exists(MillyBattle)) draw_sprite(MillyBattle, floor(milly_frame), 450, 840); 
 
-// Draw Boss (Scale set to 1.4 for larger size to match 1080p)
+// Addeline
+if (sprite_exists(AddelineBattle) && player_alpha > 0) {
+    if (player_flash_alpha > 0) gpu_set_fog(true, player_flash_color, 0, 0);
+    draw_sprite_ext(AddelineBattle, floor(addeline_frame), 210, 840, 1, 1, 0, c_white, player_alpha);
+    gpu_set_fog(false, c_white, 0, 0);
+}
+
+// Milly
+if (sprite_exists(MillyBattle) && milly_alpha > 0) {
+    if (milly_flash_alpha > 0) gpu_set_fog(true, milly_flash_color, 0, 0);
+    draw_sprite_ext(MillyBattle, floor(milly_frame), 450, 840, 1, 1, 0, c_white, milly_alpha); 
+    gpu_set_fog(false, c_white, 0, 0);
+}
+
+// Draw Boss (Scale set to 1, checked against fade alpha instead of just HP)
 var boss = enemies[0];
-if (boss[1] > 0) {
-    draw_sprite_ext(boss[4], floor(boss[5]), 1200, 900, 1, 1, 0, c_white, 1); 
+if (boss[6] > 0) {
+    if (boss[8] > 0) gpu_set_fog(true, boss[7], 0, 0);
+    draw_sprite_ext(boss[4], floor(boss[5]), 1200, 900, 1, 1, 0, c_white, boss[6]); 
+    gpu_set_fog(false, c_white, 0, 0);
+    
     draw_set_halign(fa_center); 
     draw_set_color(c_yellow);
 }

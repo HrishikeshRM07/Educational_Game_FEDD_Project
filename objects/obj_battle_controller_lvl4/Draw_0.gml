@@ -1,4 +1,4 @@
-if (asset_get_index("fnt_battle") != -1) draw_set_font(fnt_dialogue);
+draw_set_font(fnt_battle);
 
 // Characters (With Flashes)
 if (sprite_exists(AddelineBattle)) {
@@ -30,7 +30,6 @@ for (var i = 0; i < array_length(enemies); i++) {
 
     if (en[1] > 0) {
         draw_set_halign(fa_center); draw_set_color(c_yellow);
-        draw_text(en[2], en[3] - 84, string(en[1]) + (en[0] == "GoldmanTall" ? " / 60" : " / 40")); 
         
         // Target Indicator
         if (i == target_index && (targeting_phase || (battle_state == BattleState.PLAYER_SOLVE && selected_skill == 2))) {
@@ -138,6 +137,10 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
     draw_rectangle(solve_center_x - 140, solve_start_y + 28, solve_center_x - 140 + (cur_t * 280), solve_start_y - 14, false);
 
     draw_set_color(c_blue); draw_text(solve_center_x, solve_start_y, is_def ? "-- DEFEND SPELL --" : "-- MATH SPELL --");
-    draw_set_color(make_color_rgb(40, 40, 40)); draw_text(solve_center_x, solve_start_y + 63, problem_question); draw_text(solve_center_x, solve_start_y + 126, "ANS: " + player_input + "_");
+    
+    // --- UPDATED TEXT SCALING ---
+    draw_set_color(make_color_rgb(40, 40, 40)); 
+    draw_text_transformed(solve_center_x, solve_start_y + 50, problem_question, 1.5, 1.5, 0); 
+    draw_text_transformed(solve_center_x, solve_start_y - 20 + 130, "ANS: " + player_input + "_", 1.5, 1.5, 0);
 }
 draw_set_valign(fa_top);

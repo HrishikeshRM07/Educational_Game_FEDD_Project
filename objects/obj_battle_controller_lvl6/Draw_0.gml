@@ -1,5 +1,5 @@
 // --- DRAWING / RENDER PREP ---
-if (asset_get_index("fnt_battle") != -1) draw_set_font(fnt_dialogue); 
+draw_set_font(fnt_battle);
 
 // Debug Skip
 if (keyboard_check_pressed(vk_escape)) room_goto(rm_Level6_PostBattle);
@@ -37,7 +37,7 @@ var fairy_box_w = 1750; var fairy_box_h = 322;
 if (sprite_exists(spr_dialogue_base)) draw_sprite_stretched(spr_dialogue_base, 0, 7, 14, fairy_box_w, fairy_box_h);
 
 draw_set_halign(fa_left); draw_set_valign(fa_top);
-draw_set_color(c_black); draw_text(203, 126, "DIALOGUE"); 
+draw_set_color(c_black); draw_text(203, 126, "BRIA"); 
 draw_set_color(make_color_rgb(40, 40, 40));
 draw_text_ext(203, 168, string_copy(fairy_text, 1, floor(text_progress)), 31, fairy_box_w - 126);
 

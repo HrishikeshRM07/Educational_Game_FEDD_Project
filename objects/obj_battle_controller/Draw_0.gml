@@ -29,9 +29,9 @@ if (sprite_exists(Horatio)) {
 }
 
 // --- CUSTOM FONT SETUP ---
-if (asset_get_index("fnt_battle") != -1) {
-    draw_set_font(fnt_dialogue);
-}
+
+draw_set_font(fnt_battle);
+
 
 // ==========================================
 // 1. FAIRY DIALOGUE BOX (TOP)
@@ -53,8 +53,8 @@ draw_set_color(c_black);
 draw_text_transformed(fairy_box_x + 60, fairy_box_y + 20, "FAIRY", 1.4, 1.4, 0); 
 draw_set_color(make_color_rgb(40, 40, 40));
 
-var text_max_width = (fairy_box_w / 1.4) - 90; 
-draw_text_ext_transformed(fairy_box_x + 60, fairy_box_y + 60, fairy_text, 22, text_max_width, 1.4, 1.4, 0);
+var text_max_width = (fairy_box_w / 1.4) - 100; 
+draw_text_ext_transformed(fairy_box_x + 60, fairy_box_y + 70, fairy_text, 22, text_max_width, 1.4, 1.4, 0);
 
 if (tutorial_stage > 1 && tutorial_stage < 4) {
 	if (sprite_exists(GoldmanShort)) {

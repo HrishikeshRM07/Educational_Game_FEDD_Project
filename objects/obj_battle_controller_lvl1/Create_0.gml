@@ -23,6 +23,9 @@ problem_question = "";
 problem_answer = 0;
 player_input = "";
 menu_index = 0; 
+target_index = 0;        // <--- ADD THIS
+targeting_phase = false; // <--- ADD THIS
+
 
 // --- 5. TIMERS ---
 spell_timer_max = 600; 

@@ -42,7 +42,7 @@ spell_timer_max = 600; spell_timer = spell_timer_max;
 defend_timer_max = 300; defend_timer = defend_timer_max;
 attack_timer = 0;        
 
-fairy_text = "Bria: Here they come! Five waves of enemies. Stay sharp!";
+fairy_text = "Here they come! Five waves of enemies. Stay sharp!";
 previous_fairy_text = "";
 text_progress = 0; text_speed = 0.5;
 

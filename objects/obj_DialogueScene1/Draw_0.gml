@@ -75,9 +75,9 @@ if (current_line < array_length(dialogue)) {
     // ==========================================
     // LAYER 3: THE TEXT & TYPEWRITER EFFECT
     // ==========================================
-    if (asset_get_index("fnt_dialogue") != -1) {
-        draw_set_font(fnt_dialogue);
-    }
+
+    draw_set_font(fnt_dialogue);
+ 
 
     // --- TEXT SETTING 1: THE SPEAKER NAME ---
     var name_absolute_x = 410; 

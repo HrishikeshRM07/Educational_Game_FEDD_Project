@@ -5,15 +5,18 @@ lose_timer = -1;
 // --- BOSS SETUP ---
 // Increased Y coordinate to 620 to push the boss lower
 // Pushes boss to the right side of the 1366 width
+// --- BOSS SETUP ---
 enemies = [ 
-    ["SummationScorpion", 250, 1100, 620, SummationScorpion, 0] 
+    // [Name, HP, X, Y, Sprite, AnimFrame, FadeAlpha, FlashColor, FlashAlpha]
+    ["SummationScorpion", 250, 1100, 620, SummationScorpion, 0, 1.0, c_white, 0.0] 
 ];
+
 // --- PLAYER SETUP ---
 player_hp = 100; player_max_hp = 100;
-milly_hp = 100;  milly_max_hp = 100; // Assuming Milly starts full for the boss!
+milly_hp = 100;  milly_max_hp = 100; 
 
-active_char = 0; // Start on Addeline
-is_tutorial = false; // Turned off for the boss fight
+active_char = 0; 
+is_tutorial = false; 
 
 milly_heal_buff = 0; party_buff = 0; enemy_debuff = 0;
 
@@ -30,6 +33,9 @@ fairy_text = "Watch out! It's the Summation Scorpion! Its attacks are much stron
 previous_fairy_text = "";
 text_progress = 0; text_speed = 0.5;
 
-// --- ANIMATION SETUP ---
+// --- ANIMATION & FLASH SETUP ---
 addeline_frame = 0; addeline_is_attacking = false; addeline_anim_end = 0;
 milly_frame = 0;    milly_is_attacking = false;    milly_anim_end = 0;
+
+player_flash_color = c_white; player_flash_alpha = 0.0; player_alpha = 1.0;
+milly_flash_color = c_white;  milly_flash_alpha = 0.0;  milly_alpha = 1.0;

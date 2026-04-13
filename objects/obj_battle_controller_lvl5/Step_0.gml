@@ -60,7 +60,7 @@ if (battle_state == BattleState.ENEMY_TURN) {
         battle_state = BattleState.DEFEND_SOLVE;
         player_input = "";
         defend_timer = defend_timer_max;
-        fairy_text = "Bria: Quick! Solve this to block!";
+        fairy_text = "Quick! Solve this to block!";
         
         var op = irandom(3); 
         if (op == 0) {
@@ -210,19 +210,19 @@ if (battle_state == BattleState.PLAYER_MENU && win_timer <= 0) {
                 if (selected_skill == 1) { 
                     problem_val1 = irandom_range(2, 12);
                     problem_answer = problem_val1 * problem_val1;
-                    problem_question = string(problem_val1) + "^2 = ?";
+                    problem_question = string(problem_val1) + "² = ?";
                 } else if (selected_skill == 2) { 
                     problem_answer = irandom_range(2, 12);
                     problem_val1 = problem_answer * problem_answer;
-                    problem_question = chr(8730) + string(problem_val1) + " = ?";
+                    problem_question = "\u221A" + string(problem_val1) + " = ?";
                 } else if (selected_skill == 3) { 
                     problem_val1 = irandom_range(2, 5);
                     problem_answer = problem_val1 * problem_val1 * problem_val1;
-                    problem_question = string(problem_val1) + "^3 = ?";
+                    problem_question = string(problem_val1) + "³ = ?";
                 } else if (selected_skill == 4) { 
                     problem_answer = irandom_range(10, 20);
                     problem_val1 = problem_answer * problem_answer;
-                    problem_question = chr(8730) + string(problem_val1) + " = ?";
+                    problem_question = "\u221A" + string(problem_val1) + " = ?";
                 }
             }
         }

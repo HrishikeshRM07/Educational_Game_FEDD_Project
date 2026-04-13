@@ -218,7 +218,7 @@ if (battle_state == BattleState.PLAYER_MENU && win_timer <= 0) {
                 if (selected_skill == 1) { // Square
                     problem_val1 = irandom_range(2, 12);
                     problem_answer = problem_val1 * problem_val1;
-                    problem_question = string(problem_val1) + "^2 = ?";
+                    problem_question = string(problem_val1) + "² = ?";
                 } else if (selected_skill == 2) { // Square Root
                     problem_answer = irandom_range(2, 12);
                     problem_val1 = problem_answer * problem_answer;
@@ -226,7 +226,7 @@ if (battle_state == BattleState.PLAYER_MENU && win_timer <= 0) {
                 } else if (selected_skill == 3) { // Cube
                     problem_val1 = irandom_range(2, 5);
                     problem_answer = problem_val1 * problem_val1 * problem_val1;
-                    problem_question = string(problem_val1) + "^3 = ?";
+                    problem_question = string(problem_val1) + "³ = ?";
                 } else if (selected_skill == 4) { // Square Root (Harder for balance)
                     problem_answer = irandom_range(10, 20);
                     problem_val1 = problem_answer * problem_answer;

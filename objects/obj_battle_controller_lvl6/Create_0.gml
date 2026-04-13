@@ -43,7 +43,7 @@ defend_timer_max = 300; defend_timer = defend_timer_max;
 attack_timer = 0;        
 
 // Battle Begins Dialogue
-fairy_text = "Bria: This is it, everyone! King Phi is right in front of us. Be ready for anything!";
+fairy_text = "This is it, everyone! King Phi is right in front of us. Be ready for anything!";
 previous_fairy_text = "";
 text_progress = 0; text_speed = 0.5;
 
