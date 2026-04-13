@@ -56,6 +56,17 @@ draw_set_color(make_color_rgb(40, 40, 40));
 var text_max_width = (fairy_box_w / 1.4) - 90; 
 draw_text_ext_transformed(fairy_box_x + 60, fairy_box_y + 60, fairy_text, 22, text_max_width, 1.4, 1.4, 0);
 
+if (tutorial_stage > 1 && tutorial_stage < 4) {
+	if (sprite_exists(GoldmanShort)) {
+		draw_sprite_ext(GoldmanShort, floor(horatio_frame), horatio_x - 50, horatio_y - 30, 0.45, 0.45, 0, c_white, enemy_alpha);
+	}
+	if (enemy_flash_alpha > 0 && enemy_alpha > 0) {
+		gpu_set_fog(true, enemy_flash_color, 0, 0);
+        draw_sprite_ext(GoldmanShort, floor(horatio_frame), horatio_x - 50, horatio_y - 30, 0.45, 0.45, 0, c_white, min(enemy_flash_alpha, enemy_alpha)); 
+        gpu_set_fog(false, c_white, 0, 0);
+    }
+}
+
 // ==========================================
 // 3. BOTTOM LEFT HUD (PORTRAIT + STACKED HP)
 // ==========================================
@@ -98,7 +109,7 @@ if (battle_state == BattleState.PLAYER_MENU) {
     var col_spacing = 420;   
     var row_spacing = 85;     
     
-    var skills = ["Additive Heal", "Subtraction", "Commutative", "Double Sub"];
+    var skills = ["Add it up!", "Sub-tract the health", "Share the health!", "Double Down"];
     var skill_ids = [1, 2, 3, 4]; 
     
     for (var i = 0; i < 4; i++) {

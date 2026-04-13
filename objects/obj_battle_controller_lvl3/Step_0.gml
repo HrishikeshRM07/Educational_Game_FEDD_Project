@@ -42,11 +42,11 @@ if (text_progress < string_length(fairy_text)) text_progress += text_speed;
 // --- 2. CHARACTER SWITCHING ---
 if (battle_state == BattleState.PLAYER_MENU && attack_timer <= 0) {
     if (mouse_check_button_pressed(mb_left)) {
-        // Addeline's Hitbox
+        // Addeline\u0027s Hitbox
         if (mouse_x >= 140 && mouse_x <= 240 && mouse_y >= 660 && mouse_y <= 740) { 
             active_char = 0; menu_index = 0; 
         }
-        // Milly's Hitbox
+        // Milly\u0027s Hitbox
         else if (mouse_x >= 385 && mouse_x <= 485 && mouse_y >= 660 && mouse_y <= 740) { 
             active_char = 1; menu_index = 0; 
         }
@@ -65,7 +65,7 @@ if (battle_state == BattleState.ENEMY_TURN) {
         // Randomly assign a problem type (1 through 4)
         selected_skill = irandom_range(1, 4); 
         
-        // Randomly pick between Addeline's math (0) and Milly's math (1)
+        // Randomly pick between Addeline\u0027s math (0) and Milly\u0027s math (1)
         var random_math_type = irandom_range(0, 1);
         
         // Generate the problem using both random values!
@@ -139,7 +139,7 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
     // Timer Logic
     if (is_defending) defend_timer--; else spell_timer--;
 
-    // Time's Up Logic (Failed)
+    // Time\u0027s Up Logic (Failed)
     if (spell_timer <= 0 && !is_defending) { 
         fairy_text = "Too slow! Brace yourself!";
         attack_timer = 120; 
@@ -238,7 +238,7 @@ if (enemies[0][1] <= 0 && attack_timer <= 0 && battle_state == BattleState.PLAYE
 if (player_hp <= 0 && milly_hp <= 0) {
     if (lose_timer == -1) { 
         lose_timer = 180; // Wait about 3 seconds before resetting
-        fairy_text = "The Summation Scorpion defeated us... Let's try again!"; 
+        fairy_text = "The Summation Scorpion defeated us... Let\u0027s try again!"; 
         
         // Force the state to stop the battle from continuing in the background
         battle_state = BattleState.PLAYER_MENU; 

@@ -85,7 +85,7 @@ if (battle_state == BattleState.PLAYER_MENU) {
     var col_spacing = 420;    
     var row_spacing = 85;     
     
-    var skills = ["Additive Heal", "Subtraction", "Commutative", "Double Sub"];
+    var skills = ["Add it up!", "Sub-tract the health", "Share the health!", "Double Down"];
     
     for (var i = 0; i < 4; i++) {
         var is_sel = (menu_index == i);

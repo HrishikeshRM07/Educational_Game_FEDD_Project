@@ -117,7 +117,7 @@ if (battle_state == BattleState.PLAYER_MENU && win_timer <= 0) {
 			} else if (skill_map[menu_index] == 2) {
 				fairy_text = "Deals damage to one enemy, drains 5 of Erin’s HP: Deals damage to your enemy! You can think of it like the opposite of squaring something.\nWhen you have a number inside of " + chr(8730) + "that means you \u0027re finding out what multiplied by itself equals the number inside of " + chr(8730) + ". For example, if I need to find the square root of 64, or " + chr(8730) + "64, I know that 8 x 8 is 64, so the " + chr(8730) + "64 should be 8!";
 			} else if (skill_map[menu_index] == 3) {
-				fairy_text = "Multi-hit attack (for each additional power, Erin gets another hit on the enemy):  For example, if I have 2" + chr(179) + ", that's 2 x 2 x 2, which is the same as 4 x 2, leading me to an answer of 8! And since we’re raising 2 to the third power, Erin will get 3 hits on the enemy!";
+				fairy_text = "Multi-hit attack (for each additional power, Erin gets another hit on the enemy):  For example, if I have 2" + chr(179) + ", that\u0027s 2 x 2 x 2, which is the same as 4 x 2, leading me to an answer of 8! And since we’re raising 2 to the third power, Erin will get 3 hits on the enemy!";
 			} else {
 				fairy_text = "Erin drains HP of the targeted enemy and heals herself:\nIts used by identifying what a perfect square is made from! For example, if I have the equation x" + chr(178) + " - 4, where x can be any number you want it to be, then I know that its the same as (x+2)(x-2) because when I distribute, (x + 2) to (x - 2), I get back to x" + chr(178) + " - 4!";
 			}
@@ -262,7 +262,7 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
             // --- CORRECT ANSWER ---
             if (is_defending) {
                 battle_state = BattleState.PLAYER_MENU;
-                fairy_text = "Bria: Great block! Now it's our turn.";
+                fairy_text = "Bria: Great block! Now it\u0027s our turn.";
                 player_flash_color = c_white; player_flash_alpha = 1.0;
                 milly_flash_color = c_white;  milly_flash_alpha = 1.0;
                 erin_flash_color = c_white;   erin_flash_alpha = 1.0;
@@ -450,7 +450,7 @@ if (all_dead && attack_timer <= 0 && battle_state == BattleState.PLAYER_MENU) {
 if (player_hp <= 0 && milly_hp <= 0 && erin_hp <= 0) {
     if (lose_timer == -1) { 
         lose_timer = 180; 
-        fairy_text = "Bria: We were defeated... Let's try again!"; 
+        fairy_text = "Bria: We were defeated... Let\u0027s try again!"; 
         battle_state = BattleState.PLAYER_MENU; attack_timer = 0; 
     }
     if (lose_timer > 0) lose_timer--;

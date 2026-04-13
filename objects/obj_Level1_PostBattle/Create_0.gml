@@ -17,7 +17,7 @@ dialogue[7] = { t: "That\u002E\u002E\u002E makes a lot of sense! Thank you, Bria
 
 // Bria pushes the story forward
 dialogue[8] = { t: "Not a problem, Addeline!", s: "Bria", spr: pl_fairy, port: BriaDialogue, f: 1 };
-dialogue[9] = { t: "Now, let\u0027s keep moving. I can\u0027t help but feel like we're being followed", s: "Bria", spr: pl_fairy, port: BriaDialogue, f: 3 };
+dialogue[9] = { t: "Now, let\u0027s keep moving. I can\u0027t help but feel like we\u0027re being followed", s: "Bria", spr: pl_fairy, port: BriaDialogue, f: 3 };
 dialogue[10] = { t: "and the sooner we find Horatio, the closer we\u0027ll be to defeating King Phi.", s: "Bria", spr: pl_fairy, port: BriaDialogue, f: 3 };
 
 // --- 2. SCENE STATE VARIABLES ---

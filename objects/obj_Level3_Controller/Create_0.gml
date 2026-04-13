@@ -18,7 +18,7 @@ dialogue[8] = { t: "No time for that Addeline! The scorpion\u0027s about to atta
 
 // --- 2. SCENE STATE VARIABLES ---
 current_line = 0;
-player_hp = 100; // For Addeline's dynamic face frame
+player_hp = 100; // For Addeline\u0027s dynamic face frame
 
 // Scene Action Triggers
 scorpion_shifts = false; // Triggered at line 3

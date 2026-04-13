@@ -37,7 +37,7 @@ defend_timer_max = 300; defend_timer = defend_timer_max;
 attack_timer = 0;        
 
 // --- 6. TYPEWRITER TEXT ---
-fairy_text = "Bria: Milly’s skills focus on multiplication and division. Let’s start with multiplication! <Skill 1> Provides a buff to healing! Now you give it a try.";
+fairy_text = "Bria: Milly’s skills focus on multiplication and division. Let’s start with multiplication! Health multiplies! Provides a buff to" + "\n" + "healing! Now you give it a try.";
 previous_fairy_text = "";
 text_progress = 0; text_speed = 0.5;
 

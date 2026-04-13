@@ -52,13 +52,13 @@ if (text_progress < string_length(fairy_text)) text_progress += text_speed;
 var current_phi_hp = enemies[0][1];
 if (current_phi_hp > 0 && battle_state == BattleState.PLAYER_MENU) {
     if (current_phi_hp <= phi_max_hp * 0.75 && current_phi_hp > phi_max_hp * 0.5 && !triggered_34) {
-        fairy_text = "Addeline: You thought that you could just get away with destroying everything in your sight? Well you thought wrong! You can't do whatever you want without consequences, and you're going to face them now!";
+        fairy_text = "Addeline: You thought that you could just get away with destroying everything in your sight? Well you thought wrong! You can\u0027t do whatever you want without consequences, and you\u0027re going to face them now!";
         triggered_34 = true;
     } else if (current_phi_hp <= phi_max_hp * 0.5 && current_phi_hp > phi_max_hp * 0.25 && !triggered_12) {
-        fairy_text = "Milly: I'll make sure that history knows all of the crimes you've committed! Everyone will remember your name, and the truth of what you did to our world!";
+        fairy_text = "Milly: I\u0027ll make sure that history knows all of the crimes you\u0027ve committed! Everyone will remember your name, and the truth of what you did to our world!";
         triggered_12 = true;
     } else if (current_phi_hp <= phi_max_hp * 0.25 && current_phi_hp > 0 && !triggered_14) {
-        fairy_text = "Erin: You took so many people's homes from them. The stability of a day to day life. I'll make sure you never feel steady on your own two feet again.";
+        fairy_text = "Erin: You took so many people\u0027s homes from them. The stability of a day to day life. I\u0027ll make sure you never feel steady on your own two feet again.";
         triggered_14 = true;
     }
 }
@@ -147,7 +147,7 @@ if (battle_state == BattleState.PLAYER_MENU && win_timer <= 0) {
 		} else if (skill_map[menu_index] == 2) {
 			fairy_text = "Deals damage to one enemy, drains 5 of Erin’s HP: Deals damage to your enemy! You can think of it like the opposite of squaring something.\nWhen you have a number inside of that means you \u0027re finding out what multiplied by itself equals the number inside of " + chr(8730) + ". For example, if I need to find the square root of 64, or " + chr(8730) + "64, I know that 8 x 8 is 64, so the " + chr(8730) + "64 should be 8!";
 		} else if (skill_map[menu_index] == 3) {
-			fairy_text = "Multi-hit attack (for each additional power, Erin gets another hit on the enemy):  For example, if I have 2" + chr(179) + ", that's 2 x 2 x 2, which is the same as 4 x 2, leading me to an answer of 8! And since we’re raising 2 to the third power, Erin will get 3 hits on the enemy!";
+			fairy_text = "Multi-hit attack (for each additional power, Erin gets another hit on the enemy):  For example, if I have 2" + chr(179) + ", that\u0027s 2 x 2 x 2, which is the same as 4 x 2, leading me to an answer of 8! And since we’re raising 2 to the third power, Erin will get 3 hits on the enemy!";
 		} else {
 			fairy_text = "Erin drains HP of the targeted enemy and heals herself:\nIts used by identifying what a perfect square is made from! For example, if I have the equation x" + chr(178) + " - 4, where x can be any number you want it to be, then I know that its the same as (x+2)(x-2) because when I distribute, (x + 2) to (x - 2), I get back to x" + chr(178) + " - 4!";
 		}
@@ -339,7 +339,7 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
 if (enemies[0][1] <= 0 && attack_timer <= 0 && battle_state == BattleState.PLAYER_MENU) {
     if (!triggered_0) { 
         win_timer = 300; 
-        fairy_text = "Bria: You thought you could separate my twin and I forever. That we wouldn't ever escape, and you'd get free reign for the rest of your life. Well the jokes on you because I would never let that happen! For as long as I live, I will protect those I care for."; 
+        fairy_text = "Bria: You thought you could separate my twin and I forever. That we wouldn\u0027t ever escape, and you\u0027d get free reign for the rest of your life. Well the jokes on you because I would never let that happen! For as long as I live, I will protect those I care for."; 
         triggered_0 = true;
     }
     if (win_timer > 0) win_timer--;

@@ -32,7 +32,7 @@ dialogue[16] = { t: "because I think this next fight is gonna be a big one.", s:
 // --- 2. SCENE STATE VARIABLES ---
 current_line = 0;
 horatio_enters_cave = false; // Triggered at line 7
-player_hp = 100; // For Addeline's dynamic face frame
+player_hp = 100; // For Addeline\u0027s dynamic face frame
 
 // --- 3. TYPEWRITER VARIABLES ---
 text_progress = 0; 
