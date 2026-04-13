@@ -5,7 +5,7 @@ dialogue[1] = { t: "Why, gathering more power for King Phi, of course.", s: "Hor
 dialogue[2] = { t: "What else would I need this pesky scorpion for?", s: "Horatio", port: HoratioDialogue, f: 1 };
 
 // { The Summation Scorpion shifts, looking as though it is in pain... }
-dialogue[3] = { t: "That’s enough, Horatio! Don’t you see you\u0027re hurting the Scorpion?", s: "Addeline", port: AddelineDialogue, f :2 };
+dialogue[3] = { t: "That\u0027s enough, Horatio! Don\u0027t you see you\u0027re hurting the Scorpion?", s: "Addeline", port: AddelineDialogue, f :2 };
 
 // { Horatio moves away from the Scorpion, carrying a vial... }
 dialogue[4] = { t: "That\u0027s not my problem!", s: "Horatio", port: HoratioDialogue, f: 3 };

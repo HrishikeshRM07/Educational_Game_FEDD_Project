@@ -10,7 +10,7 @@ dialogue[3] = { t: "It\u0027s OK Addeline! ", s: "Bria", port: BriaDialogue, f: 
 
 // Milly\u0027s support, split for pacing
 dialogue[4] = { t: "We\u0027ll be approaching King Phi’s castle soon, and we\u0027ll be able to put an end to all of this.\nWe\u0027ll be approaching the castle soon\u002E\u002E\u002E So its best to keep moving", s: "Milly", port: BriaDialogue, f: 1 };
-dialogue[5] = { t: "It\u0027ll be OK Addeline…\nI know we haven\u0027t known each other long, but we\u0027ll get through this together.", s: "Milly", port: MillyDialogue, f: 1 };
+dialogue[5] = { t: "It\u0027ll be OK Addeline\u002E\u002E\u002E\nI know we haven\u0027t known each other long, but we\u0027ll get through this together.", s: "Milly", port: MillyDialogue, f: 1 };
 
 // --- 2. SCENE STATE VARIABLES ---
 current_line = 0;

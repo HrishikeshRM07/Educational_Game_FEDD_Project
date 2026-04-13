@@ -37,7 +37,7 @@ defend_timer_max = 300; defend_timer = defend_timer_max;
 attack_timer = 0;        
 
 // --- 6. TYPEWRITER TEXT ---
-fairy_text = "Bria: Milly’s skills focus on multiplication and division. Let’s start with multiplication! Health multiplies! Provides a buff to" + "\n" + "healing! Now you give it a try.";
+fairy_text = "Bria: Milly\u0027s skills focus on multiplication and division. Let\u0027s start with multiplication! Health multiplies! Provides a buff to the amount of health that can be restored with one healing skill! You can think of multiplying something a bit like adding the same number over and over. If I have 10 strawberries, and I double (multiply by 2) that amount, then I\u0027ll end up with 20 strawberries, which is the same as 10 + 10! Now you give it a try.";
 previous_fairy_text = "";
 text_progress = 0; text_speed = 0.5;
 

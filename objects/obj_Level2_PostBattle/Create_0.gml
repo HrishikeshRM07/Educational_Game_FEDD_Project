@@ -3,7 +3,7 @@
 dialogue = [];
 
 dialogue[0] = { t: "Thank you guys for the help!", s: "Milly", port: MillyDialogue, f: 1 };
-dialogue[1] = { t: "That definitely would’ve been the end for me if I was alone.", s: "Milly", port: MillyDialogue, f: 4 };
+dialogue[1] = { t: "That definitely would\u0027ve been the end for me if I was alone.", s: "Milly", port: MillyDialogue, f: 4 };
 
 dialogue[2] = { t: "Not a problem!", s: "Addeline", port: AddelineDialogue, f: 1 };
 dialogue[3] = { t: "You were super helpful in that fight too.", s: "Addeline", port: AddelineDialogue, f: 1 };
@@ -14,7 +14,7 @@ dialogue[5] = { t: "The more people on our side the better!", s: "Bria", port: B
 dialogue[6] = { t: "King Phi most certainly won\u0027t go down without a fight.", s: "Bria", port: BriaDialogue, f: 3 };
 
 dialogue[7] = { t: "Oh! Thank you!", s: "Milly", port: MillyDialogue, f: 1 };
-dialogue[8] = { t: "I\u0027d be happy to join.", s: "Milly", port: MillyDialogue, f: 1 };
+dialogue[8] = { t: "I" + chr(39) + "d be happy to join.", s: "Milly", port: MillyDialogue, f: 1 };
 
 dialogue[9] = { t: "This gives me a perfect opportunity to document just about everything going on.", s: "Milly", port: MillyDialogue, f: 1};
 

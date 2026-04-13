@@ -11,10 +11,10 @@ text_speed = 0.5;
 // --- 3. DIALOGUE SETUP ---
 dialogue = [];
 
-dialogue[0]  = { t: "How\u002E\u002E\u002E I’d collected so much power\u002E\u002E\u002E how could you have defeated me?", s: "King Phi", port: -1 };
+dialogue[0]  = { t: "How\u002E\u002E\u002E I" + chr(39) + "d collected so much power\u002E\u002E\u002E how could you have defeated me?", s: "King Phi", port: -1 };
 dialogue[1]  = { t: "While you may have had power, you never took the time to learn how to use it.", s: "Erin", port: ErinDialogue }; 
 dialogue[2]  = { t: "You took and took until it was all that you knew.", s: "Erin", port: ErinDialogue }; 
-dialogue[3]  = { t: "Without training your skills you’d never be able to use what you’d learned.", s: "Milly", port: MillyDialogue };
+dialogue[3]  = { t: "Without training your skills you" + chr(39) + "d never be able to use what you’d learned.", s: "Milly", port: MillyDialogue };
 dialogue[4]  = { t: "We didn\u0027t hoard a power all for ourselves. We worked together, and trained in order to get here.", s: "Addeline", port: AddelineDialogue };
 dialogue[5]  = { t: "And I\u0027m so proud of you all! For now, King Phi shall be sent to the dungeon,", s: "Bria", port: BriaDialogue };
 dialogue[6]  = { t: "and we shall work to repair the kingdom.", s: "Bria", port: BriaDialogue };
@@ -24,7 +24,7 @@ dialogue[9]  = { t: "I can continue to escort you until the force is fully put t
 dialogue[10] = { t: "That would be greatly appreciated, thank you Erin.", s: "Bria", port: BriaDialogue };
 dialogue[11] = { t: "Addeline, Milly, is there anything that I could do to assist you both?", s: "Bria", port: BriaDialogue };
 dialogue[12] = { t: "You\u0027re free to stay at the castle until we can get you back to your homes.", s: "Bria", port: BriaDialogue };
-dialogue[13] = { t: "I\u0027d appreciate some materials to complete my records of what\u0027s happened!", s: "Milly", port: MillyDialogue };
+dialogue[13] = { t: "I" + chr(39) + "d appreciate some materials to complete my records of what\u0027s happened!", s: "Milly", port: MillyDialogue };
 dialogue[14] = { t: "Not to mention, a few books at the library were destroyed when King Phi took over,", s: "Milly", port: MillyDialogue };
 dialogue[15] = { t: "so if there\u0027s any way that they could be refound\u002E\u002E?", s: "Milly", port: MillyDialogue };
 dialogue[16] = { t: "Of course, that isn\u0027t a problem. And you, Addeline?", s: "Bria", port: BriaDialogue };

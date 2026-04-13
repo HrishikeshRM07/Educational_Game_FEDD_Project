@@ -58,7 +58,7 @@ draw_text_transformed(200, 125, "BRIA", 1.4, 1.4, 0);
 
 draw_set_color(make_color_rgb(40, 40, 40));
 var text_to_draw = string_copy(fairy_text, 1, floor(text_progress));
-draw_text_ext_transformed(200, 170, text_to_draw, 22, (fairy_box_w / 1.4) - 90, 1.4, 1.4, 0);
+draw_text_ext_transformed(200, 170, text_to_draw, 20, (fairy_box_w / 1.4) - 180, 1.4, 1.4, 0);
 
 // --- 3. BOTTOM LEFT HUD (DUAL PORTRAITS + HP) ---
 // --- ADDELINE (Left) ---

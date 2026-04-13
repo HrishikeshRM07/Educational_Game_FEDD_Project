@@ -83,7 +83,7 @@ if (battle_state == BattleState.PLAYER_MENU && attack_timer <= 0) {
     if (keyboard_check_pressed(vk_up))    menu_index = (menu_index % 2 != 0) ? menu_index - 1 : menu_index;
 	var skill_map = [1, 2, 3, 4]; 
 	if (skill_map[menu_index] == 1) {
-		fairy_text = "Provides heal to one party member: Click on Add it up!, and we can solve the problem together! For this spell, you\u0027ll\nneed to put two numbers together. For example! If you have 3 bows and I have 6 bows, if we put our bows together then\nwe" + chr(39) +"d have 9 bows.";
+		fairy_text = "Provides heal to one party member: Click on Add it up!, and we can solve the problem together! For this spell, you\u0027ll\nneed to put two numbers together. For example! If you have 3 bows and I have 6 bows, if we put our bows together then we" + chr(39) +"d have 9 bows.";
 	} else if (skill_map[menu_index] == 2) {
 		fairy_text = "Deals damage to one enemy: In order to use Sub-tract the health, you need to remove the\nsecond number from the first number!\nYou can think of it like this: If I had 3 apples, and I gave 1 of them to you, I" + chr(39) + "d be left with 2 apples.";
 	} else if (skill_map[menu_index] == 3) {

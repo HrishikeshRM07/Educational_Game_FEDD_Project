@@ -51,7 +51,7 @@ if (battle_state == BattleState.ENEMY_TURN) {
         battle_state = BattleState.DEFEND_SOLVE;
         defend_timer = defend_timer_max;
         player_input = "";
-        fairy_text = "Bria: Incoming attack! Solve this quickly to block!";
+        fairy_text = "Incoming attack! Solve this quickly to block!";
         
         var op = irandom(3); 
         if (op == 0) {
@@ -91,23 +91,23 @@ if (battle_state == BattleState.PLAYER_MENU && win_timer <= 0) {
 			var skill_map = [1, 2, 3, 4]; 
 			if (active_char == 0) {
 				if (skill_map[menu_index] == 1) {
-					fairy_text = "Provides heal to one party member: Click on Add it up!, and we can solve the problem together! For this spell, you\u0027ll\nneed to put two numbers together. For example! If you have 3 bows and I have 6 bows, if we put our bows together then\nwe\u0027d have 9 bows.";
+					fairy_text = "Provides heal to one party member: Click on Add it up!, and we can solve the problem together! For this spell, you\u0027ll need to put two numbers together. For example! If you have 3 bows and I have 6 bows, if we put our bows together then we" + chr(39) + "d have 9 bows.";
 				} else if (skill_map[menu_index] == 2) {
-					fairy_text = "Deals damage to one enemy: In order to use Sub-tract the health, you need to remove the\nsecond number from the first number!\nYou can think of it like this: If I had 3 apples, and I gave 1 of them to you, I\u0027d be left with 2 apples.";
+					fairy_text = "Deals damage to one enemy: In order to use Sub-tract the health, you need to remove the second number from the first number! You can think of it like this: If I had 3 apples, and I gave 1 of them to you, I" + chr(39) + "d be left with 2 apples.";
 				} else if (skill_map[menu_index] == 3) {
-					fairy_text = "Provides party heal: In order to do this you just need to add a bunch of numbers together! It doesn\u0027t matter what \norder that you do it in. For example if I have 10 cookies, you give me 5, and a friend of mine gives me 5 I\u0027d end up with\n20! It doesn’t matter if my friend gives it to me first or you give it to me first,\nI\u0027ll still end up with the same amount of cookies!";
+					fairy_text = "Provides party heal: In order to do this you just need to add a bunch of numbers together! It doesn\u0027t matter what order that you do it in. For example if I have 10 cookies, you give me 5, and a friend of mine gives me 5 I" + chr(39) + "d end up with 20! It doesn\u0027t matter if my friend gives it to me first or you give it to me first, I\u0027ll still end up with the same amount of cookies!";
 				} else {
-					fairy_text = "Multi-target attack: This is pretty similar to Sub-tract the health!, but now you\u0027ll be subtracting multiple smaller\nnumbers from one bigger number! If you need a way to think about it, if I have 38 cupcakes, I give 3 to you, and I give \n5 to a friend of mine I\u0027ll have 38-3-5 cupcakes, which means I\u0027d be left with 30 cupcakes!";
+					fairy_text = "Multi-target attack: This is pretty similar to Sub-tract the health!, but now you\u0027ll be subtracting multiple smaller numbers from one bigger number! If you need a way to think about it, if I have 38 cupcakes, I give 3 to you, and I give 5 to a friend of mine I\u0027ll have 38-3-5 cupcakes, which means I" + chr(39) + "d be left with 30 cupcakes!";
 				}
 			} else {
 				if (skill_map[menu_index] == 1) {
-					fairy_text = "Boosts the amount of HP that can be healed to one party member (lasts 3 turns). You can think of multiplying something a bit like adding the same number over and over.\nIf I have 10 strawberries, and I double (multiply by 2) that amount, then I\u0027ll end up with 20 strawberries, which is the same as 10 + 10! Now you give it a try";
+					fairy_text = "Boosts the amount of HP that can be healed to one party member (lasts 3 turns). You can think of multiplying something a bit like adding the same number over and over. If I have 10 strawberries, and I double (multiply by 2) that amount, then I\u0027ll end up with 20 strawberries, which is the same as 10 + 10! Now you give it a try";
 				} else if (skill_map[menu_index] == 2) {
 					fairy_text = "Deals damage to one enemy: To use this skill, we need to use division. Think of it like how many times one number can go into another number! For example, if I have 6 cakes, and the recipe says I need to use 2 then I\u0027ll be putting in the eggs 3 times!";
 				} else if (skill_map[menu_index] == 3) {
-					fairy_text = "Provides defense & damage buff to whole party (lasts 3 turns): This means that your next attacks will hit harder and any damage taken. In order to do this, we’ll need to use the distributive property!\nThat means multiplying everything that\u0027s outside the parentheses to what\u0027s inside of the parentheses. For example, \nIf I need to triple the cookies that two sets of partners have, I\u0027d write it as 3(2 + 2), and to distribute it I\u0027d multiply each 2 by 3.\nThis would get me 6 + 6, which gives me 12!";
+					fairy_text = "Provides defense & damage buff to whole party (lasts 3 turns): This means that your next attacks will hit harder and any damage taken. In order to do this, we\u0027ll need to use the distributive property! That means multiplying everything that\u0027s outside the parentheses to what\u0027s inside of the parentheses. For example, if I need to triple the cookies that two sets of partners have, I" + chr(39) + "d write it as 3(2 + 2), and to distribute it I" + chr(39) + "d multiply each 2 by 3. This would get me 6 + 6, which gives me 12!";
 				} else {
-					fairy_text = "Provides defense & damage debuff to all enemies (lasts 3 turns): \nFor this, we’re going to divide, but we may not get a whole number. For example if I have 15 apples and I\u0027m breaking it up into sets of twos,\nI\u0027ll have 7 sets of two apples with 1 apple remaining, which means that I\u0027ll have half a set. This means the answer to 15 " + chr(247) + " 2 is 7.5 sets of apples!";
+					fairy_text = "Provides defense & damage debuff to all enemies (lasts 3 turns): For this, we’re going to divide, but we may not get a whole number. For example if I have 15 apples and I\u0027m breaking it up into sets of twos, I\u0027ll have 7 sets of two apples with 1 apple remaining, which means that I\u0027ll have half a set. This means the answer to 15 " + chr(247) + " 2 is 7.5 sets of apples!";
 				}
 			}
         }
@@ -216,12 +216,12 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
 
     // Time\u0027s Up Logic (Failed)
     if (spell_timer <= 0 && !is_defending) { 
-        fairy_text = "Bria: Too slow! Brace yourself!";
+        fairy_text = "Too slow! Brace yourself!";
         attack_timer = 120; 
         battle_state = BattleState.ENEMY_TURN; 
     }
     if (defend_timer <= 0 && is_defending) { 
-        fairy_text = "Bria: Ouch! We took a hit!";
+        fairy_text = "Ouch! We took a hit!";
         player_hp = max(0, player_hp - 15); milly_hp = max(0, milly_hp - 15); 
         player_flash_color = c_red; player_flash_alpha = 1.0;
         milly_flash_color = c_red; milly_flash_alpha = 1.0;
@@ -236,7 +236,7 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
             // --- CORRECT ANSWER ---
             if (is_defending) {
                 battle_state = BattleState.PLAYER_MENU;
-                fairy_text = "Bria: Great block! Addeline, you\u0027re up!";
+                fairy_text = "Great block! Addeline, you\u0027re up!";
                 active_char = 0; // Reset back to Addeline
                 player_flash_color = c_white; player_flash_alpha = 1.0;
                 milly_flash_color = c_white; milly_flash_alpha = 1.0;
@@ -299,11 +299,11 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
                         milly_tutorial_step++;
                         is_tutorial = (milly_tutorial_step < 4); 
 
-                        if (milly_tutorial_step == 1) fairy_text = "Bria: Milly’s Divide it out! can damage enemies lightly! To use this skill, we need to use division.\nThink of it like how many times one number can go into another number!\nFor example, if I have 6 cakes, and the recipe says I need to use 2 then I’ll be putting in the eggs 3 times! Give it a try.";
-                        else if (milly_tutorial_step == 2) fairy_text = "Bria: Share the buffs! provides the party with a boost to their damage and defense! This means that your next attacks will hit harder and any damage taken.\nIn order to do this, we\u0027ll need to use the distributive property! That means multiplying everything that\u0027s outside the parentheses to what\u0027s inside of the parentheses.\nFor example, If I need to triple the cookies that two sets of partners have, I\u0027d write it as 3(2 + 2), and to distribute it I\u0027d multiply each 2 by 3. This would get me 6 + 6, which gives me 12! Now you give it a go.";
-                        else if (milly_tutorial_step == 3) fairy_text = "Bria: Long way down Makes the enemies weaker by lowering the amount of damage they deal, as well as lowering their defenses. For this, we\u0027re going to divide, but we may not get a whole number.\nFor example if I have 15 apples and I\u0027m breaking it up into sets of twos, I\u0027ll have 7 sets of two apples with 1 apple remaining, which means that I\u0027ll have half a set. This means the answer to 15 " + chr(247) + " 2 is 7.5 sets of apples! Now you try.";
+                        if (milly_tutorial_step == 1) fairy_text = "Milly\u0027s Divide it out! can damage enemies lightly! To use this skill, we need to use division. Think of it like how many times one number can go into another number! For example, if I have 6 cakes, and the recipe says I need to use 2 eggs then I\u0027ll be putting in the eggs 3 times! Give it a try.";
+                        else if (milly_tutorial_step == 2) fairy_text = "Share the buffs! provides the party with a boost to their damage and defense! This means that your next attacks will hit harder and any damage taken. In order to do this, we\u0027ll need to use the distributive property! That means multiplying everything that\u0027s outside the parentheses to what\u0027s inside of the parentheses. For example, If I need to triple the cookies that two sets of partners have, I\u0027d write it as 3(2 + 2), and to distribute it I\u0027d multiply each 2 by 3. This would get me 6 + 6, which gives me 12! Now you give it a go.";
+                        else if (milly_tutorial_step == 3) fairy_text = "Long way down Makes the enemies weaker by lowering the amount of damage they deal, as well as lowering their defenses. For this, we\u0027re going to divide, but we may not get a whole number. For example if I have 15 apples and I\u0027m breaking it up into sets of twos, I\u0027ll have 7 sets of two apples with 1 apple remaining, which means that I\u0027ll have half a set. This means the answer to 15 " + chr(247) + " 2 is 7.5 sets of apples! Now you try.";
                         else if (milly_tutorial_step == 4) {
-                            fairy_text = "Bria: That\u0027s everything you need to know for Milly\u0027s skills! Now see if you can finish this battle by yourself. ";
+                            fairy_text = "That\u0027s everything you need to know for Milly\u0027s skills! Now see if you can finish this battle by yourself. ";
                             is_tutorial = false;
                         }
                     }
@@ -329,7 +329,7 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
                         active_char = 1; // Hand it over to Milly
                         battle_state = BattleState.PLAYER_MENU;
                         menu_index = 0;
-                        fairy_text = "Bria: Nice hit! Milly, your turn!";
+                        fairy_text = "Nice hit! Milly, your turn!";
                     } else {
                         attack_timer = 120; // Enemy Turn
                         battle_state = BattleState.ENEMY_TURN; 
@@ -343,17 +343,17 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
             // --- WRONG ANSWER HINTS ---
             player_input = ""; 
             if (is_defending) {
-                fairy_text = "Bria: Block the attack! Re-check your math!";
+                fairy_text = "Block the attack! Re-check your math!";
             } else if (active_char == 0) {
-                if (selected_skill == 1) fairy_text = "Bria: Hint! Try counting up from " + string(problem_val1) + ".";
-                else if (selected_skill == 2) fairy_text = "Bria: Hint! Take " + string(problem_val2) + " away from " + string(problem_val1) + ".";
-                else if (selected_skill == 3) fairy_text = "Bria: Hint! Add " + string(problem_val1) + " and " + string(problem_val2) + " first, then add " + string(problem_val3) + ".";
-                else if (selected_skill == 4) fairy_text = "Bria: Hint! Take " + string(problem_val2) + " away from " + string(problem_val1) + " first.";
+                if (selected_skill == 1) fairy_text = "Hint! Try counting up from " + string(problem_val1) + ".";
+                else if (selected_skill == 2) fairy_text = "Hint! Take " + string(problem_val2) + " away from " + string(problem_val1) + ".";
+                else if (selected_skill == 3) fairy_text = "Hint! Add " + string(problem_val1) + " and " + string(problem_val2) + " first, then add " + string(problem_val3) + ".";
+                else if (selected_skill == 4) fairy_text = "Hint! Take " + string(problem_val2) + " away from " + string(problem_val1) + " first.";
             } else {
-                if (selected_skill == 1) fairy_text = "Bria: Hint! What is " + string(problem_val1) + " groups of " + string(problem_val2) + "?";
-                else if (selected_skill == 2) fairy_text = "Bria: Hint! How many times does " + string(problem_val2) + " fit into " + string(problem_val1) + "?";
-                else if (selected_skill == 3) fairy_text = "Bria: Hint! Add " + string(problem_val2) + " and " + string(problem_val3) + " first, then multiply by " + string(problem_val1) + "!";
-                else if (selected_skill == 4) fairy_text = "Bria: Hint! Think of it like money. What\u0027s half of " + string(problem_val1) + "? Don\u0027t forget the .5!";
+                if (selected_skill == 1) fairy_text = "Hint! What is " + string(problem_val1) + " groups of " + string(problem_val2) + "?";
+                else if (selected_skill == 2) fairy_text = "Hint! How many times does " + string(problem_val2) + " fit into " + string(problem_val1) + "?";
+                else if (selected_skill == 3) fairy_text = "Hint! Add " + string(problem_val2) + " and " + string(problem_val3) + " first, then multiply by " + string(problem_val1) + "!";
+                else if (selected_skill == 4) fairy_text = "Hint! Think of it like money. What\u0027s half of " + string(problem_val1) + "? Don\u0027t forget the .5!";
             }
         }
     }
@@ -365,11 +365,11 @@ for (var i = 0; i < array_length(enemies); i++) { if (enemies[i][1] > 0) all_dea
 
 if (all_dead && attack_timer <= 0 && battle_state == BattleState.PLAYER_MENU && !is_tutorial) {
     if (current_wave < max_waves) {
-        if (win_timer == -1) { win_timer = 120; fairy_text = "Bria: Well done! That\u0027s one wave down!"; }
+        if (win_timer == -1) { win_timer = 120; fairy_text = "Well done! That\u0027s one wave down!"; }
         if (win_timer > 0) win_timer--;
         if (win_timer == 0) {
             current_wave++;
-            fairy_text = "Bria: Watch out! More enemies are appearing!";
+            fairy_text = "Watch out! More enemies are appearing!";
             
             // --- 4 WAVES SETUP ---
             if (current_wave == 2) {
@@ -394,7 +394,7 @@ if (all_dead && attack_timer <= 0 && battle_state == BattleState.PLAYER_MENU && 
         }
     } else {
         if (win_timer == -1) win_timer = 180;
-        fairy_text = "Bria: You did it! The area is clear!";
+        fairy_text = "You did it! The area is clear!";
         if (win_timer > 0) win_timer--;
         if (win_timer == 0) room_goto(rm_Level2PostBattle);
     }
