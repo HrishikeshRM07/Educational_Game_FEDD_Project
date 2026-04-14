@@ -26,9 +26,11 @@ if (sprite_exists(ErinBattle)) {
 
 // Draw King Phi 
 var boss = enemies[0];
-if (boss[1] > 0) {
+if (boss[6] > 0) { // Changed to check Fade Alpha > 0 instead of HP so he doesn't vanish instantly!
     if (boss[8] > 0) gpu_set_fog(true, boss[7], 0, 0);
-    draw_sprite_ext(boss[4], floor(boss[5]), 1200, 900, 0.8, 0.8, 0, c_white, boss[6]); 
+    
+    // Draw using boss array coordinates to allow for movement animations
+    draw_sprite_ext(boss[4], floor(boss[5]), boss[2], boss[3], 0.8, 0.8, 0, c_white, boss[6]); 
     gpu_set_fog(false, c_white, 0, 0);
     
     draw_set_halign(fa_center); 
@@ -79,7 +81,7 @@ for (var i = 0; i < 3; i++) {
 draw_set_valign(fa_top); 
 
 // --- 4. BOTTOM RIGHT ATTACK MENU ---
-if (battle_state == BattleState.PLAYER_MENU) {
+if (battle_state == BattleState.PLAYER_MENU && win_timer <= 0) {
     var box_x = 910; var box_y = 770; var box_w = 980; var box_h = 280;          
     if (sprite_exists(spr_dialogue_base)) draw_sprite_stretched(spr_dialogue_base, 0, box_x, box_y, box_w, box_h);
 

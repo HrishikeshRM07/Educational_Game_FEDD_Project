@@ -216,7 +216,13 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
     if (keyboard_check_pressed(vk_backspace)) player_input = string_delete(player_input, string_length(player_input), 1);
 
     var is_defending = (battle_state == BattleState.DEFEND_SOLVE);
-    if (is_defending) defend_timer--; else spell_timer--;
+    
+    // --- CHANGED: Only count down spell_timer if we are NOT in the tutorial ---
+    if (is_defending) {
+        defend_timer--; 
+    } else if (!is_tutorial) {
+        spell_timer--;
+    }
 
     // Time\u0027s Up Logic (Failed)
     if (spell_timer <= 0 && !is_defending) { 
@@ -309,6 +315,7 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
                         else if (milly_tutorial_step == 4) {
                             fairy_text = "That\u0027s everything you need to know for Milly\u0027s skills! Now see if you can finish this battle by yourself. ";
                             is_tutorial = false;
+                            wave_pause_timer = 150; // <--- ADDED: Pauses the menu for 2.5 seconds after tutorial ends
                         }
                     }
                 }

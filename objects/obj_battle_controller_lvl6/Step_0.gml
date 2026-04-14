@@ -38,8 +38,7 @@ if (enemies[0][1] > 0) {
     if (enemies[0][5] >= 32) enemies[0][5] = 0; 
     if (enemies[0][8] > 0) enemies[0][8] -= 0.05; 
 } else {
-    if (enemies[0][8] > 0) enemies[0][8] -= 0.05; 
-    if (enemies[0][6] > 0) enemies[0][6] -= 0.05; 
+    // Left empty - Visual effects are handled entirely by the Victory Logic now!
 }
 
 // --- 1. TYPEWRITER EFFECT ---
@@ -336,13 +335,33 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
 }
 
 // --- 7. VICTORY LOGIC (KING PHI DEFEATED) ---
-if (enemies[0][1] <= 0 && attack_timers <= 0 && battle_state == BattleState.PLAYER_MENU) {
+if (enemies[0][1] <= 0 && attack_timer <= 0 && battle_state == BattleState.PLAYER_MENU) {
     if (!triggered_0) { 
-        win_timer = 300; 
+        win_timer = 800; // Increased timer so Bria's text completes smoothly!
         fairy_text = "Bria: You thought you could separate my twin and I forever. That we wouldn\u0027t ever escape, and you\u0027d get free reign for the rest of your life. Well the jokes on you because I would never let that happen! For as long as I live, I will protect those I care for."; 
         triggered_0 = true;
     }
-    if (win_timer > 0) win_timer--;
+    
+    if (win_timer > 0) {
+        win_timer--;
+        
+        // --- CRISP & COOL DEATH EFFECT ---
+        if (win_timer > 500) {
+            // Phase 1: Violent shaking and rapidly flashing colors
+            enemies[0][2] = 1200 + irandom_range(-8, 8); 
+            enemies[0][3] = 900 + irandom_range(-8, 8);
+            if (win_timer % 6 == 0) {
+                enemies[0][7] = choose(c_white, c_red, c_yellow);
+                enemies[0][8] = 0.8;
+            }
+        } else {
+            // Phase 2: Fade out slowly and float upward
+            enemies[0][2] = 1200; // Stabilize X position
+            enemies[0][3] -= 0.5; // Float upwards
+            if (enemies[0][6] > 0) enemies[0][6] -= 0.005; // Fade slowly over time
+            if (enemies[0][8] > 0) enemies[0][8] -= 0.05;  // Clear flash color
+        }
+    }
     
     if (win_timer == 0) room_goto(rm_Level6_PostBattle); 
 }

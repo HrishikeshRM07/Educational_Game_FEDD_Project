@@ -9,7 +9,7 @@ lose_timer = -1;
 phi_max_hp = 400; // 400 allows for clean thresholds: 300 (3/4), 200 (1/2), 100 (1/4)
 // Structure: [Name, HP, X, Y, Sprite, AnimFrame, FadeAlpha, FlashColor, FlashAlpha]
 enemies = [ 
-    ["KingPhi", phi_max_hp, 1100, 620, KingPhi, 0, 1.0, c_white, 0.0] 
+    ["KingPhi", phi_max_hp, 1200, 900, KingPhi, 0, 1.0, c_white, 0.0] 
 ];
 
 // --- DIALOGUE TRIGGERS ---
@@ -39,7 +39,7 @@ problem_val1 = 0; problem_val2 = 0;
 player_input = ""; menu_index = 0; 
 
 spell_timer_max = 600; spell_timer = spell_timer_max;
-defend_timer_max = 300; defend_timer = defend_timer_max;
+defend_timer_max = 1300; defend_timer = defend_timer_max;
 attack_timer = 0;        
 
 // Battle Begins Dialogue
