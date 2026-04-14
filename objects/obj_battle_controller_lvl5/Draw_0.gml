@@ -34,7 +34,7 @@ for (var i = 0; i < array_length(enemies); i++) {
         // Target Indicator
         if (i == target_index && (targeting_phase || (battle_state == BattleState.PLAYER_SOLVE && selected_skill == 2))) {
             var hover_y = en[3] - 180 + (sin(current_time / 150) * 10); 
-            if (sprite_exists(Bria)) draw_sprite_ext(Bria, 0, en[2], hover_y, 0.5, 0.5, 0, c_white, 1);
+            if (sprite_exists(Bria)) draw_sprite_ext(Bria, 0, en[2], hover_y - 100, 1, 1, 0, c_white, 1);
         }
     }
 }
@@ -44,7 +44,7 @@ var fairy_box_w = 1750; var fairy_box_h = 322;
 if (sprite_exists(spr_dialogue_base)) draw_sprite_stretched(spr_dialogue_base, 0, 7, 14, fairy_box_w, fairy_box_h);
 
 draw_set_halign(fa_left); draw_set_valign(fa_top); draw_set_color(c_black); draw_text(203, 126, "BRIA"); 
-draw_set_color(make_color_rgb(40, 40, 40)); draw_text_ext(203, 168, string_copy(fairy_text, 1, floor(text_progress)), 31, fairy_box_w - 126);
+draw_text_ext_transformed(203, 168, string_copy(fairy_text, 1, floor(text_progress)), 35, 1300, 1.1, 1.1, 0);
 
 // HUD / Portraits
 var p_y = 952;        
@@ -76,7 +76,7 @@ for (var i = 0; i < 3; i++) {
     var center_x = box_left + (hud_btn_width / 2); 
     draw_set_halign(fa_center); draw_set_valign(fa_middle);
     draw_set_color(c_white); 
-    draw_text(center_x, p_y + 7, string(hps[i])); draw_text(center_x, p_y + 21, "___"); draw_text(center_x, p_y + 56, string(max_hps[i]));
+    draw_text_transformed(center_x, p_y + 7, string(hps[i]), 1.5, 1.5, 0); draw_text_transformed(center_x, p_y + 21, "___", 1.5, 1.5, 0); draw_text_transformed(center_x, p_y + 56, string(max_hps[i]), 1.5, 1.5, 0);
 }
 draw_set_valign(fa_top); 
 
@@ -87,7 +87,7 @@ if (sprite_exists(spr_dialogue_base)) draw_sprite_stretched(spr_dialogue_base, 0
 if (battle_state == BattleState.PLAYER_MENU || battle_state == BattleState.DEFEND_MENU) {
     if (!targeting_phase) {
         draw_set_halign(fa_left); draw_set_valign(fa_top);
-        var text_start_x = 1078;  var text_start_y = 896;   
+        var text_start_x = 1078;  var text_start_y = 890;   
         var col_spacing = 420;   var row_spacing = 84;      
         
         var skills = [];
@@ -106,13 +106,13 @@ if (battle_state == BattleState.PLAYER_MENU || battle_state == BattleState.DEFEN
             var tx = text_start_x + (col * col_spacing); var ty = text_start_y + (row * row_spacing);
             
             draw_set_color(is_sel ? c_blue : make_color_rgb(40, 40, 40)); 
-            draw_text(tx, ty, (is_sel ? "> " : "  ") + skills[i]); 
+            draw_text_transformed(tx, ty, (is_sel ? "> " : "  ") + skills[i], 1.5, 1.5, 0);
         }
     } else {
         // TARGETING PROMPT
         draw_set_halign(fa_center); draw_set_valign(fa_middle);
         draw_set_color(c_blue); draw_text(box_x + (box_w / 2), box_y + (box_h / 2) - 30, "- SELECT TARGET -");
-        draw_set_color(make_color_rgb(40, 40, 40)); draw_text_transformed(box_x + (box_w / 2), box_y + (box_h / 2) + 30, "Press SPACE to switch, ENTER to lock in!", 0.8, 0.8, 0);
+        draw_set_color(make_color_rgb(40, 40, 40)); draw_text_transformed(box_x + (box_w / 2), box_y + (box_h / 2) + 30, "Press SPACE to switch, ENTER to lock in!", 1, 1, 0);
         draw_set_halign(fa_left); draw_set_valign(fa_top); 
     }
 }
@@ -132,6 +132,6 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
     // --- UPDATED TEXT SCALING ---
     draw_set_color(make_color_rgb(40, 40, 40)); 
     draw_text_transformed(solve_center_x, solve_start_y + 50, problem_question, 1.5, 1.5, 0); 
-    draw_text_transformed(solve_center_x, solve_start_y - 20 + 130, "ANS: " + player_input + "_", 1.5, 1.5, 0);
+    draw_text_transformed(solve_center_x, solve_start_y + 100, "ANS: " + player_input + "_", 1.5, 1.5, 0);
 }
 draw_set_valign(fa_top);

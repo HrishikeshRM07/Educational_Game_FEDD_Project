@@ -39,9 +39,10 @@ var fairy_box_w = 1880; var fairy_box_h = 320;
 if (sprite_exists(spr_dialogue_base)) draw_sprite_stretched(spr_dialogue_base, 0, 10, 15, fairy_box_w, fairy_box_h);
 
 draw_set_halign(fa_left); draw_set_valign(fa_top);
-draw_set_color(c_black); draw_text(200, 125, "BRIA"); 
+draw_set_color(c_black); 
+draw_text_transformed(200, 125, "BRIA", 1.2, 1.2, 0);
 draw_set_color(make_color_rgb(40, 40, 40));
-draw_text_ext(200, 170, string_copy(fairy_text, 1, floor(text_progress)), 35, fairy_box_w - 125);
+draw_text_ext_transformed(200, 170, string_copy(fairy_text, 1, floor(text_progress)), 35, fairy_box_w - 600, 1.2, 1.2, 0);
 
 // --- 3. BOTTOM LEFT HUD ---
 var p_y = 950; var shift_x = 140;    
@@ -57,9 +58,11 @@ if (sprite_exists(AddelineBUI)) draw_sprite_ext(AddelineBUI, ad_face, ad_x, ad_y
 
 draw_set_halign(fa_center); draw_set_valign(fa_middle);
 draw_set_color(c_white); 
-draw_text(126 + shift_x, p_y + 7, string(player_hp));
-draw_text(126 + shift_x, p_y + 21, "___");
-draw_text(126 + shift_x, p_y + 56, string(player_max_hp));
+
+// UPDATED: Scaled Addeline's health text by 1.5x
+draw_text_transformed(126 + shift_x, p_y + 7, string(player_hp), 1.5, 1.5, 0);
+draw_text_transformed(126 + shift_x, p_y + 21, "___", 1.5, 1.5, 0);
+draw_text_transformed(126 + shift_x, p_y + 56, string(player_max_hp), 1.5, 1.5, 0);
 
 // --- MILLY (Right) ---
 var mil_x = 294 + shift_x; 
@@ -71,9 +74,11 @@ draw_roundrect_ext(399 + shift_x, p_y - 28, 539 + shift_x, p_y + 84, 10, 10, tru
 if (sprite_exists(MillyBUI)) draw_sprite_ext(MillyBUI, 0, mil_x, mil_y, 0.7, 0.7, 0, c_white, 1);
 
 draw_set_color(c_white); 
-draw_text(469 + shift_x, p_y + 7, string(milly_hp));
-draw_text(469 + shift_x, p_y + 21, "___");
-draw_text(469 + shift_x, p_y + 56, string(milly_max_hp));
+
+// UPDATED: Scaled Milly's health text by 1.5x
+draw_text_transformed(469 + shift_x, p_y + 7, string(milly_hp), 1.5, 1.5, 0);
+draw_text_transformed(469 + shift_x, p_y + 21, "___", 1.5, 1.5, 0);
+draw_text_transformed(469 + shift_x, p_y + 56, string(milly_max_hp), 1.5, 1.5, 0);
 
 draw_set_valign(fa_top);
 
@@ -85,7 +90,7 @@ if (sprite_exists(spr_dialogue_base)) draw_sprite_stretched(spr_dialogue_base, 0
 if (battle_state == BattleState.PLAYER_MENU || battle_state == BattleState.DEFEND_MENU) {
     draw_set_halign(fa_left); draw_set_valign(fa_top);
     
-    var tx_st = 1080; var ty_st = 900; var cs = 420; var rs = 84;     
+    var tx_st = 1080; var ty_st = 890; var cs = 420; var rs = 84;     
     var skills = (battle_state == BattleState.DEFEND_MENU) ? ["Quick Shield", "Math Barrier", "Logic Wall", "Aegis"] : 
                  ((active_char == 0) ? ["Add it up!", "Sub-tract HP", "Share health!", "Double Down"] : 
                                        ["Health Multiply", "Divide it out!", "Share buffs!", "Long Way Down"]);
@@ -96,7 +101,9 @@ if (battle_state == BattleState.PLAYER_MENU || battle_state == BattleState.DEFEN
         var ty = ty_st + ((i % 2) * rs);
         
         draw_set_color(is_sel ? c_blue : make_color_rgb(40, 40, 40)); 
-        draw_text(tx, ty, (is_sel ? "> " : "  ") + skills[i]); 
+        
+        // UPDATED: Scaled the abilities text by 1.5x
+        draw_text_transformed(tx, ty, (is_sel ? "> " : "  ") + skills[i], 1.5, 1.5, 0); 
     }
 }
 
@@ -114,7 +121,9 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
     draw_text(scx, ssy, is_def ? "-- DEFEND SPELL --" : "-- MATH SPELL --");
     
     draw_set_color(make_color_rgb(40, 40, 40));
-    draw_text(scx, ssy + 63, problem_question);
-    draw_text(scx, ssy + 126, "ANS: " + player_input + "_");
+
+    // UPDATED: Changed 'draw_text' to 'draw_text_transformed'
+    draw_text_transformed(scx, ssy + 63, problem_question, 1.5, 1.5, 0);
+    draw_text_transformed(scx, ssy + 126, "ANS: " + player_input + "_", 1.5, 1.5, 0);
 }
 draw_set_valign(fa_top);

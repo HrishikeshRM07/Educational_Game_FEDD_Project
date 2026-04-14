@@ -1,6 +1,9 @@
 // --- DRAWING / RENDER PREP ---
 draw_set_font(fnt_battle);
 
+// Master text size variable! Change this to 1.5, 2, etc., to increase the text size.
+var text_scale = 1.5; 
+
 // Debug Skip
 if (keyboard_check_pressed(vk_escape)) room_goto(rm_Level6_PostBattle);
 
@@ -37,9 +40,10 @@ var fairy_box_w = 1750; var fairy_box_h = 322;
 if (sprite_exists(spr_dialogue_base)) draw_sprite_stretched(spr_dialogue_base, 0, 7, 14, fairy_box_w, fairy_box_h);
 
 draw_set_halign(fa_left); draw_set_valign(fa_top);
-draw_set_color(c_black); draw_text(203, 126, "BRIA"); 
+draw_set_color(c_black); 
+draw_text_transformed(203, 126, "BRIA", 1.5, 1.5, 0); 
 draw_set_color(make_color_rgb(40, 40, 40));
-draw_text_ext(203, 168, string_copy(fairy_text, 1, floor(text_progress)), 31, fairy_box_w - 126);
+draw_text_ext_transformed(203, 168, string_copy(fairy_text, 1, floor(text_progress)), 31, fairy_box_w - 500, 1.2, 1.2, 0);
 
 // --- 3. BOTTOM LEFT HUD (ADDELINE, MILLY, ERIN) ---
 var p_y = 952;        
@@ -68,9 +72,9 @@ for (var i = 0; i < 3; i++) {
     draw_set_halign(fa_center); draw_set_valign(fa_middle);
     draw_set_color(c_white); 
     
-    draw_text(center_x, p_y + 7, string(hps[i]));
-    draw_text(center_x, p_y + 21, "___");
-    draw_text(center_x, p_y + 56, string(max_hps[i]));
+    draw_text_transformed(center_x, p_y + 7, string(hps[i]), text_scale, text_scale, 0);
+    draw_text_transformed(center_x, p_y + 21, "___", text_scale, text_scale, 0);
+    draw_text_transformed(center_x, p_y + 56, string(max_hps[i]), text_scale, text_scale, 0);
 }
 draw_set_valign(fa_top); 
 
@@ -80,7 +84,7 @@ if (battle_state == BattleState.PLAYER_MENU) {
     if (sprite_exists(spr_dialogue_base)) draw_sprite_stretched(spr_dialogue_base, 0, box_x, box_y, box_w, box_h);
 
     draw_set_halign(fa_left); draw_set_valign(fa_top);
-    var text_start_x = 1078;  var text_start_y = 896;   
+    var text_start_x = 1078;  var text_start_y = 890;   
     var col_spacing = 420;   var row_spacing = 84;      
     
     var skills = [];
@@ -96,7 +100,7 @@ if (battle_state == BattleState.PLAYER_MENU) {
         var ty = text_start_y + (row * row_spacing);
         
         draw_set_color(is_sel ? c_blue : make_color_rgb(40, 40, 40)); 
-        draw_text(tx, ty, (is_sel ? "> " : "  ") + skills[i]); 
+        draw_text_transformed(tx, ty, (is_sel ? "> " : "  ") + skills[i], text_scale, text_scale, 0); 
     }
 }
 
@@ -115,10 +119,11 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
     draw_rectangle(solve_center_x - 140, solve_start_y + 28, solve_center_x - 140 + (cur_t * 280), solve_start_y - 14, false);
 
     draw_set_color(c_blue);
-    draw_text(solve_center_x, solve_start_y, is_def ? "-- EMERGENCY DEFEND! --" : "-- MATH SPELL --");
+    draw_text_transformed(solve_center_x, solve_start_y, is_def ? "-- EMERGENCY DEFEND! --" : "-- MATH SPELL --", text_scale, text_scale, 0);
     
-    draw_set_color(make_color_rgb(40, 40, 40));
-    draw_text(solve_center_x, solve_start_y + 63, problem_question);
-    draw_text(solve_center_x, solve_start_y + 126, "ANS: " + player_input + "_");
+    // --- UPDATED TEXT SCALING ---
+    draw_set_color(make_color_rgb(40, 40, 40)); 
+    draw_text_transformed(solve_center_x, solve_start_y + 50, problem_question, 1.5, 1.5, 0); 
+    draw_text_transformed(solve_center_x, solve_start_y + 100, "ANS: " + player_input + "_", 1.5, 1.5, 0);
 }
 draw_set_valign(fa_top);

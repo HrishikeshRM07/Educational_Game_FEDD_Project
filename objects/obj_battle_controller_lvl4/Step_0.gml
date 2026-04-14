@@ -61,7 +61,7 @@ if (battle_state == BattleState.ENEMY_TURN) {
         battle_state = BattleState.DEFEND_SOLVE;
         player_input = "";
         defend_timer = defend_timer_max;
-        fairy_text = "Bria: Quick! Solve this to block!";
+        fairy_text = "Quick! Solve this to block!";
         
         // DEFEND MATH LOGIC (Random Operations)
         var op = irandom(3); 
@@ -98,13 +98,13 @@ if (battle_state == BattleState.PLAYER_MENU && win_timer <= 0) {
 			var skill_map = [1, 2, 3, 4]; 
 			if (active_char == 0) {
 				if (skill_map[menu_index] == 1) {
-					fairy_text = "Provides heal to one party member: Click on Add it up!, and we can solve the problem together! For this spell, you\u0027ll\nneed to put two numbers together. For example! If you have 3 bows and I have 6 bows, if we put our bows together then we" + chr(39) +"d have 9 bows.";
+					fairy_text = "Provides heal to one party member: Click on Add it up!, and we can solve the problem together! For this spell, you\u0027ll need to put two numbers together. For example! If you have 3 bows and I have 6 bows, if we put our bows together then we" + chr(39) +"d have 9 bows.";
 				} else if (skill_map[menu_index] == 2) {
-					fairy_text = "Deals damage to one enemy: In order to use Sub-tract the health, you need to remove the\nsecond number from the first number!\nYou can think of it like this: If I had 3 apples, and I gave 1 of them to you, I" + chr(39) + "d be left with 2 apples.";
+					fairy_text = "Deals damage to one enemy: In order to use Sub-tract the health, you need to remove the second number from the first number! You can think of it like this: If I had 3 apples, and I gave 1 of them to you, I" + chr(39) + "d be left with 2 apples.";
 				} else if (skill_map[menu_index] == 3) {
-					fairy_text = "Provides party heal: In order to do this you just need to add a bunch of numbers together! It doesn\u0027t matter what \norder that you do it in. For example if I have 10 cookies, you give me 5, and a friend of mine gives me 5 I" + chr(39) + "d end up\nwith 20! It doesn\u0027t matter if my friend gives it to me first or you give it to me first,\nI\u0027ll still end up with the same amount of cookies!";
+					fairy_text = "Provides party heal: In order to do this you just need to add a bunch of numbers together! It doesn\u0027t matter what order that you do it in. For example if I have 10 cookies, you give me 5, and a friend of mine gives me 5 I" + chr(39) + "d end up with 20! It doesn\u0027t matter if my friend gives it to me first or you give it to me first, I\u0027ll still end up with the same amount of cookies!";
 				} else {
-					fairy_text = "Multi-target attack: This is pretty similar to Sub-tract the health!, but now you\u0027ll be subtracting multiple smaller\nnumbers from one bigger number! If you need a way to think about it, if I have 38 cupcakes, I give 3 to you, and I give \n5 to a friend of mine I\u0027ll have 38-3-5 cupcakes, which means I" + chr(39) + "d be left with 30 cupcakes!";
+					fairy_text = "Multi-target attack: This is pretty similar to Sub-tract the health!, but now you\u0027ll be subtracting multiple smaller numbers from one bigger number! If you need a way to think about it, if I have 38 cupcakes, I give 3 to you, and I give 5 to a friend of mine I\u0027ll have 38-3-5 cupcakes, which means I" + chr(39) + "d be left with 30 cupcakes!";
 				}
 			} else if (active_char == 1) {
 				if (skill_map[menu_index] == 1) {
@@ -120,11 +120,11 @@ if (battle_state == BattleState.PLAYER_MENU && win_timer <= 0) {
 				if (skill_map[menu_index] == 1) {
 					fairy_text = "Doubles damage of Erin\u0027s next attack: When something is squared, that means you\u0027re multiplying it by itself one time. For example, if I have 3\u00B2 that means that I have 3 x 3, which equals 9! You can think of the number in the exponent as the number of times something will multiply by itself. But be careful! You can\u0027t add numbers when you do exponents, you can only multiply them.";
 				} else if (skill_map[menu_index] == 2) {
-					fairy_text = "Deals damage to one enemy, drains 5 of Erin’s HP: Deals damage to your enemy! You can think of it like the opposite of squaring something.\nWhen you have a number inside of " + chr(8730) + " that means you\u0027re finding out what multiplied by itself equals the number inside of " + chr(8730) + ". For example, if I need to find the square root of 64, or " + chr(8730) + "64, I know that 8 x 8 is 64, so the " + chr(8730) + "64 should be 8!";
+					fairy_text = "Deals damage to one enemy, drains 5 of Erin’s HP: Deals damage to your enemy! You can think of it like the opposite of squaring something. When you have a number inside of " + chr(8730) + " that means you\u0027re finding out what multiplied by itself equals the number inside of " + chr(8730) + ". For example, if I need to find the square root of 64, or " + chr(8730) + "64, I know that 8 x 8 is 64, so the " + chr(8730) + "64 should be 8!";
 				} else if (skill_map[menu_index] == 3) {
 					fairy_text = "Multi-hit attack (for each additional power, Erin gets another hit on the enemy):  For example, if I have 2\u00B3, that\u0027s 2 x 2 x 2, which is the same as 4 x 2, leading me to an answer of 8! And since we\u0027re raising 2 to the third power, Erin will get 3 hits on the enemy!";
 				} else {
-					fairy_text = "Erin drains HP of the targeted enemy and heals herself:\nIt\u0027s used by identifying what a perfect square is made from! For example, if I have the equation x\u00B2 - 4, where x can be any number you want it to be, then I know that its the same as (x+2)(x-2) because when I distribute, (x + 2) to (x - 2), I get back to x\u00B2 - 4!";
+					fairy_text = "Erin drains HP of the targeted enemy and heals herself: It\u0027s used by identifying what a perfect square is made from! For example, if I have the equation x\u00B2 - 4, where x can be any number you want it to be, then I know that its the same as (x+2)(x-2) because when I distribute, (x + 2) to (x - 2), I get back to x\u00B2 - 4!";
 				}
 			}
 		}
@@ -250,11 +250,11 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
     if (is_defending) defend_timer--; else spell_timer--;
 
     if (spell_timer <= 0 && !is_defending) { 
-        fairy_text = "Bria: Too slow! Brace yourself!";
+        fairy_text = "Too slow! Brace yourself!";
         attack_timer = 120; battle_state = BattleState.ENEMY_TURN; 
     }
     if (defend_timer <= 0 && is_defending) { 
-        fairy_text = "Bria: Ouch! We took a hit!";
+        fairy_text = "Ouch! We took a hit!";
         player_hp -= 15; milly_hp -= 15; erin_hp -= 15;
         player_flash_color = c_red; player_flash_alpha = 1.0;
         milly_flash_color = c_red;  milly_flash_alpha = 1.0;
@@ -270,7 +270,7 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
             // --- CORRECT ANSWER ---
             if (is_defending) {
                 battle_state = BattleState.PLAYER_MENU;
-                fairy_text = "Bria: Great block! Now it\u0027s our turn.";
+                fairy_text = "Great block! Now it\u0027s our turn.";
                 player_flash_color = c_white; player_flash_alpha = 1.0; // WHITE = DEFEND
                 milly_flash_color = c_white;  milly_flash_alpha = 1.0;
                 erin_flash_color = c_white;   erin_flash_alpha = 1.0;
@@ -347,10 +347,10 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
                         erin_tutorial_step++;
                         is_tutorial = (erin_tutorial_step < 4); 
 
-                        if (erin_tutorial_step == 1) fairy_text = "Bria: Root of the Problem Deals damage to your enemy! You can think of it like the opposite of squaring something. When you have a number inside of " + chr(8730) + " that means you’re finding out what multiplied by itself equals the number inside of " + chr(8730) + ". For example, if I need to find the square root of 64, or " + chr(8730) + "64, I know that 8 x 8 is 64, so the " + chr(8730) + "64 should be 8!";
-                        else if (erin_tutorial_step == 2) fairy_text = "Bria: Raised Powers lets Erin hit a single target multiple times! For each number above two that a number is raised to, Erin gets an additional hit on the enemy! For example, if I have 2" + chr(179) + ", that\u0027s 2 x 2 x 2, which is the same as 4 x 2, leading me to an answer of 8! And since we’re raising 2 to the third power, Erin will get 3 hits on the enemy!";
-                        else if (erin_tutorial_step == 3) fairy_text = "Bria: <Skill 4> allows Erin to take some of the enemies health for herself! It\u0027s used by identifying what a perfect square is made from! For example, if I have the equation x\u00B2 - 4,\nwhere x can be any number you want it to be, then I know that its the same as (x-2)(x+2)\nbecause when I distribute, (x - 2) to (x + 2), I get back to x\u00B2 + 4!";
-                        else if (erin_tutorial_step == 4) { fairy_text = "Bria: That\u0027s all you need to know about Erin! Now finish this battle."; active_char = 0; battle_state = BattleState.PLAYER_MENU; }
+                        if (erin_tutorial_step == 1) fairy_text = "Root of the Problem Deals damage to your enemy! You can think of it like the opposite of squaring something. When you have a number inside of " + chr(8730) + " that means you’re finding out what multiplied by itself equals the number inside of " + chr(8730) + ". For example, if I need to find the square root of 64, or " + chr(8730) + "64, I know that 8 x 8 is 64, so the " + chr(8730) + "64 should be 8!";
+                        else if (erin_tutorial_step == 2) fairy_text = "Raised Powers lets Erin hit a single target multiple times! For each number above two that a number is raised to, Erin gets an additional hit on the enemy! For example, if I have 2" + chr(179) + ", that\u0027s 2 x 2 x 2, which is the same as 4 x 2, leading me to an answer of 8! And since we’re raising 2 to the third power, Erin will get 3 hits on the enemy!";
+                        else if (erin_tutorial_step == 3) fairy_text = "Perfectlly Balanced allows Erin to take some of the enemies health for herself! It\u0027s used by identifying what a perfect square is made from! For example, if I have the equation x\u00B2 - 4, where x can be any number you want it to be, then I know that its the same as (x-2)(x+2) because when I distribute, (x - 2) to (x + 2), I get back to x\u00B2 + 4!";
+                        else if (erin_tutorial_step == 4) { fairy_text = "That\u0027s all you need to know about Erin! Now finish this battle."; active_char = 0; battle_state = BattleState.PLAYER_MENU; }
                     }
                 }
 
@@ -398,8 +398,8 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
 
                         if (battle_state == BattleState.PLAYER_MENU) {
                             menu_index = 0;
-                            if (active_char == 1) fairy_text = "Bria: Nice hit! Milly, your turn!";
-                            if (active_char == 2) fairy_text = "Bria: Awesome! Erin, finish it!";
+                            if (active_char == 1) fairy_text = "Nice hit! Milly, your turn!";
+                            if (active_char == 2) fairy_text = "Awesome! Erin, finish it!";
                         }
                     }
                 } else {
@@ -410,21 +410,21 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
             // --- WRONG ANSWER ---
             player_input = ""; 
             if (is_defending) {
-                fairy_text = "Bria: Block the attack! Re-check your math!";
+                fairy_text = "Block the attack! Re-check your math!";
             } else if (active_char == 0) {
-                if (selected_skill == 1) fairy_text = "Bria: Hint! Try counting up from " + string(problem_val1) + ".";
-                else if (selected_skill == 2) fairy_text = "Bria: Hint! Take " + string(problem_val2) + " away from " + string(problem_val1) + ".";
-                else fairy_text = "Bria: Careful! Check your math again.";
+                if (selected_skill == 1) fairy_text = "Hint! Try counting up from " + string(problem_val1) + ".";
+                else if (selected_skill == 2) fairy_text = "Hint! Take " + string(problem_val2) + " away from " + string(problem_val1) + ".";
+                else fairy_text = "Careful! Check your math again.";
             } else if (active_char == 1) {
-                if (selected_skill == 1) fairy_text = "Bria: Hint! What is " + string(problem_val1) + " groups of " + string(problem_val2) + "?";
-                else if (selected_skill == 2) fairy_text = "Bria: Hint! How many times does " + string(problem_val2) + " fit into " + string(problem_val1) + "?";
-                else if (selected_skill == 3) fairy_text = "Bria: Hint! Multiply " + string(problem_val1) + " by both inside numbers, then add them.";
-                else if (selected_skill == 4) fairy_text = "Bria: Hint! Half of " + string(problem_val1) + " is " + string(problem_val1 / 2) + ".";
+                if (selected_skill == 1) fairy_text = "Hint! What is " + string(problem_val1) + " groups of " + string(problem_val2) + "?";
+                else if (selected_skill == 2) fairy_text = "Hint! How many times does " + string(problem_val2) + " fit into " + string(problem_val1) + "?";
+                else if (selected_skill == 3) fairy_text = "Hint! Multiply " + string(problem_val1) + " by both inside numbers, then add them.";
+                else if (selected_skill == 4) fairy_text = "Hint! Half of " + string(problem_val1) + " is " + string(problem_val1 / 2) + ".";
             } else if (active_char == 2) {
-                if (selected_skill == 1) fairy_text = "Bria: Hint! Multiply the number by itself.";
-                else if (selected_skill == 2) fairy_text = "Bria: Hint! What number multiplied by itself equals " + string(problem_val1) + "?";
-                else if (selected_skill == 3) fairy_text = "Bria: Hint! Multiply the number by itself three times.";
-                else if (selected_skill == 4) fairy_text = "Bria: Hint! Find the square root of that number.";
+                if (selected_skill == 1) fairy_text = "Hint! Multiply the number by itself.";
+                else if (selected_skill == 2) fairy_text = "Hint! What number multiplied by itself equals " + string(problem_val1) + "?";
+                else if (selected_skill == 3) fairy_text = "Hint! Multiply the number by itself three times.";
+                else if (selected_skill == 4) fairy_text = "Hint! Find the square root of that number.";
             }
         }
     }
@@ -436,11 +436,11 @@ for (var i = 0; i < array_length(enemies); i++) { if (enemies[i][1] > 0) all_dea
 
 if (all_dead && attack_timer <= 0 && battle_state == BattleState.PLAYER_MENU && !is_tutorial) {
     if (current_wave < max_waves) {
-        if (win_timer == -1) { win_timer = 120; fairy_text = "Bria: Well done! That\u0027s one wave down!"; }
+        if (win_timer == -1) { win_timer = 120; fairy_text = "Well done! That\u0027s one wave down!"; }
         if (win_timer > 0) win_timer--;
         if (win_timer == 0) {
             current_wave++;
-            fairy_text = "Bria: Watch out! More enemies are appearing!";
+            fairy_text = "Watch out! More enemies are appearing!";
             
             if (current_wave == 2) {
                 enemies = [ 
@@ -459,7 +459,7 @@ if (all_dead && attack_timer <= 0 && battle_state == BattleState.PLAYER_MENU && 
         }
     } else {
         if (win_timer == -1) win_timer = 180;
-        fairy_text = "Bria: You did it! All 3 waves are clear!";
+        fairy_text = "You did it! All 3 waves are clear!";
         if (win_timer > 0) win_timer--;
         if (win_timer == 0) room_goto(rm_Level4_PostBattle); 
     }
@@ -468,7 +468,7 @@ if (all_dead && attack_timer <= 0 && battle_state == BattleState.PLAYER_MENU && 
 if (player_hp <= 0 && milly_hp <= 0 && erin_hp <= 0) {
     if (lose_timer == -1) { 
         lose_timer = 180; 
-        fairy_text = "Bria: We were defeated... Let\u0027s try again!"; 
+        fairy_text = "We were defeated... Let\u0027s try again!"; 
         battle_state = BattleState.PLAYER_MENU; attack_timer = 0; 
     }
     if (lose_timer > 0) lose_timer--;

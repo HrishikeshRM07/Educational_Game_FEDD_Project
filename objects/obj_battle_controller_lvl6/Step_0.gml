@@ -109,7 +109,7 @@ if (battle_state == BattleState.ENEMY_TURN) {
         } else if (op == 4) {
             problem_val1 = irandom_range(3, 12);
             problem_answer = problem_val1 * problem_val1;
-            problem_question = string(problem_val1) + "^2 = ?";
+            problem_question = string(problem_val1) + "\u00B2 = ?"; // Now it prints like 5² = ?
         }
     }
 }
@@ -123,13 +123,13 @@ if (battle_state == BattleState.PLAYER_MENU && win_timer <= 0) {
 	var skill_map = [1, 2, 3, 4]; 
 	if (active_char == 0) {
 		if (skill_map[menu_index] == 1) {
-			fairy_text = "Provides heal to one party member: Click on Add it up!, and we can solve the problem together! For this spell, you\u0027ll\nneed to put two numbers together. For example! If you have 3 bows and I have 6 bows, if we put our bows together then we" + chr(39) +"d have 9 bows.";
+			fairy_text = "Provides heal to one party member: Click on Add it up!, and we can solve the problem together! For this spell, you\u0027ll need to put two numbers together. For example! If you have 3 bows and I have 6 bows, if we put our bows together then we" + chr(39) +"d have 9 bows.";
 		} else if (skill_map[menu_index] == 2) {
-			fairy_text = "Deals damage to one enemy: In order to use Sub-tract the health, you need to remove the\nsecond number from the first number!\nYou can think of it like this: If I had 3 apples, and I gave 1 of them to you, I" + chr(39) + "d be left with 2 apples.";
+			fairy_text = "Deals damage to one enemy: In order to use Sub-tract the health, you need to remove the second number from the first number! You can think of it like this: If I had 3 apples, and I gave 1 of them to you, I" + chr(39) + "d be left with 2 apples.";
 		} else if (skill_map[menu_index] == 3) {
-			fairy_text = "Provides party heal: In order to do this you just need to add a bunch of numbers together! It doesn\u0027t matter what \norder that you do it in. For example if I have 10 cookies, you give me 5, and a friend of mine gives me 5 I" + chr(39) + "d end up\nwith 20! It doesn\u0027t matter if my friend gives it to me first or you give it to me first,\nI\u0027ll still end up with the same amount of cookies!";
+			fairy_text = "Provides party heal: In order to do this you just need to add a bunch of numbers together! It doesn\u0027t matter what order that you do it in. For example if I have 10 cookies, you give me 5, and a friend of mine gives me 5 I" + chr(39) + "d end up with 20! It doesn\u0027t matter if my friend gives it to me first or you give it to me first, I\u0027ll still end up with the same amount of cookies!";
 		} else {
-			fairy_text = "Multi-target attack: This is pretty similar to Sub-tract the health!, but now you\u0027ll be subtracting multiple smaller\nnumbers from one bigger number! If you need a way to think about it, if I have 38 cupcakes, I give 3 to you, and I give \n5 to a friend of mine I\u0027ll have 38-3-5 cupcakes, which means I" + chr(39) + "d be left with 30 cupcakes!";
+			fairy_text = "Multi-target attack: This is pretty similar to Sub-tract the health!, but now you\u0027ll be subtracting multiple smaller numbers from one bigger number! If you need a way to think about it, if I have 38 cupcakes, I give 3 to you, and I give 5 to a friend of mine I\u0027ll have 38-3-5 cupcakes, which means I" + chr(39) + "d be left with 30 cupcakes!";
 		}
 	} else if (active_char == 1) {
 		if (skill_map[menu_index] == 1) {
@@ -145,11 +145,11 @@ if (battle_state == BattleState.PLAYER_MENU && win_timer <= 0) {
 		if (skill_map[menu_index] == 1) {
 			fairy_text = "Doubles damage of Erin\u0027s next attack: When something is squared, that means you\u0027re multiplying it by itself one time. For example, if I have 3\u00B2 that means that I have 3 x 3, which equals 9! You can think of the number in the exponent as the number of times something will multiply by itself. But be careful! You can\u0027t add numbers when you do exponents, you can only multiply them.";
 		} else if (skill_map[menu_index] == 2) {
-			fairy_text = "Deals damage to one enemy, drains 5 of Erin’s HP: Deals damage to your enemy! You can think of it like the opposite of squaring something.\nWhen you have a number inside of " + chr(8730) + " that means you\u0027re finding out what multiplied by itself equals the number inside of " + chr(8730) + ". For example, if I need to find the square root of 64, or " + chr(8730) + "64, I know that 8 x 8 is 64, so the " + chr(8730) + "64 should be 8!";
+			fairy_text = "Deals damage to one enemy, drains 5 of Erin’s HP: Deals damage to your enemy! You can think of it like the opposite of squaring something. When you have a number inside of " + chr(8730) + " that means you\u0027re finding out what multiplied by itself equals the number inside of " + chr(8730) + ". For example, if I need to find the square root of 64, or " + chr(8730) + "64, I know that 8 x 8 is 64, so the " + chr(8730) + "64 should be 8!";
 		} else if (skill_map[menu_index] == 3) {
 			fairy_text = "Multi-hit attack (for each additional power, Erin gets another hit on the enemy):  For example, if I have 2\u00B3, that\u0027s 2 x 2 x 2, which is the same as 4 x 2, leading me to an answer of 8! And since we\u0027re raising 2 to the third power, Erin will get 3 hits on the enemy!";
 		} else {
-			fairy_text = "Erin drains HP of the targeted enemy and heals herself:\nIt\u0027s used by identifying what a perfect square is made from! For example, if I have the equation x\u00B2 - 4, where x can be any number you want it to be, then I know that its the same as (x+2)(x-2) because when I distribute, (x + 2) to (x - 2), I get back to x\u00B2 - 4!";
+			fairy_text = "Erin drains HP of the targeted enemy and heals herself: It\u0027s used by identifying what a perfect square is made from! For example, if I have the equation x\u00B2 - 4, where x can be any number you want it to be, then I know that its the same as (x+2)(x-2) because when I distribute, (x + 2) to (x - 2), I get back to x\u00B2 - 4!";
 		}
 	}
     if (keyboard_check_pressed(vk_enter)) {
@@ -336,7 +336,7 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
 }
 
 // --- 7. VICTORY LOGIC (KING PHI DEFEATED) ---
-if (enemies[0][1] <= 0 && attack_timer <= 0 && battle_state == BattleState.PLAYER_MENU) {
+if (enemies[0][1] <= 0 && attack_timers <= 0 && battle_state == BattleState.PLAYER_MENU) {
     if (!triggered_0) { 
         win_timer = 300; 
         fairy_text = "Bria: You thought you could separate my twin and I forever. That we wouldn\u0027t ever escape, and you\u0027d get free reign for the rest of your life. Well the jokes on you because I would never let that happen! For as long as I live, I will protect those I care for."; 

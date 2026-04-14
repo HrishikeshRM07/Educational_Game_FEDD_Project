@@ -38,7 +38,7 @@ attack_timer = 0;
 fairy_text = "Bria: Use any skill you like! We have to clear all 3 waves!";
 previous_fairy_text = "";
 text_progress = 0;
-text_speed = 0.5;
+text_speed = 2000;
 
 // --- 7. ANIMATION SETUP ---
 addeline_frame = 0;

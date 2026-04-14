@@ -60,7 +60,7 @@ draw_text_transformed(200, 125, "BRIA", 1.4, 1.4, 0);
 
 draw_set_color(make_color_rgb(40, 40, 40));
 var text_to_draw = string_copy(fairy_text, 1, floor(text_progress));
-var text_max_width = (fairy_box_w / 1.4) - 90; 
+var text_max_width = (fairy_box_w / 1.4) - 200; 
 draw_text_ext_transformed(200, 170, text_to_draw, 22, text_max_width, 1.4, 1.4, 0);
 
 
@@ -97,7 +97,7 @@ if (battle_state == BattleState.PLAYER_MENU) {
         draw_set_halign(fa_left);
         
         var text_start_x = 1080;  
-        var text_start_y = 890;   
+        var text_start_y = 900;   
         var col_spacing = 420;    
         var row_spacing = 85;     
         

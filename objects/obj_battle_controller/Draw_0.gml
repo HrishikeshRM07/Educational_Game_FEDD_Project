@@ -50,10 +50,10 @@ draw_set_halign(fa_left);
 draw_set_valign(fa_top);
 draw_set_color(c_black); 
 
-draw_text_transformed(fairy_box_x + 60, fairy_box_y + 20, "FAIRY", 1.4, 1.4, 0); 
+draw_text_transformed(fairy_box_x + 60, fairy_box_y + 20, "Bria", 1.4, 1.4, 0); 
 draw_set_color(make_color_rgb(40, 40, 40));
 
-var text_max_width = (fairy_box_w / 1.4) - 100; 
+var text_max_width = (fairy_box_w / 1.4) - 200; 
 draw_text_ext_transformed(fairy_box_x + 60, fairy_box_y + 70, fairy_text, 22, text_max_width, 1.4, 1.4, 0);
 
 if (tutorial_stage > 1 && tutorial_stage < 4) {
@@ -105,7 +105,7 @@ if (battle_state == BattleState.PLAYER_MENU) {
     draw_set_halign(fa_left);
     
     var text_start_x = 1080;  
-    var text_start_y = 890;   
+    var text_start_y = 900;   
     var col_spacing = 420;   
     var row_spacing = 85;     
     

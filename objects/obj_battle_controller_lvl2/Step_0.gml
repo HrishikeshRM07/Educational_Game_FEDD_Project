@@ -74,8 +74,12 @@ if (battle_state == BattleState.ENEMY_TURN) {
     }
 }
 
+// --- NEW: Countdown the pause timer ---
+if (!variable_instance_exists(id, "wave_pause_timer")) wave_pause_timer = 0;
+if (wave_pause_timer > 0) wave_pause_timer--;
+
 // --- 3. MENU NAVIGATION & TARGETING ---
-if (battle_state == BattleState.PLAYER_MENU && win_timer <= 0) {
+if (battle_state == BattleState.PLAYER_MENU && win_timer <= 0 && wave_pause_timer <= 0) {
     
     var trigger_math_gen = false; // Local flag to smoothly transition to solving
     
@@ -371,7 +375,7 @@ if (all_dead && attack_timer <= 0 && battle_state == BattleState.PLAYER_MENU && 
             current_wave++;
             fairy_text = "Watch out! More enemies are appearing!";
             
-            // --- 4 WAVES SETUP ---
+           // --- 4 WAVES SETUP ---
             if (current_wave == 2) {
                 enemies = [ 
                     ["GoldmanShort", 30, room_width-450, 710, GoldmanShort, 0, 1.0, c_white, 0.0], 
@@ -390,7 +394,9 @@ if (all_dead && attack_timer <= 0 && battle_state == BattleState.PLAYER_MENU && 
                     ["Ananan", 30, room_width-640, 840, Ananan, 0, 1.0, c_white, 0.0] 
                 ];
             }
+            
             win_timer = -1;
+            wave_pause_timer = 150; // <--- NEW: 150 frames = 2.5 seconds of delay before the menu returns
         }
     } else {
         if (win_timer == -1) win_timer = 180;

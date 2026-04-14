@@ -11,8 +11,8 @@ lose_timer = -1;
 // --- WAVE 1 SETUP ---
 // Structure: [Name, HP, X, Y, Sprite, AnimFrame, FadeAlpha, FlashColor, FlashAlpha]
 enemies = [ 
-    ["Aundroid", 80, room_width - 252, 840, Aundroid, 0, 1.0, c_white, 0.0], 
-    ["Ananan", 40, room_width - 448, 840, Ananan, 0, 1.0, c_white, 0.0],
+    ["Aundroid", 60, room_width - 252, 840, Aundroid, 0, 1.0, c_white, 0.0], 
+    ["Ananan", 40, room_width - 448, 740, Ananan, 0, 1.0, c_white, 0.0],
     ["Ananan", 40, room_width - 644, 840, Ananan, 0, 1.0, c_white, 0.0]
 ];
 
@@ -39,7 +39,7 @@ player_input = ""; menu_index = 0;
 targeting_phase = false;
 
 spell_timer_max = 600; spell_timer = spell_timer_max;
-defend_timer_max = 300; defend_timer = defend_timer_max;
+defend_timer_max = 1200; defend_timer = defend_timer_max;
 attack_timer = 0;        
 
 fairy_text = "Here they come! Five waves of enemies. Stay sharp!";

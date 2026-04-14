@@ -25,8 +25,8 @@ problem_question = ""; problem_answer = 0;
 problem_val1 = 0; problem_val2 = 0; 
 player_input = ""; menu_index = 0; 
 
-spell_timer_max = 600; spell_timer = spell_timer_max;
-defend_timer_max = 300; defend_timer = defend_timer_max;
+spell_timer_max = 700; spell_timer = spell_timer_max;
+defend_timer_max = 600; defend_timer = defend_timer_max;
 attack_timer = 0;       
 
 fairy_text = "Watch out! It's the Summation Scorpion! Its attacks are much stronger!";
