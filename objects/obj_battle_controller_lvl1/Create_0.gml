@@ -28,9 +28,9 @@ targeting_phase = false; // <--- ADD THIS
 
 
 // --- 5. TIMERS ---
-spell_timer_max = 600; 
+spell_timer_max = 1000; 
 spell_timer = spell_timer_max;
-defend_timer_max = 600; // Increased to 10 seconds for a more relaxed defense
+defend_timer_max = 1000; // Increased to 10 seconds for a more relaxed defense
 defend_timer = defend_timer_max;
 attack_timer = 0;       
 
@@ -48,3 +48,5 @@ addeline_anim_end = 0;
 // --- 8. FLASH & VISUAL EFFECTS ---
 player_flash_color = c_white;
 player_flash_alpha = 0;
+
+lose_timer = -1; 

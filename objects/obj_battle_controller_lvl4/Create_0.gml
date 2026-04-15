@@ -40,8 +40,8 @@ problem_val1 = 0; problem_val2 = 0; problem_val3 = 0;
 player_input = ""; menu_index = 0; 
 targeting_phase = false;
 
-spell_timer_max = 600; spell_timer = spell_timer_max;
-defend_timer_max = 300; defend_timer = defend_timer_max;
+spell_timer_max = 1000; spell_timer = spell_timer_max;
+defend_timer_max = 1000; defend_timer = defend_timer_max;
 attack_timer = 0;        
 
 fairy_text = "Erin\u0027s first skill Damage Squared will double the damage of Erin\u0027s next attack, although it does drain 5 of Erin’s health. Erin\u0027s skills are based around using exponents and square roots. When something is squared, that means you\u0027re multiplying it by itself one time. For example, if I have 3² that means that I have 3 x 3, which equals 9! You can think of the number in the exponent as the number of times something will multiply by itself. But be careful! You can\u0027t add numbers when you do exponents, you can only multiply them.";

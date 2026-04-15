@@ -177,13 +177,13 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
                 // --- TRIGGER ADDELINE ATTACK ANIMATION ---
                 addeline_is_attacking = true;
                 if (selected_skill == 1) {        // Additive Heal
-                    addeline_frame = 24; addeline_anim_end = 38;
+                    addeline_frame = 32; addeline_anim_end = 38;
                 } else if (selected_skill == 2) { // Subtraction
-                    addeline_frame = 10; addeline_anim_end = 24;
+                    addeline_frame = 25; addeline_anim_end = 31;
                 } else if (selected_skill == 3) { // Commutative
-                    addeline_frame = 52; addeline_anim_end = 67;
+                    addeline_frame = 39; addeline_anim_end = 52;
                 } else if (selected_skill == 4) { // Double Sub
-                    addeline_frame = 38; addeline_anim_end = 52;
+                    addeline_frame = 53; addeline_anim_end = 67;
                 }
                 
                 if (selected_skill == 1) {
@@ -294,4 +294,13 @@ if (all_dead && attack_timer <= 0 && battle_state == BattleState.PLAYER_MENU) {
         if (win_timer > 0) win_timer--;
         if (win_timer == 0) room_goto(rm_Level1PostBattle);
     }
+}
+if (player_hp <= 0) {
+    if (lose_timer == -1) { 
+        lose_timer = 180; 
+        fairy_text = "We were defeated... Let\u0027s try again!"; 
+        battle_state = BattleState.PLAYER_MENU; attack_timer = 0; 
+    }
+    if (lose_timer > 0) lose_timer--;
+    if (lose_timer == 0) room_goto(rm_Level1Story);
 }

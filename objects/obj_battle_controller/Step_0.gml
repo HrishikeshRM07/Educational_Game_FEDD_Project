@@ -169,16 +169,16 @@ switch (battle_state) {
                 addeline_is_attacking = true;
                 
                 if (selected_skill == 1) {        // Additive Heal
-                    addeline_frame = 24; addeline_anim_end = 38;
+                    addeline_frame = 25; addeline_anim_end = 31;
                     player_flash_color = c_green; player_flash_alpha = 1.0; // Green Heal Flash
                 } else if (selected_skill == 2) { // Subtraction
-                    addeline_frame = 10; addeline_anim_end = 24;
+                    addeline_frame = 32; addeline_anim_end = 38;
                     enemy_flash_color = c_red; enemy_flash_alpha = 1.0; // Flash Enemy Red
                 } else if (selected_skill == 3) { // Commutative
-                    addeline_frame = 52; addeline_anim_end = 67;
+                    addeline_frame = 39; addeline_anim_end = 52;
                     enemy_flash_color = c_red; enemy_flash_alpha = 1.0;
                 } else if (selected_skill == 4) { // Double Sub
-                    addeline_frame = 38; addeline_anim_end = 52;
+                    addeline_frame = 53; addeline_anim_end = 67;
                     enemy_flash_color = c_red; enemy_flash_alpha = 1.0;
                 }
                 

@@ -92,28 +92,28 @@ if (battle_state == BattleState.PLAYER_MENU && win_timer <= 0 && wave_pause_time
             if (keyboard_check_pressed(vk_left))  menu_index = clamp(menu_index - 2, 0, 3);
             if (keyboard_check_pressed(vk_down))  menu_index = (menu_index % 2 == 0) ? menu_index + 1 : menu_index;
             if (keyboard_check_pressed(vk_up))    menu_index = (menu_index % 2 != 0) ? menu_index - 1 : menu_index;
-			var skill_map = [1, 2, 3, 4]; 
-			if (active_char == 0) {
-				if (skill_map[menu_index] == 1) {
-					fairy_text = "Provides heal to one party member: Click on Add it up!, and we can solve the problem together! For this spell, you\u0027ll need to put two numbers together. For example! If you have 3 bows and I have 6 bows, if we put our bows together then we" + chr(39) + "d have 9 bows.";
-				} else if (skill_map[menu_index] == 2) {
-					fairy_text = "Deals damage to one enemy: In order to use Sub-tract the health, you need to remove the second number from the first number! You can think of it like this: If I had 3 apples, and I gave 1 of them to you, I" + chr(39) + "d be left with 2 apples.";
-				} else if (skill_map[menu_index] == 3) {
-					fairy_text = "Provides party heal: In order to do this you just need to add a bunch of numbers together! It doesn\u0027t matter what order that you do it in. For example if I have 10 cookies, you give me 5, and a friend of mine gives me 5 I" + chr(39) + "d end up with 20! It doesn\u0027t matter if my friend gives it to me first or you give it to me first, I\u0027ll still end up with the same amount of cookies!";
-				} else {
-					fairy_text = "Multi-target attack: This is pretty similar to Sub-tract the health!, but now you\u0027ll be subtracting multiple smaller numbers from one bigger number! If you need a way to think about it, if I have 38 cupcakes, I give 3 to you, and I give 5 to a friend of mine I\u0027ll have 38-3-5 cupcakes, which means I" + chr(39) + "d be left with 30 cupcakes!";
-				}
-			} else {
-				if (skill_map[menu_index] == 1) {
-					fairy_text = "Boosts the amount of HP that can be healed to one party member (lasts 3 turns). You can think of multiplying something a bit like adding the same number over and over. If I have 10 strawberries, and I double (multiply by 2) that amount, then I\u0027ll end up with 20 strawberries, which is the same as 10 + 10! Now you give it a try";
-				} else if (skill_map[menu_index] == 2) {
-					fairy_text = "Deals damage to one enemy: To use this skill, we need to use division. Think of it like how many times one number can go into another number! For example, if I have 6 cakes, and the recipe says I need to use 2 then I\u0027ll be putting in the eggs 3 times!";
-				} else if (skill_map[menu_index] == 3) {
-					fairy_text = "Provides defense & damage buff to whole party (lasts 3 turns): This means that your next attacks will hit harder and any damage taken. In order to do this, we\u0027ll need to use the distributive property! That means multiplying everything that\u0027s outside the parentheses to what\u0027s inside of the parentheses. For example, if I need to triple the cookies that two sets of partners have, I" + chr(39) + "d write it as 3(2 + 2), and to distribute it I" + chr(39) + "d multiply each 2 by 3. This would get me 6 + 6, which gives me 12!";
-				} else {
-					fairy_text = "Provides defense & damage debuff to all enemies (lasts 3 turns): For this, we’re going to divide, but we may not get a whole number. For example if I have 15 apples and I\u0027m breaking it up into sets of twos, I\u0027ll have 7 sets of two apples with 1 apple remaining, which means that I\u0027ll have half a set. This means the answer to 15 " + chr(247) + " 2 is 7.5 sets of apples!";
-				}
-			}
+            var skill_map = [1, 2, 3, 4]; 
+            if (active_char == 0) {
+                if (skill_map[menu_index] == 1) {
+                    fairy_text = "Provides heal to one party member: Click on Add it up!, and we can solve the problem together! For this spell, you\u0027ll need to put two numbers together. For example! If you have 3 bows and I have 6 bows, if we put our bows together then we" + chr(39) + "d have 9 bows.";
+                } else if (skill_map[menu_index] == 2) {
+                    fairy_text = "Deals damage to one enemy: In order to use Sub-tract the health, you need to remove the second number from the first number! You can think of it like this: If I had 3 apples, and I gave 1 of them to you, I" + chr(39) + "d be left with 2 apples.";
+                } else if (skill_map[menu_index] == 3) {
+                    fairy_text = "Provides party heal: In order to do this you just need to add a bunch of numbers together! It doesn\u0027t matter what order that you do it in. For example if I have 10 cookies, you give me 5, and a friend of mine gives me 5 I" + chr(39) + "d end up with 20! It doesn\u0027t matter if my friend gives it to me first or you give it to me first, I\u0027ll still end up with the same amount of cookies!";
+                } else {
+                    fairy_text = "Multi-target attack: This is pretty similar to Sub-tract the health!, but now you\u0027ll be subtracting multiple smaller numbers from one bigger number! If you need a way to think about it, if I have 38 cupcakes, I give 3 to you, and I give 5 to a friend of mine I\u0027ll have 38-3-5 cupcakes, which means I" + chr(39) + "d be left with 30 cupcakes!";
+                }
+            } else {
+                if (skill_map[menu_index] == 1) {
+                    fairy_text = "Boosts the amount of HP that can be healed to one party member (lasts 3 turns). You can think of multiplying something a bit like adding the same number over and over. If I have 10 strawberries, and I double (multiply by 2) that amount, then I\u0027ll end up with 20 strawberries, which is the same as 10 + 10! Now you give it a try";
+                } else if (skill_map[menu_index] == 2) {
+                    fairy_text = "Deals damage to one enemy: To use this skill, we need to use division. Think of it like how many times one number can go into another number! For example, if I have 6 cakes, and the recipe says I need to use 2 then I\u0027ll be putting in the eggs 3 times!";
+                } else if (skill_map[menu_index] == 3) {
+                    fairy_text = "Provides defense & damage buff to whole party (lasts 3 turns): This means that your next attacks will hit harder and any damage taken. In order to do this, we\u0027ll need to use the distributive property! That means multiplying everything that\u0027s outside the parentheses to what\u0027s inside of the parentheses. For example, if I need to triple the cookies that two sets of partners have, I" + chr(39) + "d write it as 3(2 + 2), and to distribute it I" + chr(39) + "d multiply each 2 by 3. This would get me 6 + 6, which gives me 12!";
+                } else {
+                    fairy_text = "Provides defense & damage debuff to all enemies (lasts 3 turns): For this, we’re going to divide, but we may not get a whole number. For example if I have 15 apples and I\u0027m breaking it up into sets of twos, I\u0027ll have 7 sets of two apples with 1 apple remaining, which means that I\u0027ll have half a set. This means the answer to 15 " + chr(247) + " 2 is 7.5 sets of apples!";
+                }
+            }
         }
         if (keyboard_check_pressed(vk_enter)) {
             selected_skill = menu_index + 1;
@@ -236,7 +236,7 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
         player_flash_color = c_red; player_flash_alpha = 1.0;
         milly_flash_color = c_red; milly_flash_alpha = 1.0;
         battle_state = BattleState.PLAYER_MENU; 
-        active_char = 0; // Reset back to Addeline
+        active_char = (player_hp > 0) ? 0 : 1; // <--- UPDATED: Ensure it doesn't give a turn to a dead Addeline
     }
 
     // Submitting an Answer
@@ -246,8 +246,11 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
             // --- CORRECT ANSWER ---
             if (is_defending) {
                 battle_state = BattleState.PLAYER_MENU;
-                fairy_text = "Great block! Addeline, you\u0027re up!";
-                active_char = 0; // Reset back to Addeline
+                active_char = (player_hp > 0) ? 0 : 1; // <--- UPDATED: Check who is alive
+                
+                if (active_char == 0) fairy_text = "Great block! Addeline, you\u0027re up!";
+                else fairy_text = "Great block! Milly, you\u0027re up!";
+                
                 player_flash_color = c_white; player_flash_alpha = 1.0;
                 milly_flash_color = c_white; milly_flash_alpha = 1.0;
             } else {
@@ -257,24 +260,24 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
                     addeline_is_attacking = true;
                     
                     if (selected_skill == 1) { 
-                        addeline_frame = 24; addeline_anim_end = 38; 
+                        addeline_frame = 25; addeline_anim_end = 31; 
                         if (player_hp <= milly_hp) player_hp = min(player_hp + 20, player_max_hp); 
                         else milly_hp = min(milly_hp + 20, milly_max_hp);
                         player_flash_color = c_green; player_flash_alpha = 1.0;
                     } else if (selected_skill == 2) { 
-                        addeline_frame = 10; addeline_anim_end = 24; 
+                        addeline_frame = 32; addeline_anim_end = 38; 
                         if (enemies[target_index][1] > 0) { 
                             enemies[target_index][1] -= 15; 
                             enemies[target_index][7] = c_white; 
                             enemies[target_index][8] = 1.0; 
                         } 
                     } else if (selected_skill == 3) { 
-                        addeline_frame = 52; addeline_anim_end = 67; 
+                        addeline_frame = 39; addeline_anim_end = 52; 
                         player_hp = min(player_hp + 15, player_max_hp); milly_hp = min(milly_hp + 15, milly_max_hp);
                         player_flash_color = c_green; player_flash_alpha = 1.0;
                         milly_flash_color = c_green; milly_flash_alpha = 1.0;
                     } else if (selected_skill == 4) { 
-                        addeline_frame = 38; addeline_anim_end = 52; 
+                        addeline_frame = 53; addeline_anim_end = 67; 
                         for (var i = 0; i < array_length(enemies); i++) { 
                             if (enemies[i][1] > 0) { enemies[i][1] -= 15; enemies[i][7] = c_white; enemies[i][8] = 1.0; } 
                         }
@@ -284,21 +287,21 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
                     milly_is_attacking = true;
                     
                     if (selected_skill == 1) { 
-                        milly_frame = 10; milly_anim_end = 25; milly_heal_buff = 3; 
+                        milly_frame = 25; milly_anim_end = 38; milly_heal_buff = 3; 
                         milly_flash_color = c_yellow; milly_flash_alpha = 1.0;
                     } else if (selected_skill == 2) { 
-                        milly_frame = 25; milly_anim_end = 40; 
+                        milly_frame = 39; milly_anim_end = 51; 
                         if (enemies[target_index][1] > 0) { 
                             enemies[target_index][1] -= 15; 
                             enemies[target_index][7] = c_white; 
                             enemies[target_index][8] = 1.0; 
                         } 
                     } else if (selected_skill == 3) { 
-                        milly_frame = 40; milly_anim_end = 55; party_buff = 3; 
+                        milly_frame = 52; milly_anim_end = 62; party_buff = 3; 
                         player_flash_color = c_yellow; player_flash_alpha = 1.0;
                         milly_flash_color = c_yellow; milly_flash_alpha = 1.0;
                     } else if (selected_skill == 4) { 
-                        milly_frame = 55; milly_anim_end = 71; enemy_debuff = 3; 
+                        milly_frame = 63; milly_anim_end = 71; enemy_debuff = 3; 
                         for (var i = 0; i < array_length(enemies); i++) {
                             if (enemies[i][1] > 0) { enemies[i][7] = c_fuchsia; enemies[i][8] = 1.0; }
                         }
@@ -334,17 +337,31 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
                 if (!is_tutorial && enemies_dead) { 
                     attack_timer = 0;
                     battle_state = BattleState.PLAYER_MENU;
-                    active_char = 0; // Reset back to Addeline for the next wave
+                    active_char = (player_hp > 0) ? 0 : 1; // <--- UPDATED: Start next wave with an alive character
                 } else if (!is_tutorial) {
                     if (active_char == 0) {
-                        active_char = 1; // Hand it over to Milly
-                        battle_state = BattleState.PLAYER_MENU;
-                        menu_index = 0;
-                        fairy_text = "Nice hit! Milly, your turn!";
+                        // Addeline just went.
+                        if (milly_hp > 0) {
+                            active_char = 1; // Hand it over to Milly
+                            battle_state = BattleState.PLAYER_MENU;
+                            menu_index = 0;
+                            fairy_text = "Nice hit! Milly, your turn!";
+                        } else {
+                            // Milly is down! Go straight to Enemy Turn. // <--- UPDATED
+                            attack_timer = 120; 
+                            battle_state = BattleState.ENEMY_TURN; 
+                            active_char = 0; // Addeline is still up next
+                        }
                     } else {
-                        attack_timer = 120; // Enemy Turn
+                        // Milly just went. It's the Enemy Turn now. // <--- UPDATED
+                        attack_timer = 120; 
                         battle_state = BattleState.ENEMY_TURN; 
-                        active_char = 0; // Prepare Addeline for next round
+                        
+                        if (player_hp > 0) {
+                            active_char = 0; // Prepare Addeline for next round
+                        } else {
+                            active_char = 1; // Addeline is down, prep Milly instead
+                        }
                     }
                 } else {
                     battle_state = BattleState.PLAYER_MENU; // Stay in menu for tutorial
@@ -411,4 +428,19 @@ if (all_dead && attack_timer <= 0 && battle_state == BattleState.PLAYER_MENU && 
         if (win_timer > 0) win_timer--;
         if (win_timer == 0) room_goto(rm_Level2PostBattle);
     }
+}
+if (player_hp <= 0 && milly_hp <= 0) {
+    if (lose_timer == -1) { 
+        lose_timer = 180; // Wait about 3 seconds before resetting
+        fairy_text = "The Enemies defeated us... Let\u0027s try again!"; 
+        
+        // Force the state to stop the battle from continuing in the background
+        battle_state = BattleState.PLAYER_MENU; 
+        attack_timer = 0; 
+    }
+    
+    if (lose_timer > 0) lose_timer--;
+    
+    // Once the timer hits 0, restart the room completely!
+    if (lose_timer == 0) room_goto(rm_Level2Story); 
 }

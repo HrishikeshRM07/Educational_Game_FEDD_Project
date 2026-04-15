@@ -10,8 +10,8 @@
   "name":"obj_Level6_PostBattle",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"Post-Battles",
+    "path":"folders/Objects/Post-Battles.yy",
   },
   "parentObjectId":null,
   "persistent":false,

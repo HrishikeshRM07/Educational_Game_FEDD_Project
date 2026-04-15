@@ -4,9 +4,6 @@ draw_set_font(fnt_battle);
 // Master text size variable! Change this to 1.5, 2, etc., to increase the text size.
 var text_scale = 1.5; 
 
-// Debug Skip
-if (keyboard_check_pressed(vk_escape)) room_goto(rm_Level6_PostBattle);
-
 // --- 1. DRAW CHARACTERS & BOSS ---
 if (sprite_exists(AddelineBattle)) {
     if (player_flash_alpha > 0) gpu_set_fog(true, player_flash_color, 0, 0);

@@ -12,8 +12,8 @@
   "name":"obj_story_controller",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"Other Objects",
+    "path":"folders/Objects/Other Objects.yy",
   },
   "parentObjectId":null,
   "persistent":false,

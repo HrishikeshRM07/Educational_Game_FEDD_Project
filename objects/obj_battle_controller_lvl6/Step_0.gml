@@ -1,3 +1,5 @@
+if (keyboard_check_pressed(vk_escape) && !targeting_phase) room_goto(rm_Level6_PostBattle);
+    
 // ==========================================
 // 0. ANIMATION & STATE LOGIC
 // ==========================================
@@ -200,24 +202,24 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
                 if (active_char == 0) { // ADDELINE
                     addeline_is_attacking = true;
                     if (selected_skill == 1) { 
-                        addeline_frame = 24; addeline_anim_end = 38; 
+                        addeline_frame = 32; addeline_anim_end = 38; 
                         player_hp = min(player_hp + 20, player_max_hp); 
                         player_flash_color = c_green; player_flash_alpha = 1.0;
                     }
                     else if (selected_skill == 2) { 
-                        addeline_frame = 10; addeline_anim_end = 24; 
+                        addeline_frame = 25; addeline_anim_end = 31; 
                         enemies[0][1] -= 25; 
                         enemies[0][7] = c_red; enemies[0][8] = 1.0;
                     } 
                     else if (selected_skill == 3) { 
-                        addeline_frame = 52; addeline_anim_end = 67; 
+                        addeline_frame = 39; addeline_anim_end = 52; 
                         player_hp = min(player_hp + 15, player_max_hp); 
                         milly_hp = min(milly_hp + 15, milly_max_hp); 
                         erin_hp = min(erin_hp + 15, erin_max_hp); 
                         player_flash_color = c_green; player_flash_alpha = 1.0; milly_flash_color = c_green; milly_flash_alpha = 1.0; erin_flash_color = c_green; erin_flash_alpha = 1.0;
                     }
                     else if (selected_skill == 4) { 
-                        addeline_frame = 38; addeline_anim_end = 52; 
+                        addeline_frame = 53; addeline_anim_end = 67; 
                         enemies[0][1] -= 35; 
                         enemies[0][7] = c_red; enemies[0][8] = 1.0;
                     } 
@@ -225,20 +227,20 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
                 else if (active_char == 1) { // MILLY
                     milly_is_attacking = true;
                     if (selected_skill == 1) { 
-                        milly_frame = 10; milly_anim_end = 25; milly_heal_buff = 3; 
+                        milly_frame = 25; milly_anim_end = 38; milly_heal_buff = 3; 
                         milly_flash_color = c_yellow; milly_flash_alpha = 1.0;
                     }
                     else if (selected_skill == 2) { 
-                        milly_frame = 25; milly_anim_end = 40; 
+                        milly_frame = 39; milly_anim_end = 51; 
                         enemies[0][1] -= 25; 
                         enemies[0][7] = c_red; enemies[0][8] = 1.0;
                     }
                     else if (selected_skill == 3) { 
-                        milly_frame = 40; milly_anim_end = 55; party_buff = 3; 
+                        milly_frame = 52; milly_anim_end = 62; party_buff = 3; 
                         player_flash_color = c_yellow; player_flash_alpha = 1.0; milly_flash_color = c_yellow; milly_flash_alpha = 1.0; erin_flash_color = c_yellow; erin_flash_alpha = 1.0;
                     }
                     else if (selected_skill == 4) { 
-                        milly_frame = 55; milly_anim_end = 71; enemy_debuff = 3; 
+                        milly_frame = 63; milly_anim_end = 71; enemy_debuff = 3; 
                         enemies[0][7] = c_fuchsia; enemies[0][8] = 1.0;
                     }
                 }
@@ -248,21 +250,21 @@ if (battle_state == BattleState.PLAYER_SOLVE || battle_state == BattleState.DEFE
                     if (erin_dmg_boost) { base_dmg *= 2; erin_dmg_boost = false; }
 
                     if (selected_skill == 1) { 
-                        erin_frame = 10; erin_anim_end = 25; erin_dmg_boost = true; 
+                        erin_frame = 25; erin_anim_end = 31; erin_dmg_boost = true; 
                         erin_flash_color = c_orange; erin_flash_alpha = 1.0;
                     } 
                     else if (selected_skill == 2) { 
-                        erin_frame = 26; erin_anim_end = 41; 
+                        erin_frame = 32; erin_anim_end = 46; 
                         enemies[0][1] -= base_dmg; erin_hp -= 5; 
                         erin_flash_color = c_red; erin_flash_alpha = 1.0; enemies[0][7] = c_red; enemies[0][8] = 1.0;
                     } 
                     else if (selected_skill == 3) { 
-                        erin_frame = 42; erin_anim_end = 57; 
+                        erin_frame = 47; erin_anim_end = 61; 
                         enemies[0][1] -= (base_dmg + 15); 
                         enemies[0][7] = c_red; enemies[0][8] = 1.0;
                     } 
                     else if (selected_skill == 4) { 
-                        erin_frame = 58; erin_anim_end = 72; 
+                        erin_frame = 62; erin_anim_end = 72; 
                         enemies[0][1] -= base_dmg; erin_hp = min(erin_hp + 15, erin_max_hp); 
                         erin_flash_color = c_green; erin_flash_alpha = 1.0; enemies[0][7] = c_red; enemies[0][8] = 1.0;
                     }

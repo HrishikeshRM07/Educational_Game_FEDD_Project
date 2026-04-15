@@ -39,7 +39,7 @@ player_input = ""; menu_index = 0;
 targeting_phase = false;
 
 spell_timer_max = 600; spell_timer = spell_timer_max;
-defend_timer_max = 1200; defend_timer = defend_timer_max;
+defend_timer_max = 600; defend_timer = defend_timer_max;
 attack_timer = 0;        
 
 fairy_text = "Here they come! Five waves of enemies. Stay sharp!";

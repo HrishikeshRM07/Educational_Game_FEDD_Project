@@ -4,6 +4,7 @@ battle_state = BattleState.PLAYER_MENU;
 max_waves = 4; // Updated to 4 Waves
 current_wave = 1; 
 win_timer = -1; 
+lose_timer = -1; 
 
 // --- 2. WAVE & ENEMY SETUP ---
 // Structure: [Name, HP, X, Y, Sprite, AnimFrame, FadeAlpha, FlashColor, FlashAlpha]
@@ -32,8 +33,8 @@ player_input = ""; menu_index = 0;
 targeting_phase = false; 
 
 // --- 5. TIMERS ---
-spell_timer_max = 600; spell_timer = spell_timer_max;
-defend_timer_max = 800; defend_timer = defend_timer_max;
+spell_timer_max = 900; spell_timer = spell_timer_max;
+defend_timer_max = 900; defend_timer = defend_timer_max;
 attack_timer = 0;        
 
 // --- 6. TYPEWRITER TEXT ---

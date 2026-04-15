@@ -10,8 +10,8 @@
   "name":"obj_Level6_Controller",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"Pre-Battles",
+    "path":"folders/Objects/Pre-Battles.yy",
   },
   "parentObjectId":null,
   "persistent":false,
